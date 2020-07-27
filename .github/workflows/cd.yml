@@ -1,0 +1,98 @@
+# Description
+# ===========
+# This workflow is triggered each time all issues
+# linked to a milestone which title matches
+# the pattern '[0-9]+\.[0-9]+\.[0-9]+' are closed.
+# It then merges the develop branch into the master branch
+# and tags the master branch with the title of the milestone.
+# After, it builds a docker image and pushes the image
+# to DockerHub.
+# The image is tagged both with 'latest' and the milestone title.
+# Finally, it creates a new Release on GitHub where it writes an
+# automatically generated changelog.
+# It also close the milestone (which is 100% completed).
+---
+name: CD
+
+# This workflow is triggered each time an issue is closed
+on:
+  issues:
+    types: [closed]
+
+# Variables to configure the workflow
+env:
+  DOCKERFILE_PATH: '.'
+  DOCKERFILE_FILENAME: 'Dockerfile'
+  DOCKER_IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  release:
+    name: Release a new version of the docker image
+    runs-on: ubuntu-latest
+    # The job is run only if the issue is associated with a milestone
+    # that has all its issues closed
+    if: github.event.issue.milestone != null && github.event.issue.milestone.open_issues == 0 && contains(github.event.issue.milestone.title, '.')
+    steps:
+      - name: Milestone title match pattern
+        id: test_title
+        run: |
+          [[ ${{ github.event.issue.milestone.title }} =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          echo "::set-output name=milestone_title_is_version::$?"
+      # If the title of the milestone does not match the
+      # pattern [0-9]+.[0-9]+.[0-9]+, the job is canceled
+      - if: steps.test_title.outputs.milestone_title_is_version == 1
+        name: Is milestone title OK?
+        run: |
+          echo Malformed milestone name, it must match [0-9]+.[0-9]+.[0-9]+
+          exit 1
+      # git clone
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      # Merge develop into master and tag master
+      - name: Merge and tag
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email L-lequal@cnes.fr
+          git checkout master
+          git merge origin/develop
+          git tag -a ${{ github.event.issue.milestone.title }} \
+            -m "Release ${{ github.event.issue.milestone.title }}"
+          git push origin master --follow-tags
+      # Get the tag of the last release
+      - name: Get tag of last release
+        id: last_release
+        run: |
+          tags=($(git tag --sort="-v:refname" | grep -P -e '[0-9]+\.[0-9]+\.[0-9]+'))
+          echo The tag of the previous release is ${tags[1]}
+          echo "::set-output name=tag::${tags[1]}"
+      # Generate the changelog since last release
+      - name: Generate the changelog
+        uses: charmixer/auto-changelog-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          since_tag: ${{ steps.last_release.outputs.tag }}
+      # Append a link to the image on Docker Hub to the changelog
+      - name: Append link to Docker Hub
+        run: |
+          cat CHANGELOG.md > changelog.md
+          echo -e "\nView the image on" \
+            "[DockerHub](https://hub.docker.com/r/$DOCKER_IMAGE_NAME)." \
+            >> changelog.md
+      # Create a new release on GitHub
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.event.issue.milestone.title }}
+          release_name: Image ${{ env.DOCKER_IMAGE_NAME }}:${{ github.event.issue.milestone.title }}
+          body_path: changelog.md
+      # Close the milestone (that is now 100% completed)
+      - name: Close milestone
+        run: |
+          curl --request PATCH \
+            --url https://api.github.com/repos/${GITHUB_REPOSITORY}/milestones/${{ github.event.issue.milestone.number }} \
+            --header "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            --header 'Content-Type: application/json' \
+            --data '{"state":"closed"}'

@@ -1,0 +1,74 @@
+# Description
+# ===========
+# This workflow builds a docker image each time
+# commits are pushed to GitHub or a pull request is opened.
+# It also runs a container of this image to test it.
+# Moreover, the hadolint linter is run on the Dockerfile and
+# the yamllint linter is run on the whole project.
+---
+name: CI
+
+# This workflow is triggered each time commits are pushed to GitHub
+# and also on each pull request (on the commit that would be created
+# after the merge)
+on: [push, pull_request]
+
+# Variables to configure the workflow
+env:
+  DOCKERFILE_PATH: '.'
+  DOCKERFILE_FILENAME: 'Dockerfile'
+  DOCKER_IMAGE_NAME: ${{ github.repository }}
+  HADOLINT_VERSION: 'v1.18.0'
+
+jobs:
+  # Job that builds the image and upload it as an artifact
+  build:
+    name: Build the docker image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build docker image
+        run: docker build -t $DOCKER_IMAGE_NAME $DOCKERFILE_PATH
+      - name: Save Docker image
+        run: docker image save -o image.tar $DOCKER_IMAGE_NAME
+      - name: Upload image as an artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: image
+          path: image.tar
+  # Job that tests the image
+  test:
+    name: Test the Docker image
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+      - name: Retrieve the image
+        uses: actions/download-artifact@v2
+        with:
+          name: image
+      - name: Load the image
+        run: docker image load -i image.tar
+      # Run the tests
+      - name: Test docker image
+        run: ./tests/run_tests.bash
+  # Job that runs the Dockerfile linter
+  lint-Dockerfile:
+    name: Run hadolint on the Dockerfile
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run hadolint on the Dockerfile
+        run: |
+          docker run --rm -i hadolint/hadolint:$HADOLINT_VERSION < \
+            $DOCKERFILE_PATH/$DOCKERFILE_FILENAME
+  # Job that runs the YAML linter
+  lint-YAML:
+    name: Run yamllint on all YAML files of the project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run yamllint on the project
+        uses: bewuethr/yamllint-action@v1
+        with:
+          config-file: .yamllint.yml
