@@ -9,6 +9,7 @@ HEALTHCHECK --interval=5m --start-period=2m \
 USER root
 
 # Install tools
+# hadolint ignore=DL3008
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends \
        curl \

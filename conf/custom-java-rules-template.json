@@ -1,0 +1,1151 @@
+{
+  "total": 21,
+  "p": 1,
+  "ps": 100,
+  "rules": [
+    {
+      "key": "CNES_InnerAssignmentCheck",
+      "repo": "checkstyle",
+      "name": "CNES Inner Assignment",
+      "createdAt": "2017-04-25T16:24:32+0200",
+      "htmlDesc": "Checks for assignments in subexpressions, such as in String s<h1>Integer.toString(i = 2);.\n\n</h1>This custom rule inherits from Inner Assignment template.",
+      "mdDesc": "Checks for assignments in subexpressions, such as in String s = Integer.toString(i = 2);.\n\nThis custom rule inherits from Inner Assignment template.",
+      "severity": "MAJOR",
+      "status": "READY",
+      "internalKey": "Checker/TreeWalker/InnerAssignment",
+      "isTemplate": false,
+      "templateKey": "checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.InnerAssignmentCheck",
+      "tags": [],
+      "sysTags": [],
+      "lang": "java",
+      "langName": "Java",
+      "params": [],
+      "defaultDebtRemFnType": "CONSTANT_ISSUE",
+      "defaultDebtRemFnOffset": "10min",
+      "debtOverloaded": false,
+      "debtRemFnType": "CONSTANT_ISSUE",
+      "debtRemFnOffset": "10min",
+      "defaultRemFnType": "CONSTANT_ISSUE",
+      "defaultRemFnBaseEffort": "10min",
+      "remFnType": "CONSTANT_ISSUE",
+      "remFnBaseEffort": "10min",
+      "remFnOverloaded": false,
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "CNES_NeedBraces",
+      "repo": "checkstyle",
+      "name": "CNES Need Braces",
+      "createdAt": "2017-04-25T16:32:27+0200",
+      "htmlDesc": "Checks for braces around code blocks.<br/><br/>This custom rule inherits from Need Braces template.",
+      "mdDesc": "Checks for braces around code blocks.\n\nThis custom rule inherits from Need Braces template.",
+      "severity": "MINOR",
+      "status": "READY",
+      "internalKey": "Checker/TreeWalker/NeedBraces",
+      "isTemplate": false,
+      "templateKey": "checkstyle:com.puppycrawl.tools.checkstyle.checks.blocks.NeedBracesCheck",
+      "tags": [],
+      "sysTags": ["convention"],
+      "lang": "java",
+      "langName": "Java",
+      "params": [
+        {
+          "key": "allowEmptyLoopBody",
+          "htmlDesc": "allows loops with empty bodies",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "tokens",
+          "htmlDesc": "blocks to check",
+          "defaultValue": "LITERAL_DO,LITERAL_ELSE,LITERAL_FOR,LITERAL_IF,LITERAL_WHILE",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"LITERAL_DO,LITERAL_ELSE,LITERAL_FOR,LITERAL_IF,LITERAL_WHILE,LITERAL_CASE,LITERAL_DEFAULT,LAMBDA,\""
+        },
+        {
+          "key": "allowSingleLineStatement",
+          "htmlDesc": "Allow single-line statements",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        }
+      ],
+      "defaultDebtRemFnType": "CONSTANT_ISSUE",
+      "defaultDebtRemFnOffset": "10min",
+      "debtOverloaded": false,
+      "debtRemFnType": "CONSTANT_ISSUE",
+      "debtRemFnOffset": "10min",
+      "defaultRemFnType": "CONSTANT_ISSUE",
+      "defaultRemFnBaseEffort": "10min",
+      "remFnType": "CONSTANT_ISSUE",
+      "remFnBaseEffort": "10min",
+      "remFnOverloaded": false,
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "CNES_MemberName",
+      "repo": "checkstyle",
+      "name": "CNES Member Name",
+      "createdAt": "2017-04-25T16:28:50+0200",
+      "htmlDesc": "Checks that name of non-static fields conform to the specified format.<br/><br/>This custom rule inherits from Member Name template.",
+      "mdDesc": "Checks that name of non-static fields conform to the specified format.\n\nThis custom rule inherits from Member Name template.",
+      "severity": "MAJOR",
+      "status": "READY",
+      "internalKey": "Checker/TreeWalker/MemberName",
+      "isTemplate": false,
+      "templateKey": "checkstyle:com.puppycrawl.tools.checkstyle.checks.naming.MemberNameCheck",
+      "tags": [],
+      "sysTags": ["naming"],
+      "lang": "java",
+      "langName": "Java",
+      "params": [
+        {
+          "key": "applyToPrivate",
+          "htmlDesc": "Controls whether to apply the check to private member",
+          "defaultValue": "true",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "applyToProtected",
+          "htmlDesc": "Controls whether to apply the check to protected member",
+          "defaultValue": "true",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "applyToPublic",
+          "htmlDesc": "Controls whether to apply the check to public member",
+          "defaultValue": "true",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "format",
+          "htmlDesc": "Regular expression",
+          "defaultValue": "^[a-z][a-zA-Z0-9]*$",
+          "type": "STRING"
+        },
+        {
+          "key": "applyToPackage",
+          "htmlDesc": "Controls whether to apply the check to package-private member",
+          "defaultValue": "true",
+          "type": "BOOLEAN"
+        }
+      ],
+      "defaultDebtRemFnType": "CONSTANT_ISSUE",
+      "defaultDebtRemFnOffset": "20min",
+      "debtOverloaded": false,
+      "debtRemFnType": "CONSTANT_ISSUE",
+      "debtRemFnOffset": "20min",
+      "defaultRemFnType": "CONSTANT_ISSUE",
+      "defaultRemFnBaseEffort": "20min",
+      "remFnType": "CONSTANT_ISSUE",
+      "remFnBaseEffort": "20min",
+      "remFnOverloaded": false,
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "CNES_Method_Length",
+      "repo": "checkstyle",
+      "name": "CNES Method Length",
+      "createdAt": "2017-05-02T14:03:42+0200",
+      "htmlDesc": "Checks for long methods.",
+      "mdDesc": "Checks for long methods.",
+      "severity": "MAJOR",
+      "status": "READY",
+      "internalKey": "Checker/TreeWalker/MethodLength",
+      "isTemplate": false,
+      "templateKey": "checkstyle:com.puppycrawl.tools.checkstyle.checks.sizes.MethodLengthCheck",
+      "tags": [],
+      "sysTags": ["size"],
+      "lang": "java",
+      "langName": "Java",
+      "params": [
+        {
+          "key": "tokens",
+          "htmlDesc": "blocks to check",
+          "defaultValue": "METHOD_DEF,CTOR_DEF",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"METHOD_DEF,CTOR_DEF,\""
+        },
+        {
+          "key": "countEmpty",
+          "htmlDesc": "whether to count empty lines and single line comments of the form //. Default is true.",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "max",
+          "htmlDesc": "maximum allowable number of lines. Default is 150.",
+          "defaultValue": "60",
+          "type": "INTEGER"
+        }
+      ],
+      "defaultDebtRemFnType": "CONSTANT_ISSUE",
+      "defaultDebtRemFnOffset": "1h",
+      "debtOverloaded": false,
+      "debtRemFnType": "CONSTANT_ISSUE",
+      "debtRemFnOffset": "1h",
+      "defaultRemFnType": "CONSTANT_ISSUE",
+      "defaultRemFnBaseEffort": "1h",
+      "remFnType": "CONSTANT_ISSUE",
+      "remFnBaseEffort": "1h",
+      "remFnOverloaded": false,
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "CNES_Hidden_Field",
+      "repo": "checkstyle",
+      "name": "CNES Hidden Field",
+      "createdAt": "2017-05-02T14:07:42+0200",
+      "htmlDesc": "Checks that a local variable or a parameter does not shadow a field that is defined in the same class.<br/><br/>Rule for COM.NAME.homonymy",
+      "mdDesc": "Checks that a local variable or a parameter does not shadow a field that is defined in the same class.\n\nRule for COM.NAME.homonymy",
+      "severity": "MAJOR",
+      "status": "READY",
+      "internalKey": "Checker/TreeWalker/HiddenField",
+      "isTemplate": false,
+      "templateKey": "checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.HiddenFieldCheck",
+      "tags": [],
+      "sysTags": [],
+      "lang": "java",
+      "langName": "Java",
+      "params": [
+        {
+          "key": "ignoreSetter",
+          "htmlDesc": "Controls whether to ignore the parameter of a property setter method, where the property setter method for field ''xyz'' has name ''setXyz'', one parameter named ''xyz'', and return type void. Default is false.",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "ignoreAbstractMethods",
+          "htmlDesc": "Controls whether to ignore parameters of abstract methods. Default is false.",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "tokens",
+          "htmlDesc": "tokens to check",
+          "defaultValue": "VARIABLE_DEF,PARAMETER_DEF,LAMBDA",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"VARIABLE_DEF,PARAMETER_DEF,LAMBDA,\""
+        },
+        {
+          "key": "setterCanReturnItsClass",
+          "htmlDesc": "if ignoreSetter is set to true then this variable controls what the setter method can return By default setter must return void. However, is this variable is set to true then setter can also return class in which is declared.",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "ignoreConstructorParameter",
+          "htmlDesc": "Controls whether to ignore constructor parameters. Default is false.",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "ignoreFormat",
+          "htmlDesc": "pattern for names of variables and parameters to ignore.",
+          "type": "STRING"
+        }
+      ],
+      "defaultDebtRemFnType": "CONSTANT_ISSUE",
+      "defaultDebtRemFnOffset": "30min",
+      "debtOverloaded": false,
+      "debtRemFnType": "CONSTANT_ISSUE",
+      "debtRemFnOffset": "30min",
+      "defaultRemFnType": "CONSTANT_ISSUE",
+      "defaultRemFnBaseEffort": "30min",
+      "remFnType": "CONSTANT_ISSUE",
+      "remFnBaseEffort": "30min",
+      "remFnOverloaded": false,
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "CNES_Type_Javadoc",
+      "repo": "checkstyle",
+      "name": "CNES Javadoc Type",
+      "createdAt": "2017-05-02T14:21:33+0200",
+      "htmlDesc": "Checks Javadoc comments for class and interface definitions. By default, does not check for author or version tags. The scope to verify is specified using the Scope class and defaults to Scope.PRIVATE. To verify another scope, set property scope to one of the Scope constants. To define the format for an author tag or a version tag, set property authorFormat or versionFormat respectively to a regular expression.<br/><br/>Error messages about type parameters for which no param tags are present can be suppressed by defining property allowMissingParamTags.<br/><br/>Rule for COM.PROJECT.Header",
+      "mdDesc": "Checks Javadoc comments for class and interface definitions. By default, does not check for author or version tags. The scope to verify is specified using the Scope class and defaults to Scope.PRIVATE. To verify another scope, set property scope to one of the Scope constants. To define the format for an author tag or a version tag, set property authorFormat or versionFormat respectively to a regular expression.\n\nError messages about type parameters for which no param tags are present can be suppressed by defining property allowMissingParamTags.\n\nRule for COM.PROJECT.Header",
+      "severity": "MAJOR",
+      "status": "READY",
+      "internalKey": "Checker/TreeWalker/JavadocType",
+      "isTemplate": false,
+      "templateKey": "checkstyle:com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocTypeCheck",
+      "tags": [],
+      "sysTags": ["comment"],
+      "lang": "java",
+      "langName": "Java",
+      "params": [
+        {
+          "key": "allowUnknownTags",
+          "htmlDesc": "whether to ignore errors when a Javadoc tag is not recognised. Default is false.",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "authorFormat",
+          "htmlDesc": "pattern for @author tag",
+          "type": "STRING"
+        },
+        {
+          "key": "scope",
+          "htmlDesc": "visibility scope where Javadoc comments are checked",
+          "defaultValue": "private",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"nothing,public,protected,package,private,anoninner,\""
+        },
+        {
+          "key": "excludeScope",
+          "htmlDesc": "visibility scope where Javadoc comments are not checked",
+          "defaultValue": "nothing",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"nothing,public,protected,package,private,anoninner,\""
+        },
+        {
+          "key": "versionFormat",
+          "htmlDesc": "pattern for @version tag",
+          "type": "STRING"
+        },
+        {
+          "key": "tokens",
+          "htmlDesc": "definitions to check",
+          "defaultValue": "INTERFACE_DEF,CLASS_DEF,ENUM_DEF,ANNOTATION_DEF",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"INTERFACE_DEF,CLASS_DEF,ENUM_DEF,ANNOTATION_DEF,\""
+        },
+        {
+          "key": "allowMissingParamTags",
+          "htmlDesc": "whether to ignore errors when a class has type parameters but does not have matching param tags in the javadoc. Default is false.",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        }
+      ],
+      "defaultDebtRemFnType": "CONSTANT_ISSUE",
+      "defaultDebtRemFnOffset": "10min",
+      "debtOverloaded": false,
+      "debtRemFnType": "CONSTANT_ISSUE",
+      "debtRemFnOffset": "10min",
+      "defaultRemFnType": "CONSTANT_ISSUE",
+      "defaultRemFnBaseEffort": "10min",
+      "remFnType": "CONSTANT_ISSUE",
+      "remFnBaseEffort": "10min",
+      "remFnOverloaded": false,
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "CNES_Method_Length_D",
+      "repo": "checkstyle",
+      "name": "CNES Method Length D",
+      "createdAt": "2017-05-12T15:08:41+0200",
+      "htmlDesc": "Checks for long methods.",
+      "mdDesc": "Checks for long methods.",
+      "severity": "MAJOR",
+      "status": "READY",
+      "internalKey": "Checker/TreeWalker/MethodLength",
+      "isTemplate": false,
+      "templateKey": "checkstyle:com.puppycrawl.tools.checkstyle.checks.sizes.MethodLengthCheck",
+      "tags": [],
+      "sysTags": ["size"],
+      "lang": "java",
+      "langName": "Java",
+      "params": [
+        {
+          "key": "tokens",
+          "htmlDesc": "blocks to check",
+          "defaultValue": "METHOD_DEF,CTOR_DEF",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"METHOD_DEF,CTOR_DEF,\""
+        },
+        {
+          "key": "countEmpty",
+          "htmlDesc": "whether to count empty lines and single line comments of the form //. Default is true.",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "max",
+          "htmlDesc": "maximum allowable number of lines. Default is 150.",
+          "defaultValue": "100",
+          "type": "INTEGER"
+        }
+      ],
+      "defaultDebtRemFnType": "CONSTANT_ISSUE",
+      "defaultDebtRemFnOffset": "1h",
+      "debtOverloaded": false,
+      "debtRemFnType": "CONSTANT_ISSUE",
+      "debtRemFnOffset": "1h",
+      "defaultRemFnType": "CONSTANT_ISSUE",
+      "defaultRemFnBaseEffort": "1h",
+      "remFnType": "CONSTANT_ISSUE",
+      "remFnBaseEffort": "1h",
+      "remFnOverloaded": false,
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "CNES_Method_Length_C",
+      "repo": "checkstyle",
+      "name": "CNES Method Length C",
+      "createdAt": "2017-05-02T14:47:17+0200",
+      "htmlDesc": "Checks for long methods.",
+      "mdDesc": "Checks for long methods.",
+      "severity": "MAJOR",
+      "status": "READY",
+      "internalKey": "Checker/TreeWalker/MethodLength",
+      "isTemplate": false,
+      "templateKey": "checkstyle:com.puppycrawl.tools.checkstyle.checks.sizes.MethodLengthCheck",
+      "tags": [],
+      "sysTags": ["size"],
+      "lang": "java",
+      "langName": "Java",
+      "params": [
+        {
+          "key": "tokens",
+          "htmlDesc": "blocks to check",
+          "defaultValue": "METHOD_DEF,CTOR_DEF",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"METHOD_DEF,CTOR_DEF,\""
+        },
+        {
+          "key": "countEmpty",
+          "htmlDesc": "whether to count empty lines and single line comments of the form //. Default is true.",
+          "defaultValue": "true",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "max",
+          "htmlDesc": "maximum allowable number of lines. Default is 150.",
+          "defaultValue": "80",
+          "type": "INTEGER"
+        }
+      ],
+      "defaultDebtRemFnType": "CONSTANT_ISSUE",
+      "defaultDebtRemFnOffset": "1h",
+      "debtOverloaded": false,
+      "debtRemFnType": "CONSTANT_ISSUE",
+      "debtRemFnOffset": "1h",
+      "defaultRemFnType": "CONSTANT_ISSUE",
+      "defaultRemFnBaseEffort": "1h",
+      "remFnType": "CONSTANT_ISSUE",
+      "remFnBaseEffort": "1h",
+      "remFnOverloaded": false,
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "CNES_MethodLength_A_B",
+      "repo": "checkstyle",
+      "name": "CNES Method Length A B",
+      "createdAt": "2017-05-12T15:07:55+0200",
+      "htmlDesc": "Checks for long methods.",
+      "mdDesc": "Checks for long methods.",
+      "severity": "MAJOR",
+      "status": "READY",
+      "internalKey": "Checker/TreeWalker/MethodLength",
+      "isTemplate": false,
+      "templateKey": "checkstyle:com.puppycrawl.tools.checkstyle.checks.sizes.MethodLengthCheck",
+      "tags": [],
+      "sysTags": ["size"],
+      "lang": "java",
+      "langName": "Java",
+      "params": [
+        {
+          "key": "tokens",
+          "htmlDesc": "blocks to check",
+          "defaultValue": "METHOD_DEF,CTOR_DEF",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"METHOD_DEF,CTOR_DEF,\""
+        },
+        {
+          "key": "countEmpty",
+          "htmlDesc": "whether to count empty lines and single line comments of the form //. Default is true.",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "max",
+          "htmlDesc": "maximum allowable number of lines. Default is 150.",
+          "defaultValue": "60",
+          "type": "INTEGER"
+        }
+      ],
+      "defaultDebtRemFnType": "CONSTANT_ISSUE",
+      "defaultDebtRemFnOffset": "1h",
+      "debtOverloaded": false,
+      "debtRemFnType": "CONSTANT_ISSUE",
+      "debtRemFnOffset": "1h",
+      "defaultRemFnType": "CONSTANT_ISSUE",
+      "defaultRemFnBaseEffort": "1h",
+      "remFnType": "CONSTANT_ISSUE",
+      "remFnBaseEffort": "1h",
+      "remFnOverloaded": false,
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "CNES_RightCurly",
+      "repo": "checkstyle",
+      "name": "CNES Right Curly",
+      "createdAt": "2017-04-25T16:33:27+0200",
+      "htmlDesc": "Checks the placement of right curly braces.<br/><br/>This custom rule inherits from Right Curly template.",
+      "mdDesc": "Checks the placement of right curly braces.\n\nThis custom rule inherits from Right Curly template.",
+      "severity": "MINOR",
+      "status": "READY",
+      "internalKey": "Checker/TreeWalker/RightCurly",
+      "isTemplate": false,
+      "templateKey": "checkstyle:com.puppycrawl.tools.checkstyle.checks.blocks.RightCurlyCheck",
+      "tags": [],
+      "sysTags": [],
+      "lang": "java",
+      "langName": "Java",
+      "params": [
+        {
+          "key": "option",
+          "htmlDesc": "policy on placement of a right curly brace ('}')",
+          "defaultValue": "same",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"same,alone,alone_or_singleline,\""
+        },
+        {
+          "key": "tokens",
+          "htmlDesc": "blocks to check",
+          "defaultValue": "LITERAL_TRY,LITERAL_CATCH,LITERAL_FINALLY,LITERAL_IF,LITERAL_ELSE",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"LITERAL_TRY,LITERAL_CATCH,LITERAL_FINALLY,LITERAL_IF,LITERAL_ELSE,CLASS_DEF,METHOD_DEF,CTOR_DEF,LITERAL_FOR,LITERAL_WHILE,LITERAL_DO,STATIC_INIT,INSTANCE_INIT,\""
+        },
+        {
+          "key": "shouldStartLine",
+          "htmlDesc": "should we check if '}' starts line",
+          "defaultValue": "true",
+          "type": "BOOLEAN"
+        }
+      ],
+      "defaultDebtRemFnType": "CONSTANT_ISSUE",
+      "defaultDebtRemFnOffset": "2min",
+      "debtOverloaded": false,
+      "debtRemFnType": "CONSTANT_ISSUE",
+      "debtRemFnOffset": "2min",
+      "defaultRemFnType": "CONSTANT_ISSUE",
+      "defaultRemFnBaseEffort": "2min",
+      "remFnType": "CONSTANT_ISSUE",
+      "remFnBaseEffort": "2min",
+      "remFnOverloaded": false,
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "CNES_Magic_Number",
+      "repo": "checkstyle",
+      "name": "CNES Magic Number",
+      "createdAt": "2017-05-02T13:41:55+0200",
+      "htmlDesc": "Checks that there are no magic numbers.<br/><br/>Common rules: COM.DATA.Invariant",
+      "mdDesc": "Checks that there are no magic numbers.\n\nCommon rules: COM.DATA.Invariant",
+      "severity": "MINOR",
+      "status": "READY",
+      "internalKey": "Checker/TreeWalker/MagicNumber",
+      "isTemplate": false,
+      "templateKey": "checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck",
+      "tags": [],
+      "sysTags": [],
+      "lang": "java",
+      "langName": "Java",
+      "params": [
+        {
+          "key": "ignoreHashCodeMethod",
+          "htmlDesc": "ignore magic numbers in hashCode methods. Default is false.",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "ignoreFieldDeclaration",
+          "htmlDesc": "ignore magic numbers in field declarations",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "tokens",
+          "htmlDesc": "tokens to check",
+          "defaultValue": "NUM_DOUBLE,NUM_FLOAT,NUM_INT,NUM_LONG",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"NUM_DOUBLE,NUM_FLOAT,NUM_INT,NUM_LONG,\""
+        },
+        {
+          "key": "ignoreNumbers",
+          "htmlDesc": "non-magic numbers. Default is -1,0,1,2.",
+          "defaultValue": "-1,0,1,2",
+          "type": "STRING"
+        },
+        {
+          "key": "constantWaiverParentToken",
+          "htmlDesc": "Token that are allowed in the AST path from the number literal to the enclosing constant definition",
+          "defaultValue": "ASSIGN,ARRAY_INIT,EXPR,UNARY_PLUS,UNARY_MINUS,TYPECAST,ELIST,LITERAL_NEW,METHOD_CALL,STAR,DIV,PLUS,MINUS",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"ASSIGN,ARRAY_INIT,EXPR,UNARY_PLUS,UNARY_MINUS,TYPECAST,ELIST,LITERAL_NEW,METHOD_CALL,STAR,DIV,PLUS,MINUS,\""
+        },
+        {
+          "key": "ignoreAnnotation",
+          "htmlDesc": "ignore magic numbers in annotation declarations. Default is false.",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        }
+      ],
+      "defaultDebtRemFnType": "CONSTANT_ISSUE",
+      "defaultDebtRemFnOffset": "5min",
+      "debtOverloaded": false,
+      "debtRemFnType": "CONSTANT_ISSUE",
+      "debtRemFnOffset": "5min",
+      "defaultRemFnType": "CONSTANT_ISSUE",
+      "defaultRemFnBaseEffort": "5min",
+      "remFnType": "CONSTANT_ISSUE",
+      "remFnBaseEffort": "5min",
+      "remFnOverloaded": false,
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "CNES_LocalVariableName",
+      "repo": "checkstyle",
+      "name": "CNES Local Variable Name",
+      "createdAt": "2017-04-25T16:27:21+0200",
+      "htmlDesc": "Checks that local, non-final variable names conform to the specified format.<br/><br/>This custom rule inherits from Local Variable Name template.",
+      "mdDesc": "Checks that local, non-final variable names conform to the specified format.\n\nThis custom rule inherits from Local Variable Name template.",
+      "severity": "MAJOR",
+      "status": "READY",
+      "internalKey": "Checker/TreeWalker/LocalVariableName",
+      "isTemplate": false,
+      "templateKey": "checkstyle:com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheck",
+      "tags": [],
+      "sysTags": [],
+      "lang": "java",
+      "langName": "Java",
+      "params": [
+        {
+          "key": "allowOneCharVarInForLoop",
+          "htmlDesc": "Allow one character variable name in initialization expressions in FOR loop",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "format",
+          "htmlDesc": "Specifies valid identifiers",
+          "defaultValue": "^[a-z][a-zA-Z0-9]*$",
+          "type": "STRING"
+        }
+      ],
+      "defaultDebtRemFnType": "CONSTANT_ISSUE",
+      "defaultDebtRemFnOffset": "10min",
+      "debtOverloaded": false,
+      "debtRemFnType": "CONSTANT_ISSUE",
+      "debtRemFnOffset": "10min",
+      "defaultRemFnType": "CONSTANT_ISSUE",
+      "defaultRemFnBaseEffort": "10min",
+      "remFnType": "CONSTANT_ISSUE",
+      "remFnBaseEffort": "10min",
+      "remFnOverloaded": false,
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "CNES_Javadoc_Variable",
+      "repo": "checkstyle",
+      "name": "CNES Javadoc Variable",
+      "createdAt": "2017-05-02T14:10:04+0200",
+      "htmlDesc": "Checks that a variable has Javadoc comment.<br/><br/>Rule for COM.PRES.Data",
+      "mdDesc": "Checks that a variable has Javadoc comment.\n\nRule for COM.PRES.Data",
+      "severity": "MAJOR",
+      "status": "READY",
+      "internalKey": "Checker/TreeWalker/JavadocVariable",
+      "isTemplate": false,
+      "templateKey": "checkstyle:com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocVariableCheck",
+      "tags": [],
+      "sysTags": [],
+      "lang": "java",
+      "langName": "Java",
+      "params": [
+        {
+          "key": "tokens",
+          "htmlDesc": "tokens to check",
+          "defaultValue": "VARIABLE_DEF,ENUM_CONSTANT_DEF",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"VARIABLE_DEF,ENUM_CONSTANT_DEF,\""
+        },
+        {
+          "key": "ignoreNamePattern",
+          "htmlDesc": "regexp to define variable names to ignore",
+          "type": "STRING"
+        },
+        {
+          "key": "excludeScope",
+          "htmlDesc": "visibility scope where Javadoc comments are not checked",
+          "defaultValue": "nothing",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"nothing,public,protected,package,private,anoninner,\""
+        },
+        {
+          "key": "scope",
+          "htmlDesc": "visibility scope where Javadoc comments are checked",
+          "defaultValue": "private",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"nothing,public,protected,package,private,anoninner,\""
+        }
+      ],
+      "defaultDebtRemFnType": "CONSTANT_ISSUE",
+      "defaultDebtRemFnOffset": "10min",
+      "debtOverloaded": false,
+      "debtRemFnType": "CONSTANT_ISSUE",
+      "debtRemFnOffset": "10min",
+      "defaultRemFnType": "CONSTANT_ISSUE",
+      "defaultRemFnBaseEffort": "10min",
+      "remFnType": "CONSTANT_ISSUE",
+      "remFnBaseEffort": "10min",
+      "remFnOverloaded": false,
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "CNES_Javadoc_Method",
+      "repo": "checkstyle",
+      "name": "CNES Javadoc Method",
+      "createdAt": "2017-05-02T14:24:29+0200",
+      "htmlDesc": "Checks the Javadoc of a method or constructor. By default, does not check for unused throws. To allow documented java.lang.RuntimeExceptions that are not declared, set property allowUndeclaredRTE to true. The scope to verify is specified using the Scope class and defaults to Scope.PRIVATE. To verify another scope, set property scope to a different scope.<br/><br/>Error messages about parameters and type parameters for which no param tags are present can be suppressed by defining property allowMissingParamTags. Error messages about exceptions which are declared to be thrown, but for which no throws tag is present can be suppressed by defining property allowMissingThrowsTags. Error messages about methods which return non-void but for which no return tag is present can be suppressed by defining property allowMissingReturnTag.<br/><br/>Javadoc is not required on a method that is tagged with the @Override annotation. However under Java 5 it is not possible to mark a method required for an interface (this was corrected under Java 6). Hence Checkstyle supports using the convention of using a single {@inheritDoc} tag instead of all the other tags.<br/><br/>Note that only inheritable items will allow the {@inheritDoc} tag to be used in place of comments. Static methods at all visibilities, private non-static methods and constructors are not inheritable. <br/><br/>Rule for COM.PROJECT.Header",
+      "mdDesc": "Checks the Javadoc of a method or constructor. By default, does not check for unused throws. To allow documented java.lang.RuntimeExceptions that are not declared, set property allowUndeclaredRTE to true. The scope to verify is specified using the Scope class and defaults to Scope.PRIVATE. To verify another scope, set property scope to a different scope.\n\nError messages about parameters and type parameters for which no param tags are present can be suppressed by defining property allowMissingParamTags. Error messages about exceptions which are declared to be thrown, but for which no throws tag is present can be suppressed by defining property allowMissingThrowsTags. Error messages about methods which return non-void but for which no return tag is present can be suppressed by defining property allowMissingReturnTag.\n\nJavadoc is not required on a method that is tagged with the @Override annotation. However under Java 5 it is not possible to mark a method required for an interface (this was corrected under Java 6). Hence Checkstyle supports using the convention of using a single {@inheritDoc} tag instead of all the other tags.\n\nNote that only inheritable items will allow the {@inheritDoc} tag to be used in place of comments. Static methods at all visibilities, private non-static methods and constructors are not inheritable. \n\nRule for COM.PROJECT.Header",
+      "severity": "MAJOR",
+      "status": "READY",
+      "internalKey": "Checker/TreeWalker/JavadocMethod",
+      "isTemplate": false,
+      "templateKey": "checkstyle:com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocMethodCheck",
+      "tags": [],
+      "sysTags": ["comment"],
+      "lang": "java",
+      "langName": "Java",
+      "params": [
+        {
+          "key": "allowMissingPropertyJavadoc",
+          "htmlDesc": "Whether to allow missing Javadoc on accessor methods for properties (setters and getters). The setter and getter methods must match exactly the structures below.  &lt;code&gt; public void setNumber(final int number) '{' mNumber<h1>number; '}'  public int getNumber() '{' return mNumber; '}'  public boolean isSomething() '{' return false; '}' &lt;/code&gt;. Default is false.</h1>",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "allowedAnnotations",
+          "htmlDesc": "List of annotations that could allow missed documentation",
+          "defaultValue": "Override",
+          "type": "STRING"
+        },
+        {
+          "key": "minLineCount",
+          "htmlDesc": "Minimal amount of lines in method to demand documentation presence",
+          "defaultValue": "-1",
+          "type": "INTEGER"
+        },
+        {
+          "key": "allowMissingReturnTag",
+          "htmlDesc": "whether to ignore errors when a method returns non-void type does have a return tag in the javadoc. Default is false.",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "tokens",
+          "htmlDesc": "definitions to check",
+          "defaultValue": "METHOD_DEF,CTOR_DEF,ANNOTATION_FIELD_DEF",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"METHOD_DEF,CTOR_DEF,ANNOTATION_FIELD_DEF,\""
+        },
+        {
+          "key": "excludeScope",
+          "htmlDesc": "visibility scope where Javadoc comments are not checked",
+          "defaultValue": "nothing",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"nothing,public,protected,package,private,anoninner,\""
+        },
+        {
+          "key": "ignoreMethodNamesRegex",
+          "htmlDesc": "Method names that match this pattern do not require javadoc blocks",
+          "type": "STRING"
+        },
+        {
+          "key": "scope",
+          "htmlDesc": "visibility scope where Javadoc comments are checked",
+          "defaultValue": "private",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"nothing,public,protected,package,private,anoninner,\""
+        },
+        {
+          "key": "logLoadErrors",
+          "htmlDesc": "If set to false a classpath configuration problem is assumed and the TreeWalker stops operating on the class completely. If set to true (the default) , checkstyle assumes a typo or refactoring problem in the javadoc and logs the problem in the normal checkstyle report",
+          "defaultValue": "true",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "allowUndeclaredRTE",
+          "htmlDesc": "whether to allow documented exceptions that are not declared if they are a subclass of java.lang.RuntimeException. Default is false.",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "allowMissingParamTags",
+          "htmlDesc": "whether to ignore errors when a method has parameters but does not have matching param tags in the javadoc. Default is false.",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "suppressLoadErrors",
+          "htmlDesc": "When set to false all problems with loading classes would be reported as violations. Default is true.",
+          "defaultValue": "true",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "allowMissingThrowsTags",
+          "htmlDesc": "whether to ignore errors when a method declares that it throws exceptions but does have matching throws tags in the javadoc. Default is false.",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "allowThrowsTagsForSubclasses",
+          "htmlDesc": "whether to allow documented exceptions that are subclass of one of declared exception. Default is false.",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "allowMissingJavadoc",
+          "htmlDesc": "whether to ignore errors when a method javadoc is missed. Default is false.",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "validateThrows",
+          "htmlDesc": "Allows validating throws tags",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        }
+      ],
+      "defaultDebtRemFnType": "CONSTANT_ISSUE",
+      "defaultDebtRemFnOffset": "30min",
+      "debtOverloaded": false,
+      "debtRemFnType": "CONSTANT_ISSUE",
+      "debtRemFnOffset": "30min",
+      "defaultRemFnType": "CONSTANT_ISSUE",
+      "defaultRemFnBaseEffort": "30min",
+      "remFnType": "CONSTANT_ISSUE",
+      "remFnBaseEffort": "30min",
+      "remFnOverloaded": false,
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "CNES_Method_Length_A_B",
+      "repo": "checkstyle",
+      "name": "CNES Method Length A B",
+      "createdAt": "2017-05-02T14:47:59+0200",
+      "htmlDesc": "Checks for long methods.",
+      "mdDesc": "Checks for long methods.",
+      "severity": "MAJOR",
+      "status": "READY",
+      "internalKey": "Checker/TreeWalker/MethodLength",
+      "isTemplate": false,
+      "templateKey": "checkstyle:com.puppycrawl.tools.checkstyle.checks.sizes.MethodLengthCheck",
+      "tags": [],
+      "sysTags": ["size"],
+      "lang": "java",
+      "langName": "Java",
+      "params": [
+        {
+          "key": "tokens",
+          "htmlDesc": "blocks to check",
+          "defaultValue": "METHOD_DEF,CTOR_DEF",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"METHOD_DEF,CTOR_DEF,\""
+        },
+        {
+          "key": "countEmpty",
+          "htmlDesc": "whether to count empty lines and single line comments of the form //. Default is true.",
+          "defaultValue": "true",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "max",
+          "htmlDesc": "maximum allowable number of lines. Default is 150.",
+          "defaultValue": "60",
+          "type": "INTEGER"
+        }
+      ],
+      "defaultDebtRemFnType": "CONSTANT_ISSUE",
+      "defaultDebtRemFnOffset": "1h",
+      "debtOverloaded": false,
+      "debtRemFnType": "CONSTANT_ISSUE",
+      "debtRemFnOffset": "1h",
+      "defaultRemFnType": "CONSTANT_ISSUE",
+      "defaultRemFnBaseEffort": "1h",
+      "remFnType": "CONSTANT_ISSUE",
+      "remFnBaseEffort": "1h",
+      "remFnOverloaded": false,
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "CNES_MethodLength_C",
+      "repo": "checkstyle",
+      "name": "CNES Method Length C",
+      "createdAt": "2017-05-12T15:08:18+0200",
+      "htmlDesc": "Checks for long methods.",
+      "mdDesc": "Checks for long methods.",
+      "severity": "MAJOR",
+      "status": "READY",
+      "internalKey": "Checker/TreeWalker/MethodLength",
+      "isTemplate": false,
+      "templateKey": "checkstyle:com.puppycrawl.tools.checkstyle.checks.sizes.MethodLengthCheck",
+      "tags": [],
+      "sysTags": ["size"],
+      "lang": "java",
+      "langName": "Java",
+      "params": [
+        {
+          "key": "tokens",
+          "htmlDesc": "blocks to check",
+          "defaultValue": "METHOD_DEF,CTOR_DEF",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"METHOD_DEF,CTOR_DEF,\""
+        },
+        {
+          "key": "countEmpty",
+          "htmlDesc": "whether to count empty lines and single line comments of the form //. Default is true.",
+          "defaultValue": "true",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "max",
+          "htmlDesc": "maximum allowable number of lines. Default is 150.",
+          "defaultValue": "80",
+          "type": "INTEGER"
+        }
+      ],
+      "defaultDebtRemFnType": "CONSTANT_ISSUE",
+      "defaultDebtRemFnOffset": "1h",
+      "debtOverloaded": false,
+      "debtRemFnType": "CONSTANT_ISSUE",
+      "debtRemFnOffset": "1h",
+      "defaultRemFnType": "CONSTANT_ISSUE",
+      "defaultRemFnBaseEffort": "1h",
+      "remFnType": "CONSTANT_ISSUE",
+      "remFnBaseEffort": "1h",
+      "remFnOverloaded": false,
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "CNES_BooleanExpressionComplexityCheck",
+      "repo": "checkstyle",
+      "name": "CNES Boolean Expression Complexity",
+      "createdAt": "2017-04-25T16:17:41+0200",
+      "htmlDesc": "Restricts nested boolean operators (&amp;&amp;, || and ^) to a specified depth equal to 3.<br/><br/>This custom rule inherits from Boolean Expression Complexity template.",
+      "mdDesc": "Restricts nested boolean operators (&&, || and ^) to a specified depth equal to 3.\n\nThis custom rule inherits from Boolean Expression Complexity template.",
+      "severity": "MAJOR",
+      "status": "READY",
+      "internalKey": "Checker/TreeWalker/BooleanExpressionComplexity",
+      "isTemplate": false,
+      "templateKey": "checkstyle:com.puppycrawl.tools.checkstyle.checks.metrics.BooleanExpressionComplexityCheck",
+      "tags": [],
+      "sysTags": ["size"],
+      "lang": "java",
+      "langName": "Java",
+      "params": [
+        {
+          "key": "max",
+          "htmlDesc": "the maximum allowed number of boolean operations in one expression. Default is 3.",
+          "defaultValue": "3",
+          "type": "INTEGER"
+        },
+        {
+          "key": "tokens",
+          "htmlDesc": "tokens to check. Default is LAND,BAND,LOR,BOR,BXOR.",
+          "defaultValue": "LAND,BAND,LOR,BOR,BXOR",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"LAND,BAND,LOR,BOR,BXOR,\""
+        }
+      ],
+      "defaultDebtRemFnType": "CONSTANT_ISSUE",
+      "defaultDebtRemFnOffset": "30min",
+      "debtOverloaded": false,
+      "debtRemFnType": "CONSTANT_ISSUE",
+      "debtRemFnOffset": "30min",
+      "defaultRemFnType": "CONSTANT_ISSUE",
+      "defaultRemFnBaseEffort": "30min",
+      "remFnType": "CONSTANT_ISSUE",
+      "remFnBaseEffort": "30min",
+      "remFnOverloaded": false,
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "CNES_TypeName",
+      "repo": "checkstyle",
+      "name": "CNES Type Name",
+      "createdAt": "2017-04-25T16:39:00+0200",
+      "htmlDesc": "Checks that type names conform to the specified format.<br/><br/>This custom rule inherits from Type Name template.",
+      "mdDesc": "Checks that type names conform to the specified format.\n\nThis custom rule inherits from Type Name template.",
+      "severity": "MAJOR",
+      "status": "READY",
+      "internalKey": "Checker/TreeWalker/TypeName",
+      "isTemplate": false,
+      "templateKey": "checkstyle:com.puppycrawl.tools.checkstyle.checks.naming.TypeNameCheck",
+      "tags": [],
+      "sysTags": [],
+      "lang": "java",
+      "langName": "Java",
+      "params": [
+        {
+          "key": "applyToPrivate",
+          "htmlDesc": "Controls whether to apply the check to private member",
+          "defaultValue": "true",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "applyToProtected",
+          "htmlDesc": "Controls whether to apply the check to protected member",
+          "defaultValue": "true",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "applyToPublic",
+          "htmlDesc": "Controls whether to apply the check to public member",
+          "defaultValue": "true",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "tokens",
+          "htmlDesc": "Control whether the check applies to classes or interfaces",
+          "defaultValue": "CLASS_DEF,INTERFACE_DEF",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"CLASS_DEF,INTERFACE_DEF,\""
+        },
+        {
+          "key": "format",
+          "htmlDesc": "Regular expression",
+          "defaultValue": "^[A-Z][a-zA-Z0-9]*$",
+          "type": "STRING"
+        },
+        {
+          "key": "applyToPackage",
+          "htmlDesc": "Controls whether to apply the check to package-private member",
+          "defaultValue": "true",
+          "type": "BOOLEAN"
+        }
+      ],
+      "defaultDebtRemFnType": "CONSTANT_ISSUE",
+      "defaultDebtRemFnOffset": "10min",
+      "debtOverloaded": false,
+      "debtRemFnType": "CONSTANT_ISSUE",
+      "debtRemFnOffset": "10min",
+      "defaultRemFnType": "CONSTANT_ISSUE",
+      "defaultRemFnBaseEffort": "10min",
+      "remFnType": "CONSTANT_ISSUE",
+      "remFnBaseEffort": "10min",
+      "remFnOverloaded": false,
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "CNES_LeftCurly",
+      "repo": "checkstyle",
+      "name": "CNES Left Curly",
+      "createdAt": "2017-04-25T16:25:44+0200",
+      "htmlDesc": "Checks for the placement of left curly braces for code blocks. The policy to verify is specified using property option. Policies eol and nlow take into account property maxLineLength.<br/><br/>This custom rule inherits from Left Curly template.",
+      "mdDesc": "Checks for the placement of left curly braces for code blocks. The policy to verify is specified using property option. Policies eol and nlow take into account property maxLineLength.\n\nThis custom rule inherits from Left Curly template.",
+      "severity": "MINOR",
+      "status": "READY",
+      "internalKey": "Checker/TreeWalker/LeftCurly",
+      "isTemplate": false,
+      "templateKey": "checkstyle:com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck",
+      "tags": [],
+      "sysTags": ["formatting"],
+      "lang": "java",
+      "langName": "Java",
+      "params": [
+        {
+          "key": "option",
+          "htmlDesc": "policy on placement of a left curly brace ('{'). eol : the brace must always be on the end of the line, nl : he brace must always be on a new line, nlow : ff the brace will fit on the first line of the statement, taking into account maximum line length, then apply eol rule. Otherwise apply the nl rule. nlow is a mnemonic for ''new line on wrap''.",
+          "defaultValue": "eol",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"eol,nl,nlow,\""
+        },
+        {
+          "key": "tokens",
+          "htmlDesc": "blocks to check",
+          "defaultValue": "INTERFACE_DEF,CLASS_DEF,ANNOTATION_DEF,ENUM_DEF,CTOR_DEF,METHOD_DEF,ENUM_CONSTANT_DEF,LITERAL_WHILE,LITERAL_TRY,LITERAL_CATCH,LITERAL_FINALLY,LITERAL_SYNCHRONIZED,LITERAL_SWITCH,LITERAL_DO,LITERAL_IF,LITERAL_ELSE,LITERAL_FOR,STATIC_INIT,OBJBLOCK",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"INTERFACE_DEF,CLASS_DEF,ANNOTATION_DEF,ENUM_DEF,CTOR_DEF,METHOD_DEF,ENUM_CONSTANT_DEF,LITERAL_WHILE,LITERAL_TRY,LITERAL_CATCH,LITERAL_FINALLY,LITERAL_SYNCHRONIZED,LITERAL_SWITCH,LITERAL_DO,LITERAL_IF,LITERAL_ELSE,LITERAL_FOR,STATIC_INIT,OBJBLOCK,\""
+        },
+        {
+          "key": "maxLineLength",
+          "htmlDesc": "maximum number of characters in a line. Default is 80.",
+          "defaultValue": "80",
+          "type": "INTEGER"
+        },
+        {
+          "key": "ignoreEnums",
+          "htmlDesc": "If true, Check will ignore enums when left curly brace policy is EOL",
+          "defaultValue": "true",
+          "type": "BOOLEAN"
+        }
+      ],
+      "defaultDebtRemFnType": "CONSTANT_ISSUE",
+      "defaultDebtRemFnOffset": "1min",
+      "debtOverloaded": false,
+      "debtRemFnType": "CONSTANT_ISSUE",
+      "debtRemFnOffset": "1min",
+      "defaultRemFnType": "CONSTANT_ISSUE",
+      "defaultRemFnBaseEffort": "1min",
+      "remFnType": "CONSTANT_ISSUE",
+      "remFnBaseEffort": "1min",
+      "remFnOverloaded": false,
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "CNES_FinalLocalVariableCheck",
+      "repo": "checkstyle",
+      "name": "CNES Final Local Variable",
+      "createdAt": "2017-04-25T16:20:48+0200",
+      "htmlDesc": "Ensures that local variables that never get their values changed, must be declared final.<br/><br/>This custom rule inherits from Final Local Variable template.",
+      "mdDesc": "Ensures that local variables that never get their values changed, must be declared final.\n\nThis custom rule inherits from Final Local Variable template.",
+      "severity": "MINOR",
+      "status": "READY",
+      "internalKey": "Checker/TreeWalker/FinalLocalVariable",
+      "isTemplate": false,
+      "templateKey": "checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.FinalLocalVariableCheck",
+      "tags": [],
+      "sysTags": [],
+      "lang": "java",
+      "langName": "Java",
+      "params": [
+        {
+          "key": "validateEnhancedForLoopVariable",
+          "htmlDesc": "Controls whether to check enhanced for-loop variable",
+          "defaultValue": "false",
+          "type": "BOOLEAN"
+        },
+        {
+          "key": "tokens",
+          "htmlDesc": "tokens to check",
+          "defaultValue": "VARIABLE_DEF",
+          "type": "SINGLE_SELECT_LIST,multiple=true,values=\"PARAMETER_DEF,VARIABLE_DEF,\""
+        }
+      ],
+      "defaultDebtRemFnType": "CONSTANT_ISSUE",
+      "defaultDebtRemFnOffset": "10min",
+      "debtOverloaded": false,
+      "debtRemFnType": "CONSTANT_ISSUE",
+      "debtRemFnOffset": "10min",
+      "defaultRemFnType": "CONSTANT_ISSUE",
+      "defaultRemFnBaseEffort": "10min",
+      "remFnType": "CONSTANT_ISSUE",
+      "remFnBaseEffort": "10min",
+      "remFnOverloaded": false,
+      "type": "CODE_SMELL"
+    },
+    {
+      "key": "CNES_MultipleStringLiterals",
+      "repo": "checkstyle",
+      "name": "CNES Multiple String Literals",
+      "createdAt": "2017-04-25T16:30:58+0200",
+      "htmlDesc": "Checks for multiple occurrences of the same string literal within a single file. Code duplication makes maintenance more difficult, so it can be better to replace the multiple occurrences with a constant.<br/><br/>This custom rule inherits from Multiple String Literals template.",
+      "mdDesc": "Checks for multiple occurrences of the same string literal within a single file. Code duplication makes maintenance more difficult, so it can be better to replace the multiple occurrences with a constant.\n\nThis custom rule inherits from Multiple String Literals template.",
+      "severity": "MAJOR",
+      "status": "READY",
+      "internalKey": "Checker/TreeWalker/MultipleStringLiterals",
+      "isTemplate": false,
+      "templateKey": "checkstyle:com.puppycrawl.tools.checkstyle.checks.coding.MultipleStringLiteralsCheck",
+      "tags": [],
+      "sysTags": [],
+      "lang": "java",
+      "langName": "Java",
+      "params": [
+        {
+          "key": "allowedDuplicates",
+          "htmlDesc": "The maximum number of occurrences to allow without generating a warning. Default is 1.",
+          "defaultValue": "1",
+          "type": "INTEGER"
+        },
+        {
+          "key": "ignoreStringsRegexp",
+          "htmlDesc": "regexp pattern for ignored strings (with quotation marks)",
+          "type": "STRING"
+        },
+        {
+          "key": "ignoreOccurrenceContext",
+          "htmlDesc": "Token type names where duplicate strings are ignored even if they don''t match ignoredStringsRegexp. This allows you to exclude syntactical contexts like Annotations or static initializers from the check.",
+          "type": "STRING"
+        }
+      ],
+      "defaultDebtRemFnType": "CONSTANT_ISSUE",
+      "defaultDebtRemFnOffset": "10min",
+      "debtOverloaded": false,
+      "debtRemFnType": "CONSTANT_ISSUE",
+      "debtRemFnOffset": "10min",
+      "defaultRemFnType": "CONSTANT_ISSUE",
+      "defaultRemFnBaseEffort": "10min",
+      "remFnType": "CONSTANT_ISSUE",
+      "remFnBaseEffort": "10min",
+      "remFnOverloaded": false,
+      "type": "CODE_SMELL"
+    }
+  ]
+}
