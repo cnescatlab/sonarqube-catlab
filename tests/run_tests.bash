@@ -14,6 +14,14 @@
 #             case make sur to set environment variables like
 #             SONARQUBE_URL, SONARQUBE_ADMIN_PASSWORD or
 #             SONARQUBE_CONTAINER_NAME.
+#
+# Environment:
+#   SONARQUBE_CONTAINER_NAME: the name to give to the container running
+#                             the image.
+#   SONARQUBE_ADMIN_PASSWORD: the password of the admin account.
+#   SONARQUBE_URL: URL of sonarqube container if already running
+#                  without trailing /. e.g. http://127.0.0.1:9000
+#
 # Examples:
 #   $ ./tests/run_tests.bash
 #   $ SONARQUBE_CONTAINER_NAME=lequalsonarqube_sonarqube_1 SONARQUBE_ADMIN_PASSWORD=pass ./tests/run_tests.bash --no-run
@@ -28,23 +36,23 @@ if [ "$1" != "--no-run" ]
 then
     # Run a container
     SONARQUBE_ADMIN_PASSWORD=adminpassword
-    docker run --name $SONARQUBE_CONTAINER_NAME \
+    docker run --name "$SONARQUBE_CONTAINER_NAME" \
             -d --rm \
             --stop-timeout 1 \
             -p 9000:9000 \
-            -e SONARQUBE_ADMIN_PASSWORD=$SONARQUBE_ADMIN_PASSWORD \
+            -e SONARQUBE_ADMIN_PASSWORD="$SONARQUBE_ADMIN_PASSWORD" \
             lequal/sonarqube:latest
 
     # When the script ends stop the container
     atexit()
     {
-        docker container stop $SONARQUBE_CONTAINER_NAME > /dev/null
+        docker container stop "$SONARQUBE_CONTAINER_NAME" > /dev/null
     }
     trap atexit EXIT
 fi
 
 # Wait the configuration of the image before running the tests
-while [ -z "$(docker container logs $SONARQUBE_CONTAINER_NAME 2>&1 | grep '\[INFO\] CNES LEQUAL SonarQube: ready!')" ]
+while ! docker container logs "$SONARQUBE_CONTAINER_NAME" 2>&1 | grep -q '\[INFO\] CNES LEQUAL SonarQube: ready!';
 do
     echo "Waiting for SonarQube to be UP."
     sleep 5
@@ -53,14 +61,13 @@ done
 # Launch tests
 failed="0"
 nb_test="0"
-for script in $(ls tests/*)
+for script in tests/*
 do
-    if [ -f $script ] && [ -x $script ] && [ $script != "tests/run_tests.bash" ]
+    if [ -f "$script" ] && [ -x "$script" ] && [ "$script" != "tests/run_tests.bash" ]
     then
         # Launch each test (only print warnings and errors)
         echo -n "Launching test $script..."
-        ./$script > /dev/null
-        if [ "$?" != "0" ]
+        if ! ./"$script" > /dev/null;
         then
             echo "failed"
             ((failed++))

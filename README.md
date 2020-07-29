@@ -1,7 +1,7 @@
 # CNES SonarQube image \[server\]
 
-![](https://github.com/lequal/sonarqube/workflows/CI/badge.svg)
-![](https://github.com/lequal/sonarqube/workflows/CD/badge.svg)
+![](https://github.com/lequal/sonarqube/workflows/CI/badge.svg?branch=develop)
+![](https://github.com/lequal/sonarqube/workflows/CD/badge.svg?branch=develop)
 
 > Docker image for SonarQube with pre-configured plugins and settings by CNES dedicated to Continuous Integration.
 
@@ -21,15 +21,21 @@ This image is available on Docker Hub: [lequal/sonarqube](https://hub.docker.com
 
 Since inception, this image has been designed to be used in production. Thus, leaving the default admin password (namely "admin") will never be an option. To this extent, a new password for the admin account must be given by setting the environment variable `SONARQUBE_ADMIN_PASSWORD`.
 
-To run the image locally
+To run the image locally:
+
 ```sh
 # Recommended options
-docker run --name lequalsonarqube \
-        --rm \
-        --stop-timeout 1 \
-        -p 9000:9000 \
-        -e SONARQUBE_ADMIN_PASSWORD="admin password of your choice" \
-        lequal/sonarqube:latest
+$ docker run --name lequalsonarqube \
+             --rm \
+             --stop-timeout 1 \
+             -p 9000:9000 \
+             -e SONARQUBE_ADMIN_PASSWORD="admin password of your choice" \
+             lequal/sonarqube:latest
+
+# To stop (and remove) the container
+Ctrl-C
+# or
+$ docker container stop lequalsonarqube
 ```
 
 ### Use an external database
@@ -72,26 +78,26 @@ To run all the tests, use the test script.
 
 ```sh
 # from the root of the project
-$ ./tests/start_tests.bash
+$ ./tests/run_tests.bash
 ```
 
 To run a specific test:
-* Run a container of the image (see the [user guide](#user-guide))
-* Wait until it is configured
+1. Run a container of the image (see the [user guide](#user-guide))
+1. Wait until it is configured
     * The message `[INFO] CNES LEQUAL SonarQube: ready!` is logged.
-* Run a script
+1. Run a script
     ```sh
     $ ./tests/up.bash
     # environnement variables may be modified
-    $ SONARQUBE_ADMIN_PASSWORD="password" SONARQUBE_URL="http://localhost:8080" ./tests/up.bash
+    $ SONARQUBE_ADMIN_PASSWORD="password" SONARQUBE_URL="http://localhost:9000" ./tests/up.bash
     ```
-* Test the exit status of the script with `echo $?`
-    * 0 => success
-    * non-0 => failure
+1. Test the exit status of the script with `echo $?`
+    * zero => success
+    * non-zero => failure
 
 ### How to write tests
 
-Tests are just scripts. To add a test, create a file under the `tests/` folder and make it executable. Then, edit the script. Success and failure are given by exit statuses. A zero exist status is a success. A non-zero exit status is a failure. Note that when using `./tests/start_tests.bash`, only messages on STDERR will by displayed.
+Tests are just scripts. To add a test, create a file under the `tests/` folder and make it executable. Then, edit the script. Success and failure are given by exit statuses. A zero exist status is a success. A non-zero exit status is a failure. Note that when using `./tests/run_tests.bash`, only messages on STDERR will by displayed.
 
 All scripted tests are listed in the [wiki](https://github.com/lequal/sonarqube/wiki#list-of-scripted-integration-tests).
 

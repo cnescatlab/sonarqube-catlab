@@ -54,7 +54,7 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email L-lequal@cnes.fr
-          git checkout master
+          git checkout --track origin/master
           git merge origin/develop
           git tag -a ${{ github.event.issue.milestone.title }} \
             -m "Release ${{ github.event.issue.milestone.title }}"

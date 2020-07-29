@@ -14,8 +14,9 @@ then
     exit 1
 fi
 
-# Launch the configuration
+# Launch the configuration in its own process
 ./bin/configure.bash &
 
-# Finally call the initial entrypoint of SonarQube to start the server
+# Finally substitute the current process with the
+# entrypoint of SonarQube to start the server
 exec ./bin/run.sh

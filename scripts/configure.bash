@@ -28,7 +28,7 @@ curl -su "admin:admin" \
     --data-urlencode "login=admin" \
     --data-urlencode "password=$SONARQUBE_ADMIN_PASSWORD" \
     --data-urlencode "previousPassword=admin" \
-    $SONARQUBE_URL/api/users/change_password
+    "$SONARQUBE_URL/api/users/change_password"
 log $INFO "admin password changed."
 
 # Add GP

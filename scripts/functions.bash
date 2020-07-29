@@ -23,9 +23,9 @@ fi
 #
 # Example:
 #   $ log $ERROR "Something went wrong" "a_faulty_function"
-INFO="INFO"
-WARNING="WARNING"
-ERROR="ERROR"
+export INFO="INFO"
+export WARNING="WARNING"
+export ERROR="ERROR"
 log()
 {
     msg="[$1] CNES LEQUAL SonarQube: $2"
