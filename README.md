@@ -51,11 +51,47 @@ $ LEQUAL_SONARQUBE_VERSION=1.0.0 POSTGRES_PASSWD=secret-passwd SONARQUBE_ADMIN_P
 
 With an external database, the data used by SonarQube is stored outside of the container. It means that the container may be stopped, restarted, removed and recreated at will.
 
-## Non-default SonarQube plugins included
+## SonarQube plugins included
 
 | SonarQube plugin                                  | Version                  | 
 |---------------------------------------------------|--------------------------|
-|                                                   |                          |
+| Checkstyle                                        | 4.21                     |
+| Cobertura                                         | 1.9.1                    |
+| Findbugs                                          | 3.11.0                   |
+| Git                                               | 1.8 (build 1574)         |
+| GitHub Authentication for SonarQube               | 1.5 (build 870)          |
+| JaCoCo                                            | 1.0.2 (build 475)        |
+| LDAP                                              | 2.2 (build 608)          |
+| PMD                                               | 3.2.1                    |
+| Rules Compliance Index (RCI)                      | 1.0.1                    |
+| SAML 2.0 Authentication for SonarQube             | 1.1.0 (build 181)        |
+| SonarC#                                           | 7.15 (build 8572)        |
+| SonarCSS                                          | 1.1.1 (build 1010)       |
+| SonarFlex                                         | 2.5.1 (build 1831)       |
+| SonarGo                                           | 1.1.1 (build 2000)       |
+| SonarHTML                                         | 3.1 (build 1615)         |
+| SonarJS                                           | 5.2.1 (build 7778)       |
+| SonarJava                                         | 5.13.1 (build 18282)     |
+| SonarKotlin                                       | 1.5.0 (build 315)        |
+| SonarPHP                                          | 3.2.0.4868               |
+| SonarPython                                       | 1.14.1 (build 3143)      |
+| SonarQube CNES Export Plugin                      | 1.2                      |
+| SonarQube CNES Report                             | 3.2.2                    |
+| SonarRuby                                         | 1.5.0 (build 315)        |
+| SonarScala                                        | 1.5.0 (build 315)        |
+| SonarTS                                           | 1.9 (build 3766)         |
+| SonarVB                                           | 7.15 (build 8572)        |
+| SonarXML                                          | 2.0.1 (build 2020)       |
+| Svn                                               | 1.9.0.1295               |
+
+To update this list run:
+
+```sh
+while IFS='|' read -r plugin version
+do
+    printf "| %-.50s| %-.25s|\n" "$plugin                                                  " "$version                         "
+done < <(curl -s http://localhost:9000/api/plugins/installed | jq -r '.plugins[] | "\(.name)|\(.version)"')
+```
 
 ## Developer's guide
 
@@ -74,7 +110,12 @@ To then run a container with this image see the [user guide](#user-guide).
 
 Before testing the image, it must be built (see above).
 
-To run all the tests, use the test script.
+To run the tests, the following tools are required:
+
+* `curl`
+* `jq`
+
+To run all the tests, use the test script like this:
 
 ```sh
 # from the root of the project
