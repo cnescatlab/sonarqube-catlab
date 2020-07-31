@@ -25,7 +25,7 @@ Additional features are:
     * CNES Quality Profiles for Java, Python, C and C++
     * CNES Quality Gate (set as default)
 
-This is made to be used in conjunction with a pre-configured sonar-scanner image that embeds all necessary tools: [lequal/sonar-scanner](https://github.com/lequal/sonar-scanner)
+_This image is made to be used in conjunction with a pre-configured sonar-scanner image that embeds all necessary tools: [lequal/sonar-scanner](https://github.com/lequal/sonar-scanner). It is, however, not mandatory to use it._
 
 ## User guide
 
