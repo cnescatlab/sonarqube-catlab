@@ -9,17 +9,31 @@ This image is a pre-configured SonarQube server image derived from [Docker-CAT](
 
 SonarQube itself is an open source project on GitHub: [SonarSource/sonarqube](https://github.com/SonarSource/sonarqube).
 
-## Motivation of the project
+For versions and changelog: [GitHub Releases](https://github.com/lequal/sonarqube/releases).
 
-LEQUAL has a need for a tool like Docker-CAT usable in Continuous Integration. In this context, it was decided to develop two Docker images usable in CI:
-* A pre-configured SonarQube server with all necessary plugins, rules, quality profiles and quality gates (this project)
-* A pre-configured sonar-scanner image that embed all necessary tools also on GitHub: [lequal/sonar-scanner](https://github.com/lequal/sonar-scanner)
+## Features
+
+This image is based on the official SonarQube LTS image, namely [sonarqube:7.9.4-community](https://hub.docker.com/_/sonarqube), and offers additional features.
+
+Additional features are:
+
+* Mandatory modification of the default admin password to run a container.
+* Healthcheck of the container.
+* More plugins (see [the list](#sonarqube-plugins-included))
+* CNES configuration
+    * CNES Java rules
+    * CNES Quality Profiles for Java, Python, C and C++
+    * CNES Quality Gate (set as default)
+
+This is made to be used in conjunction with a pre-configured sonar-scanner image that embeds all necessary tools: [lequal/sonar-scanner](https://github.com/lequal/sonar-scanner)
 
 ## User guide
 
 This image is available on Docker Hub: [lequal/sonarqube](https://hub.docker.com/r/lequal/sonarqube/).
 
-Since inception, this image has been designed to be used in production. Thus, leaving the default admin password (namely "admin") will never be an option. To this extent, a new password for the admin account must be given by setting the environment variable `SONARQUBE_ADMIN_PASSWORD`.
+Since inception, this image has been designed to be used in production. Thus, leaving the default admin password (namely "admin") will never be an option. To this extent, a new password for the admin account shall be given by setting the environment variable `SONARQUBE_ADMIN_PASSWORD`.
+
+:warning: :rotating_light: The container will fail to run if `SONARQUBE_ADMIN_PASSWORD` is empty or equal to "admin".
 
 To run the image locally:
 
@@ -27,7 +41,6 @@ To run the image locally:
 # Recommended options
 $ docker run --name lequalsonarqube \
              --rm \
-             --stop-timeout 1 \
              -p 9000:9000 \
              -e SONARQUBE_ADMIN_PASSWORD="admin password of your choice" \
              lequal/sonarqube:latest
@@ -106,41 +119,7 @@ $ docker build -t lequal/sonarqube .
 
 To then run a container with this image see the [user guide](#user-guide).
 
-### How to run tests
-
-Before testing the image, it must be built (see above).
-
-To run the tests, the following tools are required:
-
-* `curl`
-* `jq`
-
-To run all the tests, use the test script like this:
-
-```sh
-# from the root of the project
-$ ./tests/run_tests.bash
-```
-
-To run a specific test:
-1. Run a container of the image (see the [user guide](#user-guide))
-1. Wait until it is configured
-    * The message `[INFO] CNES LEQUAL SonarQube: ready!` is logged.
-1. Run a script
-    ```sh
-    $ ./tests/up.bash
-    # environnement variables may be modified
-    $ SONARQUBE_ADMIN_PASSWORD="password" SONARQUBE_URL="http://localhost:9000" ./tests/up.bash
-    ```
-1. Test the exit status of the script with `echo $?`
-    * zero => success
-    * non-zero => failure
-
-### How to write tests
-
-Tests are just scripts. To add a test, create a file under the `tests/` folder and make it executable. Then, edit the script. Success and failure are given by exit statuses. A zero exist status is a success. A non-zero exit status is a failure. Note that when using `./tests/run_tests.bash`, only messages on STDERR will by displayed.
-
-All scripted tests are listed in the [wiki](https://github.com/lequal/sonarqube/wiki#list-of-scripted-integration-tests).
+To run the tests and create your own ones see the [test documentation](https://github.com/lequal/sonarqube/tree/develop/tests).
 
 ## How to contribute
 

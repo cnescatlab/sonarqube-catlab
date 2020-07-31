@@ -1,7 +1,7 @@
 # This image is based on a LTS version of SonarQube
-FROM sonarqube:7.9.3-community
+FROM sonarqube:7.9.4-community
 
-LABEL maintainer="L-lequal@cnes.fr"
+LABEL maintainer="LEQUAL"
 
 HEALTHCHECK --interval=5m --start-period=2m \
     CMD test $(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" ${SONARQUBE_URL:-http://localhost:9000}/api/system/health | jq '(.health)') = '"GREEN"'
@@ -27,19 +27,18 @@ ADD https://github.com/lequal/sonar-cnes-export-plugin/releases/download/v1.2.0/
 #    https://github.com/lequal/sonar-cnes-scan-plugin/releases/download/1.5.0/sonar-cnes-scan-plugin-1.5.jar \
 
 # Install tools
-# hadolint ignore=DL3008
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends \
-       curl \
-       jq \
+       curl=7.58.0-2ubuntu3.9 \
+       jq=1.5\+dfsg\-2 \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the config files and scripts into the image
-COPY lequalconf/* lequalconf/
+COPY conf/* conf/
 COPY scripts/* bin/
 
 # Configure SonarQube
-RUN chown -R sonarqube:sonarqube bin/ lequalconf/ extensions/ \
+RUN chown -R sonarqube:sonarqube bin/ conf/ extensions/ \
     && chmod u+x -R bin/ \
     # Disable SonarQube telemetry
     && sed -i 's/#sonar\.telemetry\.enable=true/sonar\.telemetry\.enable=false/' /opt/sonarqube/conf/sonar.properties

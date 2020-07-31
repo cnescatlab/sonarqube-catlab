@@ -12,6 +12,17 @@ set -e
 # Include useful functions
 . ./bin/functions.bash
 
+# Make sur the database has not already been populated
+res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
+            "${SONARQUBE_URL}/api/qualitygates/list" \
+    | jq '.qualitygates | map(select(.name == "CNES")) | length')
+if [ "$res" -eq 1 ]
+then
+    log "$INFO" "The database has already been filled with CNES configuration. Not adding anything."
+    exit 0
+fi
+
+# ============================================================================ #
 # Define functions to add rules, QG, QP
 
 # add_condition_to_quality_gate
@@ -104,8 +115,8 @@ create_quality_gate()
 
     # Adding all conditions of the JSON file
     log "$INFO" "adding all conditions of cnes-quality-gate.json to the gate."
-    len=$(cat lequalconf/cnes-quality-gate.json | jq '(.conditions | length)')
-    cnes_quality_gate=$(cat lequalconf/cnes-quality-gate.json | jq '(.conditions)')
+    len=$(cat conf/cnes-quality-gate.json | jq '(.conditions | length)')
+    cnes_quality_gate=$(cat conf/cnes-quality-gate.json | jq '(.conditions)')
     for i in $(seq 0 $((len - 1)))
     do
         metric=$(echo "$cnes_quality_gate" | jq -r '(.['$i'].metric)')
@@ -124,7 +135,7 @@ create_quality_gate()
 #   1: Quality Profile file to import
 #
 # Example:
-#   add_quality_profile lequalconf/python/profiles/py-cnes_python_a-69347-quality-profile.xml
+#   add_quality_profile conf/python/profiles/py-cnes_python_a-69347-quality-profile.xml
 add_quality_profile()
 {
     file=$1
@@ -149,7 +160,7 @@ add_quality_profile()
 #   1: rule file in JSON format corresponding the the following format (Sonarqube 6.7.1 API /api/rules answer)
 #
 # Example:
-#   $ add_rules lequalconf/custom-java-rules-template.json
+#   $ add_rules conf/custom-java-rules-template.json
 add_rules()
 {
     file=$1
@@ -224,22 +235,22 @@ add_rules()
 
 # create_quality_profiles_and_custom_rules
 #
-# This function imports custom rules and quality profiles from lequalconf/
+# This function imports custom rules and quality profiles from conf/
 # to SonarQube server.
 create_quality_profiles_and_custom_rules()
 {
-    # Find all files named "*-rules-template.json" in the folder lequalconf and add rules to SonarQube
+    # Find all files named "*-rules-template.json" in the folder conf and add rules to SonarQube
     while read -r file
     do
         add_rules "${file}"
-    done < <(find lequalconf -name "*-rules-template.json" -type f -print)
+    done < <(find conf -name "*-rules-template.json" -type f -print)
     log "$INFO" "added all custom rules."
 
-    # Find all files named "*-quality-profile.xml" in the folder lequalconf and add QP to SonarQube
+    # Find all files named "*-quality-profile.xml" in the folder conf and add QP to SonarQube
     while read -r file
     do
         add_quality_profile "${file}"
-    done < <(find lequalconf -name "*-quality-profile.xml" -type f -print)
+    done < <(find conf -name "*-quality-profile.xml" -type f -print)
     log "$INFO" "added all quality profiles."
 }
 

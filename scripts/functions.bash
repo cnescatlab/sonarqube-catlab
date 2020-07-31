@@ -28,7 +28,7 @@ export WARNING="WARNING"
 export ERROR="ERROR"
 log()
 {
-    msg="[$1] CNES LEQUAL SonarQube: $2"
+    msg="[$1] CNES SonarQube: $2"
     if [ -n "$3" ]
     then
         msg="$msg, caused by $3"
