@@ -9,12 +9,12 @@ sonar_status=$(curl -su admin:$SONARQUBE_ADMIN_PASSWORD \
                  "$SONARQUBE_URL/api/system/status" \
                 | jq -r '(.status)')
 
-if [ "$sonar_status" = "UP" ]
+if [ $sonar_status = "UP" ]
 then
-    log "$INFO" SonarQube is UP
+    log $INFO SonarQube is UP
     exit 0
 else
-    log "$ERROR" "SonarQube server is $sonar_status, it should be UP" "${0##*/}"
+    log $ERROR "SonarQube server is $sonar_status, it should be UP" ${0##*/}
 fi
 
 exit 1

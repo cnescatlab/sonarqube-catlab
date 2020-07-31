@@ -643,7 +643,7 @@
         {
           "key": "tokens",
           "htmlDesc": "tokens to check",
-          "defaultValue": "ENUM_CONSTANT_DEF",
+          "defaultValue": "VARIABLE_DEF,ENUM_CONSTANT_DEF",
           "type": "SINGLE_SELECT_LIST,multiple=true,values=\"VARIABLE_DEF,ENUM_CONSTANT_DEF,\""
         },
         {
@@ -1127,13 +1127,11 @@
         {
           "key": "ignoreStringsRegexp",
           "htmlDesc": "regexp pattern for ignored strings (with quotation marks)",
-          "defaultValue": "",
           "type": "STRING"
         },
         {
           "key": "ignoreOccurrenceContext",
           "htmlDesc": "Token type names where duplicate strings are ignored even if they don''t match ignoredStringsRegexp. This allows you to exclude syntactical contexts like Annotations or static initializers from the check.",
-          "defaultValue": "",
           "type": "STRING"
         }
       ],

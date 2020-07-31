@@ -16,14 +16,14 @@ status=${status:0:3}
 
 if [ "$status" = "401" ]
 then
-    log "$INFO" "Hacker unauthorized"
+    log $INFO "Hacker unauthorized"
     # Success
     exit 0
 elif [ "$status" = "200" ]
 then
-    log "$WARNING" "Hacker logged in"
+    log $WARNING "Hacker logged in"
 else
-    log "$ERROR" "unexpected HTTP status $status" "${0##*/}"
+    log $ERROR "unexpected HTTP status $status" ${0##*/}
 fi
 
 # Failure
