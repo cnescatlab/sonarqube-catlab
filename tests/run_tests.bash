@@ -19,7 +19,7 @@
 #   SONARQUBE_CONTAINER_NAME: the name to give to the container running
 #                             the image.
 #   SONARQUBE_ADMIN_PASSWORD: the password of the admin account.
-#   SONARQUBE_URL: URL of sonarqube container if already running
+#   SONARQUBE_URL: URL of lequal/sonarqube container if already running
 #                  without trailing /. e.g. http://127.0.0.1:9000
 #
 # Examples:
@@ -31,11 +31,15 @@ then
     SONARQUBE_CONTAINER_NAME=lequalsonarqube
 fi
 
+if [ -z "$SONARQUBE_ADMIN_PASSWORD" ]
+then
+    SONARQUBE_ADMIN_PASSWORD="adminpassword"
+fi
+
 # Unless required not to, a container is run
 if [ "$1" != "--no-run" ]
 then
     # Run a container
-    SONARQUBE_ADMIN_PASSWORD=adminpassword
     docker run --name "$SONARQUBE_CONTAINER_NAME" \
             -d --rm \
             --stop-timeout 1 \
