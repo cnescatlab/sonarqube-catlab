@@ -30,7 +30,7 @@ ADD https://github.com/lequal/sonar-cnes-export-plugin/releases/download/v1.2.0/
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends \
        curl=7.64.0\-4\+deb10u1 \
-       jq=1.5\+dfsg-\2\+b1 \
+       jq=1.5\+dfsg\-2\+b1 \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the config files and scripts into the image
