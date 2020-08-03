@@ -10,17 +10,17 @@
 #
 # Parameters:
 #   --no-run: if this option is specified, the script will not run
-#             the container. It will only launch the tests. In this
-#             case make sur to set environment variables like
-#             SONARQUBE_URL, SONARQUBE_ADMIN_PASSWORD or
-#             SONARQUBE_CONTAINER_NAME.
+#             the container. It will only launch the tests.
+#             In this case, make sur to set necessary environment
+#             variables.
 #
 # Environment:
 #   SONARQUBE_CONTAINER_NAME: the name to give to the container running
 #                             the image.
 #   SONARQUBE_ADMIN_PASSWORD: the password of the admin account.
-#   SONARQUBE_URL: URL of sonarqube container if already running
-#                  without trailing /. e.g. http://127.0.0.1:9000
+#   SONARQUBE_URL: URL of lequal/sonarqube container if already running
+#                  without trailing / from the host.
+#                  e.g. http://localhost:9000
 #
 # Examples:
 #   $ ./tests/run_tests.bash
@@ -28,17 +28,25 @@
 
 if [ -z "$SONARQUBE_CONTAINER_NAME" ]
 then
-    SONARQUBE_CONTAINER_NAME=lequalsonarqube
+    export SONARQUBE_CONTAINER_NAME=lequalsonarqube
+fi
+
+if [ -z "$SONARQUBE_ADMIN_PASSWORD" ]
+then
+    export SONARQUBE_ADMIN_PASSWORD="adminpassword"
+fi
+
+if [ -z "$SONARQUBE_URL" ]
+then
+    export SONARQUBE_URL="http://localhost:9000"
 fi
 
 # Unless required not to, a container is run
 if [ "$1" != "--no-run" ]
 then
     # Run a container
-    SONARQUBE_ADMIN_PASSWORD=adminpassword
     docker run --name "$SONARQUBE_CONTAINER_NAME" \
             -d --rm \
-            --stop-timeout 1 \
             -p 9000:9000 \
             -e SONARQUBE_ADMIN_PASSWORD="$SONARQUBE_ADMIN_PASSWORD" \
             lequal/sonarqube:latest
@@ -52,7 +60,7 @@ then
 fi
 
 # Wait the configuration of the image before running the tests
-while ! docker container logs "$SONARQUBE_CONTAINER_NAME" 2>&1 | grep -q '\[INFO\] CNES LEQUAL SonarQube: ready!';
+while ! docker container logs "$SONARQUBE_CONTAINER_NAME" 2>&1 | grep -q '\[INFO\] CNES SonarQube: ready!';
 do
     echo "Waiting for SonarQube to be UP."
     sleep 5
@@ -63,7 +71,7 @@ failed="0"
 nb_test="0"
 for script in tests/*
 do
-    if [ -f "$script" ] && [ -x "$script" ] && [ "$script" != "tests/run_tests.bash" ]
+    if [ -f "$script" ] && [ -x "$script" ] && [ "$script" != "tests/run_tests.bash" ] && [ "$script" != "tests/README.md" ]
     then
         # Launch each test (only print warnings and errors)
         echo -n "Launching test $script..."

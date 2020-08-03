@@ -10,8 +10,18 @@ name: CI
 
 # This workflow is triggered each time commits are pushed to GitHub
 # and also on each pull request (on the commit that would be created
-# after the merge)
-on: [push, pull_request]
+# after the merge) but is not triggered if only markdown files were edited.
+on:
+  push:
+    branches:
+      - '*'
+    paths-ignore:
+      - '*.md'
+  pull_request:
+    branches:
+      - '*'
+    paths-ignore:
+      - '*.md'
 
 # Variables to configure the workflow
 env:
