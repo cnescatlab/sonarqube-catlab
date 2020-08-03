@@ -6,7 +6,7 @@
 
 . scripts/functions.bash
 
-sonar_plugins=$(curl -s $SONARQUBE_URL/api/plugins/installed \
+sonar_plugins=$(curl -s "$SONARQUBE_URL/api/plugins/installed" \
                 | jq -r '.plugins[] | "\(.name)"')
 
 required_plugins=(
@@ -45,6 +45,8 @@ do
     if ! echo "$sonar_plugins" | grep -q "$plugin";
     then
         log "$ERROR" "SonarQube server does not contain $plugin" "${0##*/}"
+        >&2 echo "curl -s $SONARQUBE_URL/api/plugins/installed"
+        >&2 curl -s "$SONARQUBE_URL/api/plugins/installed" | jq
         exit 1
     fi
 done

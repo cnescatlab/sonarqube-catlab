@@ -10,7 +10,7 @@ set -e
 if [ -z "$SONARQUBE_ADMIN_PASSWORD" ] || [ "$SONARQUBE_ADMIN_PASSWORD" = "admin" ]
 then
     echo "The default admin password is 'admin', a more secure password must be used."
-    echo "Failed to start LEQUAL SonarQube."
+    echo "Failed to start CNES SonarQube."
     exit 1
 fi
 

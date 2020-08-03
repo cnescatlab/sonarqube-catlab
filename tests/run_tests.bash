@@ -10,17 +10,17 @@
 #
 # Parameters:
 #   --no-run: if this option is specified, the script will not run
-#             the container. It will only launch the tests. In this
-#             case make sur to set environment variables like
-#             SONARQUBE_URL, SONARQUBE_ADMIN_PASSWORD or
-#             SONARQUBE_CONTAINER_NAME.
+#             the container. It will only launch the tests.
+#             In this case, make sur to set necessary environment
+#             variables.
 #
 # Environment:
 #   SONARQUBE_CONTAINER_NAME: the name to give to the container running
 #                             the image.
 #   SONARQUBE_ADMIN_PASSWORD: the password of the admin account.
 #   SONARQUBE_URL: URL of lequal/sonarqube container if already running
-#                  without trailing /. e.g. http://127.0.0.1:9000
+#                  without trailing / from the host.
+#                  e.g. http://localhost:9000
 #
 # Examples:
 #   $ ./tests/run_tests.bash
@@ -28,12 +28,17 @@
 
 if [ -z "$SONARQUBE_CONTAINER_NAME" ]
 then
-    SONARQUBE_CONTAINER_NAME=lequalsonarqube
+    export SONARQUBE_CONTAINER_NAME=lequalsonarqube
 fi
 
 if [ -z "$SONARQUBE_ADMIN_PASSWORD" ]
 then
-    SONARQUBE_ADMIN_PASSWORD="adminpassword"
+    export SONARQUBE_ADMIN_PASSWORD="adminpassword"
+fi
+
+if [ -z "$SONARQUBE_URL" ]
+then
+    export SONARQUBE_URL="http://localhost:9000"
 fi
 
 # Unless required not to, a container is run

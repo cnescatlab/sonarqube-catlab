@@ -8,6 +8,9 @@
 1. Admin password
     * file: eus_admin.bash
     * purpose: check that no one can log in as admin with the default password (namely "admin")
+1. No admin password
+    * file: no_password_no_run.bash
+    * purpose: check that the container exit before starting the SonarQube server when no admin password is specified or when the admin password is "admin".
 1. Plugin check
     * file: check_plugins.bash
     * purpose: check that the plugins listed in the README are installed on the server
@@ -52,6 +55,16 @@ $ ./tests/run_tests.bash
 1. Test the exit status of the script with `echo $?`
     * zero => success
     * non-zero => failure
+
+## List of options and environment variables used by the tests
+
+Parameters:
+* `--no-run`: if this option is specified, the script will not run the container. It will only launch the tests. In this case, make sur to set necessary environment variables.
+
+Environment variables:
+* `SONARQUBE_CONTAINER_NAME`: the name to give to the container running the image.
+* `SONARQUBE_ADMIN_PASSWORD`: the password of the admin account.
+* `SONARQUBE_URL`: URL of `lequal/sonarqube` container if already running without trailing `/` from the host. e.g. http://localhost:9000
 
 ## How to add a new test
 
