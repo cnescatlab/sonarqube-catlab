@@ -20,6 +20,7 @@ required_plugins=(
     "PMD"
     "Rules Compliance Index (RCI)"
     "SAML 2.0 Authentication for SonarQube"
+    "Sonar i-Code CNES plugin"
     "SonarC#"
     "SonarCSS"
     "SonarFlex"
@@ -39,6 +40,7 @@ required_plugins=(
     "SonarXML"
     "Svn"
 )
+# TODO: update this list each time a plugin is added
 
 for plugin in "${required_plugins[@]}"
 do

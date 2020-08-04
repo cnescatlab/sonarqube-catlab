@@ -26,6 +26,8 @@
 #   $ ./tests/run_tests.bash
 #   $ SONARQUBE_CONTAINER_NAME=lequalsonarqube_sonarqube_1 SONARQUBE_ADMIN_PASSWORD=pass ./tests/run_tests.bash --no-run
 
+. scripts/functions.bash
+
 if [ -z "$SONARQUBE_CONTAINER_NAME" ]
 then
     export SONARQUBE_CONTAINER_NAME=lequalsonarqube
@@ -60,11 +62,7 @@ then
 fi
 
 # Wait the configuration of the image before running the tests
-while ! docker container logs "$SONARQUBE_CONTAINER_NAME" 2>&1 | grep -q '\[INFO\] CNES SonarQube: ready!';
-do
-    echo "Waiting for SonarQube to be UP."
-    sleep 5
-done
+wait_lequalsonarqube_ready "$SONARQUBE_CONTAINER_NAME"
 
 # Launch tests
 failed="0"

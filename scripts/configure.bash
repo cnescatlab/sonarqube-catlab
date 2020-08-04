@@ -12,16 +12,6 @@ set -e
 # Include useful functions
 . ./bin/functions.bash
 
-# Make sur the database has not already been populated
-res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
-            "${SONARQUBE_URL}/api/qualitygates/list" \
-    | jq '.qualitygates | map(select(.name == "CNES")) | length')
-if [ "$res" -eq 1 ]
-then
-    log "$INFO" "The database has already been filled with CNES configuration. Not adding anything."
-    exit 0
-fi
-
 # ============================================================================ #
 # Define functions to add rules, QG, QP
 
@@ -261,19 +251,33 @@ create_quality_profiles_and_custom_rules()
 # Wait for SonarQube to be up
 wait_sonarqube_up
 
-# Change admin password
-curl -su "admin:admin" \
-    --data-urlencode "login=admin" \
-    --data-urlencode "password=$SONARQUBE_ADMIN_PASSWORD" \
-    --data-urlencode "previousPassword=admin" \
-    "$SONARQUBE_URL/api/users/change_password"
-log "$INFO" "admin password changed."
+# Make sur the database has not already been populated
+status=$(curl -i -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
+            "${SONARQUBE_URL}/api/qualitygates/list" \
+    | sed -n -r -e 's/^HTTP\/.+ ([0-9]+)/\1/p')
+status=${status:0:3} # remove \n
+nb_qg=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
+            "${SONARQUBE_URL}/api/qualitygates/list" \
+    | jq '.qualitygates | map(select(.name == "CNES")) | length')
+if [ "$status" -eq 200 ] && [ "$nb_qg" -eq 1 ]
+then
+    # admin password has already been changed and the CNES QG has already been added
+    log "$INFO" "The database has already been filled with CNES configuration. Not adding anything."
+else
+    # Change admin password
+    curl -su "admin:admin" \
+        --data-urlencode "login=admin" \
+        --data-urlencode "password=$SONARQUBE_ADMIN_PASSWORD" \
+        --data-urlencode "previousPassword=admin" \
+        "$SONARQUBE_URL/api/users/change_password"
+    log "$INFO" "admin password changed."
 
-# Add GP
-create_quality_profiles_and_custom_rules
+    # Add GPs and rules
+    create_quality_profiles_and_custom_rules
 
-# Add QG
-create_quality_gate
+    # Add QG
+    create_quality_gate
+fi
 
 # Tell the user, we are ready
 log "$INFO" "ready!"
