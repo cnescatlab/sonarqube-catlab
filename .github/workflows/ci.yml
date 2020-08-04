@@ -64,23 +64,3 @@ jobs:
         run: |
           sudo sysctl -w vm.max_map_count=262144
           ./tests/run_tests.bash
-  # Job that runs the Dockerfile linter
-  lint-Dockerfile:
-    name: Run hadolint on the Dockerfile
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run hadolint on the Dockerfile
-        run: |
-          docker run --rm -i hadolint/hadolint:$HADOLINT_VERSION < \
-            $DOCKERFILE_PATH/$DOCKERFILE_FILENAME
-  # Job that runs the YAML linter
-  lint-YAML:
-    name: Run yamllint on all YAML files of the project
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run yamllint on the project
-        uses: bewuethr/yamllint-action@v1
-        with:
-          config-file: .yamllint.yml

@@ -20,16 +20,16 @@ fi
 lequalsonarqube_container_name="lequalsonarqube-compose"
 
 # Use the compose file with an external database
-docker-compose -f tests/docker-compose.yml up -d
+docker-compose -f tests/docker-compose.yml up -d 2>&1
 
 # Wait for the SonarQube container to be configured
-wait_lequalsonarqube_ready "$lequalsonarqube_container_name"
+wait_cnes_sonarqube_ready "$lequalsonarqube_container_name" 2>&1
 
 # Restart the SonarQube server (by restarting its service) but not the database
-docker-compose restart sonarqube
+docker-compose restart sonarqube 2>&1
 
 # Wait for the SonarQube container to be UP
-wait_lequalsonarqube_ready "$lequalsonarqube_container_name"
+wait_cnes_sonarqube_ready "$lequalsonarqube_container_name" 2>&1
 
 # Check SonarQube logs
 docker container logs "$lequalsonarqube_container_name" 2>&1 \
@@ -42,13 +42,13 @@ then
 fi
 
 # Shut down SonarQube and Postgres
-docker-compose -f tests/docker-compose.yml down
+docker-compose -f tests/docker-compose.yml down 2>&1
 # Remove volumes (or they will be used for next run of this test)
-docker volume rm tests_test_volume_compose_sonarqube_data
-docker volume rm tests_test_volume_compose_sonarqube_extensions
-docker volume rm tests_test_volume_compose_sonarqube_logs
-docker volume rm tests_test_volume_compose_postgresql
-docker volume rm tests_test_volume_compose_postgresql_data
+docker volume rm tests_test_volume_compose_sonarqube_data 2>&1
+docker volume rm tests_test_volume_compose_sonarqube_extensions 2>&1
+docker volume rm tests_test_volume_compose_sonarqube_logs 2>&1
+docker volume rm tests_test_volume_compose_postgresql 2>&1
+docker volume rm tests_test_volume_compose_postgresql_data 2>&1
 
 [ ! $success ] && exit 1
 

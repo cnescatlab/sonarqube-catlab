@@ -1,7 +1,8 @@
 # CNES SonarQube image \[server\]
 
-![](https://github.com/lequal/sonarqube/workflows/CI/badge.svg?branch=develop)
-![](https://github.com/lequal/sonarqube/workflows/CD/badge.svg?branch=develop)
+![](https://github.com/lequal/sonarqube/workflows/CI/badge.svg)
+![](https://github.com/lequal/sonarqube/workflows/CD/badge.svg)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/2a4a53f54ae94bd69d66a7690b95612f)](https://www.codacy.com/gh/lequal/sonarqube?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lequal/sonarqube&amp;utm_campaign=Badge_Grade)
 
 > Docker image for SonarQube with pre-configured plugins and settings by CNES dedicated to Continuous Integration.
 

@@ -70,7 +70,7 @@ wait_sonarqube_up()
     log $INFO "SonarQube is ${sonar_status}."
 }
 
-# wait_lequalsonarqube_ready
+# wait_cnes_sonarqube_ready
 #
 # This function waits for SonarQube to be configured by
 # the configure.bash script.
@@ -84,13 +84,13 @@ wait_sonarqube_up()
 #   * SONARQUBE_URL
 #
 # Example
-#   $ wait_lequalsonarqube_ready lequalsonarqube
-wait_lequalsonarqube_ready()
+#   $ wait_cnes_sonarqube_ready lequalsonarqube
+wait_cnes_sonarqube_ready()
 {
     container_name="$1"
     while ! docker container logs "$container_name" 2>&1 | grep -q '\[INFO\] CNES SonarQube: ready!';
     do
-        >&2 echo "Waiting for SonarQube to be UP. (docker-compose)"
+        >&2 echo "Waiting for CNES SonarQube to be ready."
         sleep 5
     done
 }

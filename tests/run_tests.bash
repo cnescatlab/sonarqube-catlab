@@ -62,7 +62,7 @@ then
 fi
 
 # Wait the configuration of the image before running the tests
-wait_lequalsonarqube_ready "$SONARQUBE_CONTAINER_NAME"
+wait_cnes_sonarqube_ready "$SONARQUBE_CONTAINER_NAME"
 
 # Launch tests
 failed="0"

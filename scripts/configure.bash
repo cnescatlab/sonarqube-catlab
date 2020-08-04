@@ -53,7 +53,7 @@ add_condition_to_quality_gate()
     then
         log "$INFO" "metric ${metric_key} condition successfully added."
     else
-        log "$WARNING" "impossible to add ${metric_key} condition" "$(echo ${res} | jq '.errors[].msg')"
+        log "$WARNING" "impossible to add ${metric_key} condition" "$(echo "${res}" | jq '.errors[].msg')"
     fi
 }
 
@@ -105,13 +105,13 @@ create_quality_gate()
 
     # Adding all conditions of the JSON file
     log "$INFO" "adding all conditions of cnes-quality-gate.json to the gate."
-    len=$(cat conf/cnes-quality-gate.json | jq '(.conditions | length)')
-    cnes_quality_gate=$(cat conf/cnes-quality-gate.json | jq '(.conditions)')
+    len=$(jq '(.conditions | length)' conf/cnes-quality-gate.json)
+    cnes_quality_gate=$(jq '(.conditions)' conf/cnes-quality-gate.json)
     for i in $(seq 0 $((len - 1)))
     do
-        metric=$(echo "$cnes_quality_gate" | jq -r '(.['$i'].metric)')
-        op=$(echo "$cnes_quality_gate" | jq -r '(.['$i'].op)')
-        error=$(echo "$cnes_quality_gate" | jq -r '(.['$i'].error)')
+        metric=$(echo "$cnes_quality_gate" | jq -r '(.['"$i"'].metric)')
+        op=$(echo "$cnes_quality_gate" | jq -r '(.['"$i"'].op)')
+        error=$(echo "$cnes_quality_gate" | jq -r '(.['"$i"'].error)')
         add_condition_to_quality_gate "$GATEID" "$metric" "$op" "$error"
     done
 }
@@ -132,7 +132,7 @@ add_quality_profile()
 
     log "$INFO" "adding quality profile of file ${file}."
     res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
-                        --form backup=@${file} \
+                        --form backup=@"${file}" \
                         "${SONARQUBE_URL}/api/qualityprofiles/restore")
     if [ "$(echo "${res}" | jq '(.errors | length)')" == "0" ]
     then
@@ -159,22 +159,22 @@ add_rules()
     total=$(jq '.total' "${file}")
     for i in $(seq 0 $((total-1)))
     do
-        log "$INFO" "adding custom rule $(jq -r '.rules['${i}'].key' "${file}")"
+        log "$INFO" "adding custom rule $(jq -r '.rules['"${i}"'].key' "${file}")"
 	    # for rule information registered using the rule creation API (/api/rules/create)
         # rule information
-        custom_key=$(jq -r '.rules['${i}'].key' "${file}")
-        markdown_description=$(jq '.rules['${i}'].mdDesc' "${file}")
-        name=$(jq -r '.rules['${i}'].name' "${file}")
-        severity=$(jq -r '.rules['${i}'].severity' "${file}")
-        status=$(jq -r '.rules['${i}'].status' "${file}")
-        template_key=$(jq -r '.rules['${i}'].templateKey' "${file}")
-        type=$(jq -r '.rules['${i}'].type' "${file}")
+        custom_key=$(jq -r '.rules['"${i}"'].key' "${file}")
+        markdown_description=$(jq '.rules['"${i}"'].mdDesc' "${file}")
+        name=$(jq -r '.rules['"${i}"'].name' "${file}")
+        severity=$(jq -r '.rules['"${i}"'].severity' "${file}")
+        status=$(jq -r '.rules['"${i}"'].status' "${file}")
+        template_key=$(jq -r '.rules['"${i}"'].templateKey' "${file}")
+        type=$(jq -r '.rules['"${i}"'].type' "${file}")
         # rule parameters
         parameters="params="
-        for j in $(seq 0 $(($(jq '.rules['${i}'].params | length' "${file}")-1)) );
+        for j in $(seq 0 $(($(jq '.rules['"${i}"'].params | length' "${file}")-1)) );
         do
-            param_key=$(jq -r '.rules['$i'].params['$j'].key' "${file}")
-            param_value=$(jq -r '.rules['$i'].params['$j'].defaultValue' "${file}")
+            param_key=$(jq -r '.rules['"$i"'].params['"$j"'].key' "${file}")
+            param_value=$(jq -r '.rules['"$i"'].params['"$j"'].defaultValue' "${file}")
             parameters="${parameters}${param_key}=\"${param_value}\";"
         done
         # remove the trailing ;
@@ -199,8 +199,8 @@ add_rules()
         fi
 
         # for rule information registered using the rule update API (/api/rules/update)
-        remediation_fn_base_effort=$(jq -r '.rules['${i}'].remFnBaseEffort' "${file}")
-        remediation_fn_type=$(jq -r '.rules['${i}'].defaultDebtRemFnType' "${file}")
+        remediation_fn_base_effort=$(jq -r '.rules['"${i}"'].remFnBaseEffort' "${file}")
+        remediation_fn_type=$(jq -r '.rules['"${i}"'].defaultDebtRemFnType' "${file}")
         res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
                     --data-urlencode "key=$key" \
                     --data-urlencode "${parameters}" \
