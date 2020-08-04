@@ -61,7 +61,9 @@ jobs:
         run: docker image load -i image.tar
       # Run the tests
       - name: Test docker image
-        run: ./tests/run_tests.bash
+        run: |
+          sudo sysctl -w vm.max_map_count=262144
+          ./tests/run_tests.bash
   # Job that runs the Dockerfile linter
   lint-Dockerfile:
     name: Run hadolint on the Dockerfile
