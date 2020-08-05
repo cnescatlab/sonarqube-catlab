@@ -4,7 +4,7 @@
 # As a SonarQube user, I want the SonarQube server to have the
 # CNES Quality Profiles available so that I can use them.
 
-. scripts/functions.bash
+. tests/functions.bash
 
 cnes_quality_profiles=$(curl -s "$SONARQUBE_URL/api/qualityprofiles/search" \
                     | jq -r '.profiles | map(select(.name | startswith("CNES"))) | .[].name')

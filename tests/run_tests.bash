@@ -26,22 +26,8 @@
 #   $ ./tests/run_tests.bash
 #   $ SONARQUBE_CONTAINER_NAME=lequalsonarqube_sonarqube_1 SONARQUBE_ADMIN_PASSWORD=pass ./tests/run_tests.bash --no-run
 
-. scripts/functions.bash
-
-if [ -z "$SONARQUBE_CONTAINER_NAME" ]
-then
-    export SONARQUBE_CONTAINER_NAME=lequalsonarqube
-fi
-
-if [ -z "$SONARQUBE_ADMIN_PASSWORD" ]
-then
-    export SONARQUBE_ADMIN_PASSWORD="adminpassword"
-fi
-
-if [ -z "$SONARQUBE_URL" ]
-then
-    export SONARQUBE_URL="http://localhost:9000"
-fi
+# Include default values of environment variables and functions
+. tests/functions.bash
 
 # Unless required not to, a container is run
 if [ "$1" != "--no-run" ]

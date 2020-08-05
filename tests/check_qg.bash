@@ -5,7 +5,7 @@
 # CNES Quality Gate configured and set as default so that I can
 # use it.
 
-. scripts/functions.bash
+. tests/functions.bash
 
 quality_gates=$(curl -s "$SONARQUBE_URL/api/qualitygates/list")
 

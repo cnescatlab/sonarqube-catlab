@@ -53,7 +53,7 @@ log()
 # Environment variables required
 #   * SONARQUBE_URL
 #
-# Example
+# Example:
 #   $ wait_sonarqube_up
 wait_sonarqube_up()
 {
@@ -68,29 +68,4 @@ wait_sonarqube_up()
         log $INFO "SonarQube is ${sonar_status}, expecting it to be UP."
     done
     log $INFO "SonarQube is ${sonar_status}."
-}
-
-# wait_cnes_sonarqube_ready
-#
-# This function waits for SonarQube to be configured by
-# the configure.bash script.
-# If this function is run in background, call wait
-# at some point.
-#
-# Parameters:
-#   1: name of the container running lequal/sonarqube
-#
-# Environment variables required
-#   * SONARQUBE_URL
-#
-# Example
-#   $ wait_cnes_sonarqube_ready lequalsonarqube
-wait_cnes_sonarqube_ready()
-{
-    container_name="$1"
-    while ! docker container logs "$container_name" 2>&1 | grep -q '\[INFO\] CNES SonarQube: ready!';
-    do
-        >&2 echo "Waiting for CNES SonarQube to be ready."
-        sleep 5
-    done
 }

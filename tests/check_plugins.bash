@@ -4,7 +4,7 @@
 # As a SonarQube user, I want the plugins listed in the README
 # to be installed on the server so that I can use them.
 
-. scripts/functions.bash
+. tests/functions.bash
 
 sonar_plugins=$(curl -s "$SONARQUBE_URL/api/plugins/installed" \
                 | jq -r '.plugins[] | "\(.name)"')

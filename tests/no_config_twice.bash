@@ -5,7 +5,7 @@
 # not to be executed if the server has already been configured
 # so that the database is not populated more than once.
 
-. scripts/functions.bash
+. tests/functions.bash
 
 # Make sur max_map_count is high enough
 # to prevent the error "max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]"

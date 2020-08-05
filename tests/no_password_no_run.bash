@@ -4,7 +4,7 @@
 # As a SonarQube user, I want the container not to start when I forget to
 # set the admin password so that the default admin password cannot be used.
 
-. scripts/functions.bash
+. tests/functions.bash
 
 
 test_password()

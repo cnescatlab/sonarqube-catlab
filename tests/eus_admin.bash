@@ -4,7 +4,7 @@
 # As a hacker, I want to use the default admin password (=admin)
 # to log in as admin.
 
-. scripts/functions.bash
+. tests/functions.bash
 
 status=$(curl -i -su admin:admin \
             --data-urlencode "login=admin" \

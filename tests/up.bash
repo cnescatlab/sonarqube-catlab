@@ -3,7 +3,7 @@
 # User Story:
 # As a user, I want the server to be UP so that I can use it.
 
-. scripts/functions.bash
+. tests/functions.bash
 
 sonar_status=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
                  "$SONARQUBE_URL/api/system/status" \
