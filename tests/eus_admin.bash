@@ -21,9 +21,9 @@ then
     exit 0
 elif [ "$status" = "200" ]
 then
-    log "$WARNING" "Hacker logged in" "${0##*/}"
+    log "$WARNING" "Hacker logged in"
 else
-    log "$ERROR" "unexpected HTTP status $status" "${0##*/}"
+    log "$ERROR" "unexpected HTTP status $status"
 fi
 
 # Print the output to STDERR

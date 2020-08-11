@@ -12,8 +12,8 @@
 max_map_count=$(sysctl -a 2>&1 | grep vm.max_map_count | sed -r -e 's/vm.max_map_count = ([0-9]+)/\1/')
 if [ "$max_map_count" -lt 262144 ]
 then
-    log "$ERROR" "The test cannot be run because the max_map_count is to low, increase it to at least 262144" "${0##*/}"
-    log "$ERROR" "By using: sudo sysctl -w vm.max_map_count=262144" "${0##*/}"
+    log "$ERROR" "The test cannot be run because the max_map_count is to low, increase it to at least 262144"
+    log "$ERROR" "By using: sudo sysctl -w vm.max_map_count=262144"
     exit 1
 fi
 

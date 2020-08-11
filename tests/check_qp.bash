@@ -25,7 +25,7 @@ for profile in "${required_quality_profiles[@]}"
 do
     if ! echo "$cnes_quality_profiles" | grep -q "$profile";
     then
-        log "$ERROR" "SonarQube server does not contain the profile $profile" "${0##*/}"
+        log "$ERROR" "SonarQube server does not contain the profile $profile"
         >&2 echo "curl -s $SONARQUBE_URL/api/qualityprofiles/search"
         >&2 curl -s "$SONARQUBE_URL/api/qualityprofiles/search" | jq
         exit 1

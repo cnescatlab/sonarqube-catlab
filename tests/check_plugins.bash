@@ -46,7 +46,7 @@ for plugin in "${required_plugins[@]}"
 do
     if ! echo "$sonar_plugins" | grep -q "$plugin";
     then
-        log "$ERROR" "SonarQube server does not contain $plugin" "${0##*/}"
+        log "$ERROR" "SonarQube server does not contain $plugin"
         >&2 echo "curl -s $SONARQUBE_URL/api/plugins/installed"
         >&2 curl -s "$SONARQUBE_URL/api/plugins/installed" | jq
         exit 1
