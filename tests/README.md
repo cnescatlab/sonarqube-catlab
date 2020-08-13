@@ -10,7 +10,7 @@
     * purpose: check that no one can log in as admin with the default password (namely "admin")
 1. No admin password
     * file: no_password_no_run.bash
-    * purpose: check that the container exit before starting the SonarQube server when no admin password is specified or when the admin password is "admin".
+    * purpose: check that the container exit before starting the SonarQube server when no admin password is specified or when the admin password is "admin"
 1. Plugin check
     * file: check_plugins.bash
     * purpose: check that the plugins listed in the README are installed on the server
@@ -20,8 +20,9 @@
 1. Quality Profiles check
     * file: check_qp.bash
     * purpose: check that all CNES Quality Profiles are available on the server
-
-TODO: add a test to check that the rules, QPs and QG are not added more than once to the database
+1. No unnecessary reconfiguration
+    * file: no_config_twice.bash
+    * purpose: check that the rules, QPs and QG are not added more than once to the database
 
 ## How to run all the tests
 

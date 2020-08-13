@@ -12,16 +12,6 @@ set -e
 # Include useful functions
 . ./bin/functions.bash
 
-# Make sur the database has not already been populated
-res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
-            "${SONARQUBE_URL}/api/qualitygates/list" \
-    | jq '.qualitygates | map(select(.name == "CNES")) | length')
-if [ "$res" -eq 1 ]
-then
-    log "$INFO" "The database has already been filled with CNES configuration. Not adding anything."
-    exit 0
-fi
-
 # ============================================================================ #
 # Define functions to add rules, QG, QP
 
@@ -63,7 +53,7 @@ add_condition_to_quality_gate()
     then
         log "$INFO" "metric ${metric_key} condition successfully added."
     else
-        log "$WARNING" "impossible to add ${metric_key} condition" "$(echo ${res} | jq '.errors[].msg')"
+        log "$WARNING" "impossible to add ${metric_key} condition" "$(echo "${res}" | jq '.errors[].msg')"
     fi
 }
 
@@ -115,13 +105,13 @@ create_quality_gate()
 
     # Adding all conditions of the JSON file
     log "$INFO" "adding all conditions of cnes-quality-gate.json to the gate."
-    len=$(cat conf/cnes-quality-gate.json | jq '(.conditions | length)')
-    cnes_quality_gate=$(cat conf/cnes-quality-gate.json | jq '(.conditions)')
+    len=$(jq '(.conditions | length)' conf/cnes-quality-gate.json)
+    cnes_quality_gate=$(jq '(.conditions)' conf/cnes-quality-gate.json)
     for i in $(seq 0 $((len - 1)))
     do
-        metric=$(echo "$cnes_quality_gate" | jq -r '(.['$i'].metric)')
-        op=$(echo "$cnes_quality_gate" | jq -r '(.['$i'].op)')
-        error=$(echo "$cnes_quality_gate" | jq -r '(.['$i'].error)')
+        metric=$(echo "$cnes_quality_gate" | jq -r '(.['"$i"'].metric)')
+        op=$(echo "$cnes_quality_gate" | jq -r '(.['"$i"'].op)')
+        error=$(echo "$cnes_quality_gate" | jq -r '(.['"$i"'].error)')
         add_condition_to_quality_gate "$GATEID" "$metric" "$op" "$error"
     done
 }
@@ -142,7 +132,7 @@ add_quality_profile()
 
     log "$INFO" "adding quality profile of file ${file}."
     res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
-                        --form backup=@${file} \
+                        --form backup=@"${file}" \
                         "${SONARQUBE_URL}/api/qualityprofiles/restore")
     if [ "$(echo "${res}" | jq '(.errors | length)')" == "0" ]
     then
@@ -169,22 +159,22 @@ add_rules()
     total=$(jq '.total' "${file}")
     for i in $(seq 0 $((total-1)))
     do
-        log "$INFO" "adding custom rule $(jq -r '.rules['${i}'].key' "${file}")"
+        log "$INFO" "adding custom rule $(jq -r '.rules['"${i}"'].key' "${file}")"
 	    # for rule information registered using the rule creation API (/api/rules/create)
         # rule information
-        custom_key=$(jq -r '.rules['${i}'].key' "${file}")
-        markdown_description=$(jq '.rules['${i}'].mdDesc' "${file}")
-        name=$(jq -r '.rules['${i}'].name' "${file}")
-        severity=$(jq -r '.rules['${i}'].severity' "${file}")
-        status=$(jq -r '.rules['${i}'].status' "${file}")
-        template_key=$(jq -r '.rules['${i}'].templateKey' "${file}")
-        type=$(jq -r '.rules['${i}'].type' "${file}")
+        custom_key=$(jq -r '.rules['"${i}"'].key' "${file}")
+        markdown_description=$(jq '.rules['"${i}"'].mdDesc' "${file}")
+        name=$(jq -r '.rules['"${i}"'].name' "${file}")
+        severity=$(jq -r '.rules['"${i}"'].severity' "${file}")
+        status=$(jq -r '.rules['"${i}"'].status' "${file}")
+        template_key=$(jq -r '.rules['"${i}"'].templateKey' "${file}")
+        type=$(jq -r '.rules['"${i}"'].type' "${file}")
         # rule parameters
         parameters="params="
-        for j in $(seq 0 $(($(jq '.rules['${i}'].params | length' "${file}")-1)) );
+        for j in $(seq 0 $(($(jq '.rules['"${i}"'].params | length' "${file}")-1)) );
         do
-            param_key=$(jq -r '.rules['$i'].params['$j'].key' "${file}")
-            param_value=$(jq -r '.rules['$i'].params['$j'].defaultValue' "${file}")
+            param_key=$(jq -r '.rules['"$i"'].params['"$j"'].key' "${file}")
+            param_value=$(jq -r '.rules['"$i"'].params['"$j"'].defaultValue' "${file}")
             parameters="${parameters}${param_key}=\"${param_value}\";"
         done
         # remove the trailing ;
@@ -209,8 +199,8 @@ add_rules()
         fi
 
         # for rule information registered using the rule update API (/api/rules/update)
-        remediation_fn_base_effort=$(jq -r '.rules['${i}'].remFnBaseEffort' "${file}")
-        remediation_fn_type=$(jq -r '.rules['${i}'].defaultDebtRemFnType' "${file}")
+        remediation_fn_base_effort=$(jq -r '.rules['"${i}"'].remFnBaseEffort' "${file}")
+        remediation_fn_type=$(jq -r '.rules['"${i}"'].defaultDebtRemFnType' "${file}")
         res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
                     --data-urlencode "key=$key" \
                     --data-urlencode "${parameters}" \
@@ -261,19 +251,33 @@ create_quality_profiles_and_custom_rules()
 # Wait for SonarQube to be up
 wait_sonarqube_up
 
-# Change admin password
-curl -su "admin:admin" \
-    --data-urlencode "login=admin" \
-    --data-urlencode "password=$SONARQUBE_ADMIN_PASSWORD" \
-    --data-urlencode "previousPassword=admin" \
-    "$SONARQUBE_URL/api/users/change_password"
-log "$INFO" "admin password changed."
+# Make sur the database has not already been populated
+status=$(curl -i -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
+            "${SONARQUBE_URL}/api/qualitygates/list" \
+    | sed -n -r -e 's/^HTTP\/.+ ([0-9]+)/\1/p')
+status=${status:0:3} # remove \n
+nb_qg=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
+            "${SONARQUBE_URL}/api/qualitygates/list" \
+    | jq '.qualitygates | map(select(.name == "CNES")) | length')
+if [ "$status" -eq 200 ] && [ "$nb_qg" -eq 1 ]
+then
+    # admin password has already been changed and the CNES QG has already been added
+    log "$INFO" "The database has already been filled with CNES configuration. Not adding anything."
+else
+    # Change admin password
+    curl -su "admin:admin" \
+        --data-urlencode "login=admin" \
+        --data-urlencode "password=$SONARQUBE_ADMIN_PASSWORD" \
+        --data-urlencode "previousPassword=admin" \
+        "$SONARQUBE_URL/api/users/change_password"
+    log "$INFO" "admin password changed."
 
-# Add GP
-create_quality_profiles_and_custom_rules
+    # Add GPs and rules
+    create_quality_profiles_and_custom_rules
 
-# Add QG
-create_quality_gate
+    # Add QG
+    create_quality_gate
+fi
 
 # Tell the user, we are ready
 log "$INFO" "ready!"

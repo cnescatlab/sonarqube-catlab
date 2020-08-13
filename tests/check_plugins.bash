@@ -4,7 +4,7 @@
 # As a SonarQube user, I want the plugins listed in the README
 # to be installed on the server so that I can use them.
 
-. scripts/functions.bash
+. tests/functions.bash
 
 sonar_plugins=$(curl -s "$SONARQUBE_URL/api/plugins/installed" \
                 | jq -r '.plugins[] | "\(.name)"')
@@ -20,6 +20,7 @@ required_plugins=(
     "PMD"
     "Rules Compliance Index (RCI)"
     "SAML 2.0 Authentication for SonarQube"
+    "Sonar i-Code CNES plugin"
     "SonarC#"
     "SonarCSS"
     "SonarFlex"
@@ -39,12 +40,13 @@ required_plugins=(
     "SonarXML"
     "Svn"
 )
+# TODO: update this list each time a plugin is added
 
 for plugin in "${required_plugins[@]}"
 do
     if ! echo "$sonar_plugins" | grep -q "$plugin";
     then
-        log "$ERROR" "SonarQube server does not contain $plugin" "${0##*/}"
+        log "$ERROR" "SonarQube server does not contain $plugin"
         >&2 echo "curl -s $SONARQUBE_URL/api/plugins/installed"
         >&2 curl -s "$SONARQUBE_URL/api/plugins/installed" | jq
         exit 1

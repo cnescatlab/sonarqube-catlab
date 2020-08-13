@@ -4,7 +4,7 @@
 # As a SonarQube user, I want the SonarQube server to have the
 # CNES Quality Profiles available so that I can use them.
 
-. scripts/functions.bash
+. tests/functions.bash
 
 cnes_quality_profiles=$(curl -s "$SONARQUBE_URL/api/qualityprofiles/search" \
                     | jq -r '.profiles | map(select(.name | startswith("CNES"))) | .[].name')
@@ -25,7 +25,7 @@ for profile in "${required_quality_profiles[@]}"
 do
     if ! echo "$cnes_quality_profiles" | grep -q "$profile";
     then
-        log "$ERROR" "SonarQube server does not contain the profile $profile" "${0##*/}"
+        log "$ERROR" "SonarQube server does not contain the profile $profile"
         >&2 echo "curl -s $SONARQUBE_URL/api/qualityprofiles/search"
         >&2 curl -s "$SONARQUBE_URL/api/qualityprofiles/search" | jq
         exit 1

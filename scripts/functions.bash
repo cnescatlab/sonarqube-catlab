@@ -53,7 +53,7 @@ log()
 # Environment variables required
 #   * SONARQUBE_URL
 #
-# Example
+# Example:
 #   $ wait_sonarqube_up
 wait_sonarqube_up()
 {

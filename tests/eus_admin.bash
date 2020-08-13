@@ -4,7 +4,7 @@
 # As a hacker, I want to use the default admin password (=admin)
 # to log in as admin.
 
-. scripts/functions.bash
+. tests/functions.bash
 
 status=$(curl -i -su admin:admin \
             --data-urlencode "login=admin" \
@@ -21,9 +21,9 @@ then
     exit 0
 elif [ "$status" = "200" ]
 then
-    log "$WARNING" "Hacker logged in" "${0##*/}"
+    log "$WARNING" "Hacker logged in"
 else
-    log "$ERROR" "unexpected HTTP status $status" "${0##*/}"
+    log "$ERROR" "unexpected HTTP status $status"
 fi
 
 # Print the output to STDERR

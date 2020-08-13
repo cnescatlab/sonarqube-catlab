@@ -1,0 +1,45 @@
+# Compose file to test lequal/sonarqube image with an external database.
+# Inspired from https://github.com/SonarSource/docker-sonarqube/blob/7.9.3/example-compose-files/sq-with-postgres/docker-compose.yml
+
+version: "3"
+
+services:
+  sonarqube:
+    image: "lequal/sonarqube:latest"
+    container_name: lequalsonarqube-compose
+    depends_on:
+      - db
+    ports:
+      - "9999:9000"
+    networks:
+      - test_network_compose_sonarnet
+    environment:
+      SONARQUBE_JDBC_URL: jdbc:postgresql://db:5432/sonar
+      SONARQUBE_JDBC_USERNAME: sonar
+      SONARQUBE_JDBC_PASSWORD: sonar
+      SONARQUBE_ADMIN_PASSWORD: pass
+    volumes:
+      - test_volume_compose_sonarqube_data:/opt/sonarqube/data
+      - test_volume_compose_sonarqube_extensions:/opt/sonarqube/extensions
+      - test_volume_compose_sonarqube_logs:/opt/sonarqube/logs
+  db:
+    image: postgres:12-alpine
+    networks:
+      - test_network_compose_sonarnet
+    environment:
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: sonar
+    volumes:
+      - test_volume_compose_postgresql:/var/lib/postgresql
+      - test_volume_compose_postgresql_data:/var/lib/postgresql/data
+
+networks:
+  test_network_compose_sonarnet:
+    driver: bridge
+
+volumes:
+  test_volume_compose_sonarqube_data:
+  test_volume_compose_sonarqube_extensions:
+  test_volume_compose_sonarqube_logs:
+  test_volume_compose_postgresql:
+  test_volume_compose_postgresql_data:

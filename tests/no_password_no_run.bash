@@ -4,7 +4,7 @@
 # As a SonarQube user, I want the container not to start when I forget to
 # set the admin password so that the default admin password cannot be used.
 
-. scripts/functions.bash
+. tests/functions.bash
 
 
 test_password()
@@ -31,9 +31,9 @@ test_password()
         msg="the container did not exit when started without SONARQUBE_ADMIN_PASSWORD"
         if [ -n "$1" ]
         then
-            msg="the container did not exit when started with $1"
+            msg="the container did not exit when started with SONARQUBE_ADMIN_PASSWORD=$1"
         fi
-        log "$ERROR" "$msg" "${0##*/}"
+        log "$ERROR" "$msg"
         >&2 echo -e "Logs are:\n$output"
         exit 1
     fi
