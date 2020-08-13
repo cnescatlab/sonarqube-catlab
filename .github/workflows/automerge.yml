@@ -1,0 +1,41 @@
+# Description
+# ===========
+# This workflow is similar to the example of
+# https://github.com/marketplace/actions/merge-pull-requests
+# It automatically merges a pull request when:
+#   * the required number of review approvals has been given (see repo settings)
+#   * the required checks have passed (see repo settings)
+#   * the pull request is up to date (see repo settings)
+---
+name: Automerge-PR
+
+# Event of the example
+on:
+  pull_request:
+    types:
+      - labeled
+      - unlabeled
+      - synchronize
+      - opened
+      - edited
+      - ready_for_review
+      - reopened
+      - unlocked
+  pull_request_review:
+    types:
+      - submitted
+  check_suite:
+    types:
+      - completed
+  status: {}
+
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: automerge
+        uses: "pascalgn/automerge-action@v0.9.0"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_LABELS: ""
+          MERGE_DELETE_BRANCH: true
