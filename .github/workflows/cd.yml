@@ -61,7 +61,7 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email L-lequal@cnes.fr
           git checkout --track origin/master
-          git merge --no-ff origin/develop -m "Merge develop for release ${{ steps.version.outputs.version }}"
+          git merge origin/develop
           git tag -a ${{ steps.version.outputs.version }} \
             -m "Release ${{ steps.version.outputs.version }}"
           git push origin master --follow-tags
