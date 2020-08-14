@@ -9,7 +9,7 @@
 ---
 name: Automerge-PR
 
-# Event of the example
+# Events of the example
 on:
   pull_request:
     types:
