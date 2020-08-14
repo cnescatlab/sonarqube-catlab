@@ -39,3 +39,4 @@ jobs:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           MERGE_LABELS: ""
           MERGE_DELETE_BRANCH: true
+          UPDATE_LABELS: ""
