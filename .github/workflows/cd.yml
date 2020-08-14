@@ -45,19 +45,49 @@ jobs:
         run: |
           echo Malformed milestone name, it must match [0-9]+.[0-9]+.[0-9]+
           exit 1
-      # TODO: a step to wait for the CI to succeed
       # git clone
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      # Wait until the CI workflow ends and continue the CD workflow only if CI succeeded
+      - name: Wait for I complete
+        run: |
+          echo Waiting for CI to start
+          branch=develop
+          sha=$(git log -n 1 --format=%H)
+          echo current commit hash is $sha
+          while [ "$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+                      "https://api.github.com/repos/${{ github.repository }}/actions/runs?branch=${branch}&event=push" \
+                    | jq -r ".workflow_runs | map(select(.head_sha == \"$sha\")) | length")" -eq 0 ]
+          do
+            sleep 1
+          done
+          echo Waiting for CI to complete
+          id=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+                      "https://api.github.com/repos/${{ github.repository }}/actions/runs?branch=${branch}&event=push" \
+                    | jq ".workflow_runs | map(select(.head_sha == \"$sha\")) | map(select(.id != ${{ github.run_id }}))[0].id")
+          echo id of the CI workflow is $id
+          conclusion="null"
+          while [ "$conclusion" = "null" ]
+          do
+            sleep 10
+            conclusion=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+                          "https://api.github.com/repos/${{ github.repository }}/actions/runs?branch=${branch}&event=push" \
+                        | jq -r ".workflow_runs | map(select(.id == $id))[0].conclusion")
+          done
+          echo conclusion of the CI workflow is $conclusion
+          if [ "$conclusion" != "success" ]
+          then
+            echo CI workflow failed, not running CD workflow.
+            exit 1
+          fi
       # Merge develop into master and tag master
       - name: Merge and tag
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email L-lequal@cnes.fr
           git checkout --track origin/master
-          git merge origin/develop
-          # TODO: merge --no-ff + commit message
+          git merge --no-ff origin/develop -m "Merge develop for release ${{ github.event.issue.milestone.title }}"
           git tag -a ${{ github.event.issue.milestone.title }} \
             -m "Release ${{ github.event.issue.milestone.title }}"
           git push origin master --follow-tags
