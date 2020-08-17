@@ -3,8 +3,6 @@
 # This workflow builds a docker image each time
 # commits are pushed to GitHub or a pull request is opened.
 # It also runs a container of this image to test it.
-# Moreover, the hadolint linter is run on the Dockerfile and
-# the yamllint linter is run on the whole project.
 ---
 name: CI
 
@@ -28,7 +26,6 @@ env:
   DOCKERFILE_PATH: '.'
   DOCKERFILE_FILENAME: 'Dockerfile'
   DOCKER_IMAGE_NAME: ${{ github.repository }}
-  HADOLINT_VERSION: 'v1.18.0'
 
 jobs:
   # Job that builds the image and upload it as an artifact
