@@ -1,16 +1,16 @@
 # CNES SonarQube image \[server\]
 
-![](https://github.com/lequal/sonarqube/workflows/CI/badge.svg)
-![](https://github.com/lequal/sonarqube/workflows/CD/badge.svg)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/2a4a53f54ae94bd69d66a7690b95612f)](https://www.codacy.com/gh/lequal/sonarqube?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lequal/sonarqube&amp;utm_campaign=Badge_Grade)
+![](https://github.com/cnescatlab/sonarqube/workflows/CI/badge.svg)
+![](https://github.com/cnescatlab/sonarqube/workflows/CD/badge.svg)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/2a4a53f54ae94bd69d66a7690b95612f)](https://www.codacy.com/gh/cnescatlab/sonarqube?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lequal/sonarqube&amp;utm_campaign=Badge_Grade)
 
 > Docker image for SonarQube with pre-configured plugins and settings by CNES dedicated to Continuous Integration.
 
-This image is a pre-configured SonarQube server image derived from [Docker-CAT](https://github.com/lequal/docker-cat). It contains the same plugins and the same rules for code analysis. It is based on the LTS version of SonarQube.
+This image is a pre-configured SonarQube server image derived from [Docker-CAT](https://github.com/cnescatlab/docker-cat). It contains the same plugins and the same rules for code analysis. It is based on the LTS version of SonarQube.
 
 SonarQube itself is an open source project on GitHub: [SonarSource/sonarqube](https://github.com/SonarSource/sonarqube).
 
-For versions and changelog: [GitHub Releases](https://github.com/lequal/sonarqube/releases).
+For versions and changelog: [GitHub Releases](https://github.com/cnescatlab/sonarqube/releases).
 
 ## Features
 
@@ -26,7 +26,7 @@ Additional features are:
     * CNES Quality Profiles for Java, Python, C and C++
     * CNES Quality Gate (set as default)
 
-_This image is made to be used in conjunction with a pre-configured sonar-scanner image that embeds all necessary tools: [lequal/sonar-scanner](https://github.com/lequal/sonar-scanner). It is, however, not mandatory to use it._
+_This image is made to be used in conjunction with a pre-configured sonar-scanner image that embeds all necessary tools: [cnescatlab/sonar-scanner](https://github.com/cnescatlab/sonar-scanner). It is, however, not mandatory to use it._
 
 ## User guide
 
@@ -121,7 +121,7 @@ $ docker build -t lequal/sonarqube .
 
 To then run a container with this image see the [user guide](#user-guide).
 
-To run the tests and create your own ones see the [test documentation](https://github.com/lequal/sonarqube/tree/develop/tests).
+To run the tests and create your own ones see the [test documentation](https://github.com/cnescatlab/sonarqube/tree/develop/tests).
 
 ## How to contribute
 
@@ -129,9 +129,9 @@ If you experienced a problem with the image please open an issue. Inside this is
 
 If you want to do a PR, please put inside of it the reason of this pull request. If this pull request fixes an issue please insert the number of the issue or explain inside of the PR how to reproduce this issue.
 
-All details are available in [CONTRIBUTING](https://github.com/lequal/.github/blob/master/CONTRIBUTING.md).
+All details are available in [CONTRIBUTING](https://github.com/cnescatlab/.github/blob/master/CONTRIBUTING.md).
 
-Bugs and feature requests: [issues](https://github.com/lequal/sonarqube/issues)
+Bugs and feature requests: [issues](https://github.com/cnescatlab/sonarqube/issues)
 
 ## License
 

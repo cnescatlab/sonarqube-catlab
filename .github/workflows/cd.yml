@@ -24,7 +24,7 @@ on:
 env:
   DOCKERFILE_PATH: '.'
   DOCKERFILE_FILENAME: 'Dockerfile'
-  DOCKER_IMAGE_NAME: ${{ github.repository }}
+  DOCKER_IMAGE_NAME: 'lequal/sonarqube'
 
 jobs:
   # Job to test if a new version is ready to be released
