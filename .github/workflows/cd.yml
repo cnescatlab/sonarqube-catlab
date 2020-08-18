@@ -79,7 +79,7 @@ jobs:
       - name: Merge and tag
         run: |
           git config --global user.name "GitHub Actions"
-          git config --global user.email L-lequal@cnes.fr
+          git config --global user.email catlab@cnes.fr
           git checkout --track origin/master
           git merge origin/develop
           git tag -a ${{ needs.deliverability.outputs.version }} \

@@ -1,7 +1,7 @@
 # This image is based on a LTS version of SonarQube
 FROM sonarqube:7.9.4-community
 
-LABEL maintainer="CATLab"
+LABEL maintainer="CATLab <catlab@cnes.fr>"
 
 HEALTHCHECK --interval=5m --start-period=2m \
     CMD test $(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" ${SONARQUBE_URL:-http://localhost:9000}/api/system/health | jq '(.health)') = '"GREEN"'
