@@ -32,6 +32,7 @@ required_plugins=(
     "SonarPHP"
     "SonarPython"
     "SonarQube CNES Export Plugin"
+    "SonarQube CNES Python Plugin"
     "SonarQube CNES Report"
     "SonarRuby"
     "SonarScala"
