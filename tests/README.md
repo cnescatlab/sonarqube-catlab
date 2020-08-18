@@ -26,7 +26,7 @@
 
 ## How to run all the tests
 
-Before testing the image, it must be built (see the [README](https://github.com/lequal/sonarqube#how-to-build-the-image)).
+Before testing the image, it must be built (see the [README](https://github.com/cnescatlab/sonarqube#how-to-build-the-image)).
 
 To run the tests, the following tools are required:
 
@@ -42,7 +42,7 @@ $ ./tests/run_tests.bash
 
 ## How to run a specific test
 
-1. Run a container of the image (see the [user guide](https://github.com/lequal/sonarqube#user-guide))
+1. Run a container of the image (see the [user guide](https://github.com/cnescatlab/sonarqube#user-guide))
 1. Wait until it is configured
     * The message `[INFO] CNES SonarQube: ready!` is logged.
 1. Run a script
