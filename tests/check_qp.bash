@@ -27,7 +27,7 @@ do
     then
         log "$ERROR" "SonarQube server does not contain the profile $profile"
         >&2 echo "curl -s $SONARQUBE_URL/api/qualityprofiles/search"
-        >&2 curl -s "$SONARQUBE_URL/api/qualityprofiles/search" | jq
+        curl -s "$SONARQUBE_URL/api/qualityprofiles/search" | >&2 jq
         exit 1
     fi
 done
