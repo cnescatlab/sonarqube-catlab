@@ -134,6 +134,8 @@ All details are available in [CONTRIBUTING](https://github.com/cnescatlab/.githu
 
 Bugs and feature requests: [issues](https://github.com/cnescatlab/sonarqube/issues)
 
+To contribute to the project, read [this](https://github.com/cnescatlab/.github/wiki/CATLab's-Workflows) about CATLab's workflows for Docker images.
+
 ## License
 
 Licensed under the [GNU General Public License, Version 3.0](https://www.gnu.org/licenses/gpl.txt)
