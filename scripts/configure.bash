@@ -37,17 +37,17 @@ add_condition_to_quality_gate()
 
     log "$INFO" "adding CNES quality gate condition: ${metric_key} ${metric_operator} ${metric_errors}."
 
-    threshold=""
+    threshold=()
     if [ "${metric_errors}" != "none" ]
     then
-        threshold="--data-urlencode error=${metric_errors}"
+        threshold=("--data-urlencode" "error=${metric_errors}")
     fi
 
     res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
                 --data-urlencode "gateId=${gate_id}" \
                 --data-urlencode "metric=${metric_key}" \
                 --data-urlencode "op=${metric_operator}" \
-                ${threshold} \
+                "${threshold[@]}" \
                 "${SONARQUBE_URL}/api/qualitygates/create_condition")
     if [ "$(echo "${res}" | jq '(.errors | length)')" == "0" ]
     then
