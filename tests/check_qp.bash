@@ -18,8 +18,19 @@ required_quality_profiles=(
     "CNES_PYTHON_B"
     "CNES_PYTHON_C"
     "CNES_PYTHON_D"
+    "CNES_CPP_A"
+    "CNES_CPP_B"
+    "CNES_CPP_C"
+    "CNES_CPP_D"
+    "CNES_C_A"
+    "CNES_C_B"
+    "CNES_C_C"
+    "CNES_C_D"
+    "CNES_C_EMBEDDED_A"
+    "CNES_C_EMBEDDED_B"
+    "CNES_C_EMBEDDED_C"
+    "CNES_C_EMBEDDED_D"
 )
-# TODO: once the C/C++ languages are supported, update this list
 
 for profile in "${required_quality_profiles[@]}"
 do

@@ -10,6 +10,7 @@ sonar_plugins=$(curl -s "$SONARQUBE_URL/api/plugins/installed" \
                 | jq -r '.plugins[] | "\(.name)"')
 
 required_plugins=(
+    "C++ (Community)"
     "Checkstyle"
     "Cobertura"
     "Findbugs"
@@ -20,6 +21,7 @@ required_plugins=(
     "PMD"
     "Rules Compliance Index (RCI)"
     "SAML 2.0 Authentication for SonarQube"
+    "Sonar Frama-C plugin"
     "Sonar i-Code CNES plugin"
     "SonarC#"
     "SonarCSS"
@@ -41,7 +43,6 @@ required_plugins=(
     "SonarXML"
     "Svn"
 )
-# TODO: update this list each time a plugin is added
 
 for plugin in "${required_plugins[@]}"
 do
