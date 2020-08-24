@@ -32,6 +32,7 @@ required_plugins=(
     "SonarPHP"
     "SonarPython"
     "SonarQube CNES Export Plugin"
+    "SonarQube CNES Python Plugin"
     "SonarQube CNES Report"
     "SonarRuby"
     "SonarScala"
@@ -48,7 +49,7 @@ do
     then
         log "$ERROR" "SonarQube server does not contain $plugin"
         >&2 echo "curl -s $SONARQUBE_URL/api/plugins/installed"
-        >&2 curl -s "$SONARQUBE_URL/api/plugins/installed" | jq
+        curl -s "$SONARQUBE_URL/api/plugins/installed" | >&2 jq
         exit 1
     fi
 done

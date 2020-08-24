@@ -91,6 +91,7 @@ With an external database, the data used by SonarQube is stored outside of the c
 | SonarPHP                                          | 3.2.0.4868               |
 | SonarPython                                       | 1.14.1 (build 3143)      |
 | SonarQube CNES Export Plugin                      | 1.2                      |
+| SonarQube CNES Python Plugin                      | 1.3                      |
 | SonarQube CNES Report                             | 3.2.2                    |
 | SonarRuby                                         | 1.5.0 (build 315)        |
 | SonarScala                                        | 1.5.0 (build 315)        |
@@ -132,6 +133,8 @@ If you want to do a PR, please put inside of it the reason of this pull request.
 All details are available in [CONTRIBUTING](https://github.com/cnescatlab/.github/blob/master/CONTRIBUTING.md).
 
 Bugs and feature requests: [issues](https://github.com/cnescatlab/sonarqube/issues)
+
+To contribute to the project, read [this](https://github.com/cnescatlab/.github/wiki/CATLab's-Workflows) about CATLab's workflows for Docker images.
 
 ## License
 

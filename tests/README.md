@@ -76,7 +76,7 @@ To add a test:
 1. Create a file under the `tests/` folder
 1. Make it executable (with `chmod u+x tests/my_test.bash` for instance)
 1. Edit the script.
-1. To indicate wether the test has failed or succeed, use the exit status
+1. To indicate whether the test has failed or succeed, use the exit status
     * zero => success
     * non-zero => failure
 1. Add the test to the [list](#list-of-scripted-integration-tests)
