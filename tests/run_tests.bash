@@ -71,4 +71,4 @@ do
 done
 echo "$failed tests failed out of $nb_test"
 
-exit $failed
+exit "$failed"
