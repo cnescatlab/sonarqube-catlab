@@ -24,17 +24,23 @@ docker-compose -f tests/docker-compose.yml up -d 2>&1
 # Wait for the SonarQube container to be configured
 wait_cnes_sonarqube_ready "$lequalsonarqube_container_name" 2>&1
 
-# Restart the SonarQube server (by restarting its service) but not the database
-docker-compose restart sonarqube 2>&1
+# Restart the SonarQube server but not the database
+log "$INFO" "Restarting SonarQube server."
+docker container restart "$lequalsonarqube_container_name" 2>&1
+sleep 30
 
-# Wait for the SonarQube container to be UP
-wait_cnes_sonarqube_ready "$lequalsonarqube_container_name" 2>&1
+# Wait for the SonarQube container to be UP again
+while ! docker container logs --tail 10 "$lequalsonarqube_container_name" 2>&1 | grep -q '\[INFO\] CNES SonarQube: ready!';
+do
+    log "$INFO" "Waiting for CNES SonarQube to be ready."
+    sleep 5
+done
 
 # Check SonarQube logs
-docker container logs "$lequalsonarqube_container_name" 2>&1 \
-        | grep -q "\[INFO\] CNES SonarQube: The database has already been filled with CNES configuration. Not adding anything."
+docker container logs "$lequalsonarqube_container_name" \
+        |& grep -q "\[INFO\] CNES SonarQube: The database has already been filled with CNES configuration. Not adding anything."
 success=$?
-if ! $success;
+if [ "$success" != "0" ]
 then
     log "$ERROR" "SonarQube server was reconfigured. It should not have been."
     >&2 docker container logs "$lequalsonarqube_container_name"
@@ -49,7 +55,10 @@ docker volume rm tests_test_volume_compose_sonarqube_logs 2>&1
 docker volume rm tests_test_volume_compose_postgresql 2>&1
 docker volume rm tests_test_volume_compose_postgresql_data 2>&1
 
-[ ! $success ] && exit 1
+if [ "$success" != "0" ]
+then
+    exit 1
+fi
 
 log "$INFO" "SonarQube is not reconfigured if already configured."
 exit 0
