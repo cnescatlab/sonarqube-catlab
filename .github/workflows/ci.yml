@@ -60,4 +60,13 @@ jobs:
       - name: Test docker image
         run: |
           sudo sysctl -w vm.max_map_count=262144
-          ./tests/run_tests.bash
+          echo -e "Results of the CI pipeline\n" > tests_logs.txt
+          ./tests/run_tests.bash |& sed -e '/Waiting for CNES SonarQube to be ready./ d' | tee -a tests_logs.txt
+      # Publish test results in the pull request discussion
+      - name: Comment the Pull Request
+        if: github.event_name == 'pull_request'
+        uses: marocchino/sticky-pull-request-comment@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          header: CI tests results
+          path: tests_logs.txt
