@@ -69,6 +69,6 @@ do
         ((nb_test++))
     fi
 done
-echo "$failed tests failed out of $nb_test"
+log "$INFO" "$failed tests failed out of $nb_test"
 
 exit $failed
