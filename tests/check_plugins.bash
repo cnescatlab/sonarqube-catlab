@@ -13,6 +13,7 @@ required_plugins=(
     "C++ (Community)"
     "Checkstyle"
     "Cobertura"
+    "Community Branch Plugin"
     "Findbugs"
     "Git"
     "GitHub Authentication for SonarQube"
