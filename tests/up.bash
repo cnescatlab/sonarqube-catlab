@@ -17,5 +17,5 @@ then
     exit 1
 fi
 
-log "$INFO" SonarQube is UP
+log "$INFO" "SonarQube is UP"
 exit 0

@@ -20,6 +20,7 @@ ADD https://github.com/cnescatlab/sonar-cnes-export-plugin/releases/download/v1.
     https://github.com/cnescatlab/sonar-cnes-python-plugin/releases/download/1.3/sonar-cnes-python-plugin-1.3.jar \
     https://github.com/SonarOpenCommunity/sonar-cxx/releases/download/cxx-1.3.1/sonar-cxx-plugin-1.3.1.1807.jar \
     https://github.com/cnescatlab/sonar-frama-c-plugin/releases/download/V2.1.1/sonar-frama-c-plugin-2.1.1.jar \
+    https://github.com/mc1arke/sonarqube-community-branch-plugin/releases/download/1.3.2/sonarqube-community-branch-plugin-1.3.2.jar \
     /opt/sonarqube/extensions/plugins/
 
 # Install tools
@@ -27,7 +28,9 @@ RUN apt-get update -y \
     && apt-get install -y --no-install-recommends \
        curl=7.64* \
        jq=1.5* \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    # Required by the community branch plugin (See https://github.com/mc1arke/sonarqube-community-branch-plugin/tree/1.3.2#installation)
+    && ln -s /opt/sonarqube/extensions/plugins/sonarqube-community-branch-plugin-1.3.2.jar /opt/sonarqube/lib/common/sonarqube-community-branch-plugin-1.3.2.jar
 
 # Copy the config files and scripts into the image
 COPY conf/* conf/
