@@ -46,7 +46,7 @@ jobs:
   # Job that tests the image
   test:
     name: Test the Docker image
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs: build
     steps:
       - uses: actions/checkout@v2
@@ -62,8 +62,8 @@ jobs:
           sudo sysctl -w vm.max_map_count=262144
           echo -e "Results of the CI pipeline\n" > tests_logs.txt
           cd tests/
-          pip install -r requirements.txt
-          pytest -v |& tee -a ../tests_logs.txt
+          python3 -m pip install -r requirements.txt
+          python3 -m pytest -v |& tee -a ../tests_logs.txt
       # Publish test results in the pull request discussion
       - name: Comment the Pull Request
         if: github.event_name == 'pull_request'
