@@ -73,4 +73,4 @@ jobs:
           path: tests_logs.txt
       # Have the job fail if at least one test failed
       - name: Check all tests passed
-        run: ! grep -q "FAILED" tests_logs.txt
+        run: grep -v -q "FAILED" tests_logs.txt

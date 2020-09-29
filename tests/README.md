@@ -3,25 +3,25 @@
 ## List of integration tests
 
 1. Up
-    * function: tests_up
+    * function: test_up
     * purpose: test if the SonarQube server is UP
-1. Admin password
-    * function: tests_eus_admin
-    * purpose: check that no one can log in as admin with the default password (namely "admin")
-1. No admin password
-    * function: tests_no_password_no_run
-    * purpose: check that the container exit before starting the SonarQube server when no admin password is specified or when the admin password is "admin"
 1. Plugin check
-    * function: tests_check_plugins
+    * function: test_check_plugins
     * purpose: check that the plugins listed in the README are installed on the server with the right version
 1. Quality Gate check
-    * function: tests_check_qg
+    * function: test_check_qg
     * purpose: check that the CNES Quality Gate is available on the server and is set as default
 1. Quality Profiles check
-    * function: tests_check_qp
+    * function: test_check_qp
     * purpose: check that all CNES Quality Profiles are available on the server
+1. Admin password
+    * function: test_eus_admin
+    * purpose: check that no one can log in as admin with the default password (namely "admin")
+1. No admin password
+    * function: test_no_password_no_run
+    * purpose: check that the container exit before starting the SonarQube server when no admin password is specified or when the admin password is "admin"
 1. No unnecessary reconfiguration
-    * function: tests_no_config_twice
+    * function: test_no_config_twice
     * purpose: check that the rules, QPs and QG are not added more than once to the database
     * requirements: run `sudo sysctl -w vm.max_map_count=262144` before running this test
 
@@ -29,7 +29,7 @@
 
 Before testing the image, it must be built (see the [README](https://github.com/cnescatlab/sonarqube#how-to-build-the-image)).
 
-To run the tests, we use `pytest` with `Python 3.8` and the dependencies listed in _requirements.txt_. It is advised to use a virtual environment to run the tests.
+To run the tests, we use [pytest](https://docs.pytest.org/en/stable/) with `Python 3.8` and the dependencies listed in _requirements.txt_. It is advised to use a virtual environment to run the tests.
 
 ```sh
 # To run all the tests
