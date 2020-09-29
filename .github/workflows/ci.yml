@@ -61,8 +61,9 @@ jobs:
         run: |
           sudo sysctl -w vm.max_map_count=262144
           echo -e "Results of the CI pipeline\n" > tests_logs.txt
+          cd tests/
           pip install -r requirements.txt
-          cd tests/ && pytest -v |& tee -a ../tests_logs.txt
+          pytest -v |& tee -a ../tests_logs.txt
       # Publish test results in the pull request discussion
       - name: Comment the Pull Request
         if: github.event_name == 'pull_request'

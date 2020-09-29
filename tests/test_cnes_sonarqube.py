@@ -1,4 +1,5 @@
-"""Automated integration test of CNES SonarQube
+"""
+Automated integration test of CNES SonarQube
 
 Run the tests by launching ``pytest`` from the "tests/" folder.
 
@@ -16,7 +17,8 @@ import requests
 
 
 class TestCNESSonarQube:
-    """This class test the lequal/sonarqube image.
+    """
+    This class test the lequal/sonarqube image.
     It does not build it.
     Tests can be parametered with environment variables.
 
@@ -42,7 +44,8 @@ class TestCNESSonarQube:
     # Functions
     @classmethod
     def wait_cnes_sonarqube_ready(cls, container_name: str, tail = "all"):
-        """This function waits for SonarQube to be configured by
+        """
+        This function waits for SonarQube to be configured by
         the configure.bash script.
 
         :param container_name: name of the container running lequal/sonarqube
@@ -54,7 +57,8 @@ class TestCNESSonarQube:
 
     @classmethod
     def setup_class(cls):
-        """Set up the tests
+        """
+        Set up the tests
         Launch a container and wait for it to be up
         """
         docker_client = docker.from_env()
@@ -75,21 +79,26 @@ class TestCNESSonarQube:
 
     @classmethod
     def teardown_class(cls):
-        """Stop the container"""
+        """
+        Stop the container
+        """
         if cls.RUN == "yes":
             print(f"Stopping {cls.SONARQUBE_CONTAINER_NAME}...")
             docker_client = docker.from_env()
             docker_client.containers.get(cls.SONARQUBE_CONTAINER_NAME).stop()
 
     def test_up(self):
-        """As a user, I want the server to be UP so that I can use it."""
+        """
+        As a user, I want the server to be UP so that I can use it.
+        """
         status = requests.get(f"{self.SONARQUBE_URL}/api/system/status",
                     auth=("admin", self.SONARQUBE_ADMIN_PASSWORD)).json()['status']
         # Hint: if this test fails, the server might still be starting
         assert status == "UP"
 
     def test_check_plugins(self):
-        """As a SonarQube user, I want the plugins listed in the README
+        """
+        As a SonarQube user, I want the plugins listed in the README
         to be installed on the server so that I can use them.
         """
         required_plugins = (
@@ -134,7 +143,8 @@ class TestCNESSonarQube:
             assert installed_plugins[name] == version
 
     def test_check_qg(self):
-        """As a SonarQube user, I want the SonarQube server to have the CNES
+        """
+        As a SonarQube user, I want the SonarQube server to have the CNES
         Quality Gate configured and set as default so that I can use it.
         """
         quality_gates = requests.get(f"{self.SONARQUBE_URL}/api/qualitygates/list").json()['qualitygates']
@@ -144,7 +154,8 @@ class TestCNESSonarQube:
         assert cnes_quality_gates[0]['isDefault']
 
     def test_check_qp(self):
-        """As a SonarQube user, I want the SonarQube server to have the
+        """
+        As a SonarQube user, I want the SonarQube server to have the
         CNES Quality Profiles available so that I can use them.
         """
         required_quality_profiles = (
@@ -176,7 +187,8 @@ class TestCNESSonarQube:
             assert profile in cnes_quality_profiles
 
     def test_eus_admin(self):
-        """Evil User Story:
+        """
+        Evil User Story:
         As a hacker, I want to use the default admin password ("admin")
         to log in as admin.
         """
@@ -188,13 +200,14 @@ class TestCNESSonarQube:
 
 
 def test_no_config_twice():
-    """As a SonarQube user, I want the configuration of the server
+    """
+    As a SonarQube user, I want the configuration of the server
     not to be executed if the server has already been configured
     so that the database is not populated more than once.
     """
     # On Linux, max_map_count must be at least 262144 to run this test
     if platform.system() == 'Linux':
-        proc_stdout = subprocess.run(["/sbin/sysctl", "-a"], check=True, capture_output=True).stdout
+        proc_stdout = subprocess.run(["/sbin/sysctl", "-a"], shell=True, check=True, capture_output=True).stdout
         max_map_count = int(re.findall('vm.max_map_count = [0-9]+', str(proc_stdout))[0].split(' = ')[1])
         # Hint: if this test fails, run: sudo sysctl -w vm.max_map_count=262144
         assert max_map_count >= 262144
@@ -202,7 +215,7 @@ def test_no_config_twice():
     lequalsonarqube_container_name="lequalsonarqube-compose"
     # Use the compose file with an external database
     print("Starting the service (sonarqube and postgres)...")
-    subprocess.run(["docker-compose", "up", "-d"], check=True, capture_output=True)
+    subprocess.run(["docker-compose", "up", "-d"], shell=True, check=True, capture_output=True)
     # Wait for the SonarQube container to be configured
     TestCNESSonarQube.wait_cnes_sonarqube_ready(lequalsonarqube_container_name)
     # Restart the SonarQube server but not the database
@@ -212,7 +225,7 @@ def test_no_config_twice():
     TestCNESSonarQube.wait_cnes_sonarqube_ready(lequalsonarqube_container_name, tail=10)
     # Check SonarQube logs
     config_logs = docker_client.containers.get(lequalsonarqube_container_name).logs()
-    subprocess.run(["docker-compose", "down"], check=True, capture_output=True)
+    subprocess.run(["docker-compose", "down"], shell=True, check=True, capture_output=True)
     docker_client.volumes.get("tests_test_volume_compose_sonarqube_data").remove()
     docker_client.volumes.get("tests_test_volume_compose_sonarqube_extensions").remove()
     docker_client.volumes.get("tests_test_volume_compose_sonarqube_logs").remove()
@@ -222,7 +235,8 @@ def test_no_config_twice():
     assert b"[INFO] CNES SonarQube: The database has already been filled with CNES configuration. Not adding anything." in config_logs
 
 def test_no_password_no_run():
-    """As a SonarQube user, I want the container not to start when I forget to
+    """
+    As a SonarQube user, I want the container not to start when I forget to
     set the admin password so that the default admin password cannot be used.
     """
     docker_client = docker.from_env()
