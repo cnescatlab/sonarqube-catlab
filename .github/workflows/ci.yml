@@ -61,7 +61,8 @@ jobs:
         run: |
           sudo sysctl -w vm.max_map_count=262144
           echo -e "Results of the CI pipeline\n" > tests_logs.txt
-          ./tests/run_tests.bash |& sed -e '/Waiting for CNES SonarQube to be ready./ d' | tee -a tests_logs.txt
+          pip install -r requirements.txt
+          cd tests/ && pytest -v |& tee -a ../tests_logs.txt
       # Publish test results in the pull request discussion
       - name: Comment the Pull Request
         if: github.event_name == 'pull_request'
@@ -72,4 +73,4 @@ jobs:
           path: tests_logs.txt
       # Have the job fail if at least one test failed
       - name: Check all tests passed
-        run: grep -q "0 tests failed" tests_logs.txt
+        run: ! grep -q "FAILED" tests_logs.txt
