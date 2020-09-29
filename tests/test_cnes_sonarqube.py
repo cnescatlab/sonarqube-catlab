@@ -207,7 +207,7 @@ def test_no_config_twice():
     """
     # On Linux, max_map_count must be at least 262144 to run this test
     if platform.system() == 'Linux':
-        proc_stdout = subprocess.run(["/sbin/sysctl", "-a"], shell=True, check=True, capture_output=True).stdout
+        proc_stdout = subprocess.run(["sysctl", "-a"], check=True, capture_output=True).stdout
         max_map_count = int(re.findall('vm.max_map_count = [0-9]+', str(proc_stdout))[0].split(' = ')[1])
         # Hint: if this test fails, run: sudo sysctl -w vm.max_map_count=262144
         assert max_map_count >= 262144
@@ -215,7 +215,7 @@ def test_no_config_twice():
     lequalsonarqube_container_name="lequalsonarqube-compose"
     # Use the compose file with an external database
     print("Starting the service (sonarqube and postgres)...")
-    subprocess.run(["docker-compose", "up", "-d"], shell=True, check=True, capture_output=True)
+    subprocess.run(["docker-compose", "up", "-d"], check=True, capture_output=True)
     # Wait for the SonarQube container to be configured
     TestCNESSonarQube.wait_cnes_sonarqube_ready(lequalsonarqube_container_name)
     # Restart the SonarQube server but not the database
@@ -225,7 +225,7 @@ def test_no_config_twice():
     TestCNESSonarQube.wait_cnes_sonarqube_ready(lequalsonarqube_container_name, tail=10)
     # Check SonarQube logs
     config_logs = docker_client.containers.get(lequalsonarqube_container_name).logs()
-    subprocess.run(["docker-compose", "down"], shell=True, check=True, capture_output=True)
+    subprocess.run(["docker-compose", "down"], check=True, capture_output=True)
     docker_client.volumes.get("tests_test_volume_compose_sonarqube_data").remove()
     docker_client.volumes.get("tests_test_volume_compose_sonarqube_extensions").remove()
     docker_client.volumes.get("tests_test_volume_compose_sonarqube_logs").remove()
