@@ -2,7 +2,8 @@
 # ===========
 # This workflow builds a docker image each time
 # commits are pushed to GitHub or a pull request is opened.
-# It also runs a container of this image to test it.
+# It also runs a container of this image to test it on Linux
+# and on Windows.
 ---
 name: CI
 
