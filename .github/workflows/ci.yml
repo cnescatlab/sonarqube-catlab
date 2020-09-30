@@ -46,7 +46,11 @@ jobs:
   # Job that tests the image
   test:
     name: Test the Docker image
-    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        # run this job both on Linux and Windows
+        os: [ ubuntu-20.04, windows-2019 ]
+    runs-on: ${{ matrix.os }}
     needs: build
     steps:
       - uses: actions/checkout@v2
@@ -58,6 +62,7 @@ jobs:
         run: docker image load -i image.tar
       # Run the tests
       - name: Test docker image
+        shell: bash
         run: |
           sudo sysctl -w vm.max_map_count=262144
           echo -e "Results of the CI pipeline\n" > tests_logs.txt
@@ -74,4 +79,5 @@ jobs:
           path: tests_logs.txt
       # Have the job fail if at least one test failed
       - name: Check all tests passed
+        shell: bash
         run: grep -v -q "FAILED" tests_logs.txt
