@@ -72,6 +72,7 @@ With an external database, the data used by SonarQube is stored outside of the c
 | C++ (Community)                                   | 1.3.1 (build 1807)       |
 | Checkstyle                                        | 4.21                     |
 | Cobertura                                         | 1.9.1                    |
+| Community Branch Plugin                           | 1.3.2                    |
 | Findbugs                                          | 3.11.0                   |
 | Git                                               | 1.8 (build 1574)         |
 | GitHub Authentication for SonarQube               | 1.5 (build 870)          |
@@ -112,6 +113,10 @@ do
     printf "| %-.50s| %-.25s|\n" "$plugin                                                  " "$version                         "
 done < <(curl -s http://localhost:9000/api/plugins/installed | jq -r '.plugins[] | "\(.name)|\(.version)"')
 ```
+
+### Additional information for the Community Branch Plugin
+
+It is advised to set the property `sonar.core.serverBaseURL` in [/admin/settings](http://localhost:9000/admin/settings) for the links posted in PR comments and mail to work.
 
 ## Developer's guide
 

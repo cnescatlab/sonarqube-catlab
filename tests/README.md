@@ -13,7 +13,7 @@
     * purpose: check that the container exit before starting the SonarQube server when no admin password is specified or when the admin password is "admin"
 1. Plugin check
     * file: check_plugins.bash
-    * purpose: check that the plugins listed in the README are installed on the server
+    * purpose: check that the plugins listed in the README are installed on the server with the right version
 1. Quality Gate check
     * file: check_qg.bash
     * purpose: check that the CNES Quality Gate is available on the server and is set as default
