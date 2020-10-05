@@ -21,7 +21,7 @@ ADD https://github.com/cnescatlab/sonar-cnes-export-plugin/releases/download/v1.
     https://github.com/SonarOpenCommunity/sonar-cxx/releases/download/cxx-1.3.1/sonar-cxx-plugin-1.3.1.1807.jar \
     https://github.com/cnescatlab/sonar-frama-c-plugin/releases/download/V2.1.1/sonar-frama-c-plugin-2.1.1.jar \
     https://github.com/cnescatlab/sonar-frama-c-plugin/releases/download/V2.1.1/sonar-frama-c-plugin-2.1.1.jar \
-    https://github.com/Linty-Services/VHDL-RC/releases/download/v1.8.041/sonar-vhdlrc-plugin-1.8.041.jar \
+    https://github.com/Linty-Services/VHDL-RC/releases/download/v3.1/sonar-vhdlrc-plugin-1.8.043.jar \
     https://github.com/VHDLTool/sonar-coverage-modelsim/releases/download/V1.2/sonar-modelsim-plugin-1.2.jar \
     https://github.com/VHDLTool/sonar-coverage-ghdl/releases/download/V1.2/sonar-coverage-ghdl-1.2.jar \
     /opt/sonarqube/extensions/plugins/
