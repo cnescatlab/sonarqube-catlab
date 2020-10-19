@@ -43,6 +43,10 @@ required_plugins=(
     "SonarVB - 7.15 (build 8572)"
     "SonarXML - 2.0.1 (build 2020)"
     "Svn - 1.9.0.1295"
+    "Custom metrics plugin for Sonarqube - 1.1"
+    "gcov - 2.0"
+    "Modelsim -1.0"
+    "VHDL - 1.8.043"
 )
 
 for plugin in "${required_plugins[@]}"
