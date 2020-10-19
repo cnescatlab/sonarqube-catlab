@@ -1,0 +1,6 @@
+# Ignore cache
+__pycache__/
+.pytest_cache/
+
+# Ignore virtual environment
+env/
