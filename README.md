@@ -95,7 +95,8 @@ With an external database, the data used by SonarQube is stored outside of the c
 | SonarPython                                       | 1.14.1 (build 3143)      |
 | SonarQube CNES Export Plugin                      | 1.2                      |
 | SonarQube CNES Python Plugin                      | 1.3                      |
-| SonarQube CNES Report                             | 3.2.2                    |
+| SonarQube CNES Report                             | 3.3.0                    |
+| SonarQube Hadolint Plugin                         | 1.0.0                    |
 | SonarRuby                                         | 1.5.0 (build 315)        |
 | SonarScala                                        | 1.5.0 (build 315)        |
 | SonarTS                                           | 1.9 (build 3766)         |
