@@ -135,10 +135,10 @@ class TestCNESSonarQube:
             ("SonarVB", "7.15 (build 8572)"),
             ("SonarXML", "2.0.1 (build 2020)"),
             ("Svn", "1.9.0.1295"),
-            ("Custom metrics plugin for Sonarqube","1.1"),
-            ("Gcov","2.0"),
-            ("Modelsim","1.0"),
-            ("VHDL","1.8.043")
+            ("FPGA Metrics","1.2.0"),
+            ("Gcov","1.3.0"),
+            ("ModelSim","1.4.0"),
+            ("VHDLRC","2.1.0")
         )
         sonar_plugins = requests.get(f"{self.SONARQUBE_URL}/api/plugins/installed").json()['plugins']
         installed_plugins = { plugin['name']: plugin['version'] for plugin in sonar_plugins }
