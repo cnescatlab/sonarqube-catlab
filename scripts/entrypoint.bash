@@ -9,8 +9,8 @@ set -e
 # Make sur the admin password will be changed
 if [ -z "$SONARQUBE_ADMIN_PASSWORD" ] || [ "$SONARQUBE_ADMIN_PASSWORD" = "admin" ]
 then
-    echo "The default admin password is 'admin', a more secure password must be used."
-    echo "Failed to start CNES SonarQube."
+    echo >&2 "The default admin password is 'admin', a more secure password must be used."
+    echo >&2 "Failed to start CNES SonarQube."
     exit 1
 fi
 
