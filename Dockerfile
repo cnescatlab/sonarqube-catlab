@@ -10,7 +10,7 @@ USER root
 
 # Download SonarQube plugins
 ADD https://github.com/cnescatlab/sonar-cnes-export-plugin/releases/download/v1.2.0/sonar-cnes-export-plugin-1.2.jar \
-    https://github.com/cnescatlab/sonar-cnes-report/releases/download/3.3.0/sonar-cnes-report-3.3.0.jar \
+    https://github.com/cnescatlab/sonar-cnes-report/releases/download/3.3.0/sonar-cnes-report.jar \
     https://github.com/willemsrb/sonar-rci-plugin/releases/download/sonar-rci-plugin-1.0.1/sonar-rci-plugin-1.0.1.jar \
     https://github.com/jensgerdes/sonar-pmd/releases/download/3.2.1/sonar-pmd-plugin-3.2.1.jar \
     https://github.com/checkstyle/sonar-checkstyle/releases/download/4.21/checkstyle-sonar-plugin-4.21.jar \
