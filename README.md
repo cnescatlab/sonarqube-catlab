@@ -30,7 +30,7 @@ _This image is made to be used in conjunction with a pre-configured sonar-scanne
 
 ## User guide
 
-This image is available on Docker Hub: [lequal/sonarqube-vhdl](https://hub.docker.com/r/lequal/sonarqube/).
+This image is available on Docker Hub: [lequal/sonarqube](https://hub.docker.com/r/lequal/sonarqube/).
 
 Since inception, this image has been designed to be used in production. Thus, leaving the default admin password (namely "admin") will never be an option. To this extent, a new password for the admin account shall be given by setting the environment variable `SONARQUBE_ADMIN_PASSWORD`.
 
@@ -40,16 +40,16 @@ To run the image locally:
 
 ```sh
 # Recommended options
-$ docker run --name lequalsonarqubevhdl \
+$ docker run --name lequalsonarqube \
              --rm \
              -p 9000:9000 \
              -e SONARQUBE_ADMIN_PASSWORD="admin password of your choice" \
-             lequal/sonarqube-vhdl:latest
+             lequal/sonarqube:latest
 
 # To stop (and remove) the container
 Ctrl-C
 # or
-$ docker container stop lequalsonarqubevhdl
+$ docker container stop lequalsonarqube
 ```
 
 ### Use an external database
@@ -128,7 +128,7 @@ It is a normal docker image. Thus, it can be built with the following commands.
 
 ```sh
 # from the root of the project
-$ docker build -t lequal/sonarqube-vhdl .
+$ docker build -t lequal/sonarqube .
 ```
 
 To then run a container with this image see the [user guide](#user-guide).
