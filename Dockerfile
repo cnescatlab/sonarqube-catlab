@@ -10,7 +10,7 @@ USER root
 
 # Download SonarQube plugins
 ADD https://github.com/cnescatlab/sonar-cnes-export-plugin/releases/download/v1.2.0/sonar-cnes-export-plugin-1.2.jar \
-    https://github.com/cnescatlab/sonar-cnes-report/releases/download/3.2.2/sonar-cnes-report-3.2.2.jar \
+    https://github.com/cnescatlab/sonar-cnes-report/releases/download/3.3.0/sonar-cnes-report.jar \
     https://github.com/willemsrb/sonar-rci-plugin/releases/download/sonar-rci-plugin-1.0.1/sonar-rci-plugin-1.0.1.jar \
     https://github.com/jensgerdes/sonar-pmd/releases/download/3.2.1/sonar-pmd-plugin-3.2.1.jar \
     https://github.com/checkstyle/sonar-checkstyle/releases/download/4.21/checkstyle-sonar-plugin-4.21.jar \
@@ -25,6 +25,7 @@ ADD https://github.com/cnescatlab/sonar-cnes-export-plugin/releases/download/v1.
     https://github.com/VHDLTool/sonar-fpga-metrics-plugin/releases/download/V1.2/sonar-fpga-metrics-plugin-1.2.0.jar \
     https://github.com/VHDLTool/sonar-coverage-ghdl/releases/download/V1.3/sonar-gcov-plugin-1.3.0.jar \
     https://github.com/mc1arke/sonarqube-community-branch-plugin/releases/download/1.3.2/sonarqube-community-branch-plugin-1.3.2.jar \
+    https://github.com/cnescatlab/sonar-hadolint-plugin/releases/download/1.0.0/sonar-hadolint-plugin-1.0.0.jar \
     /opt/sonarqube/extensions/plugins/
 
 # Install tools
@@ -44,7 +45,9 @@ COPY scripts/* bin/
 RUN chown -R sonarqube:sonarqube bin/ conf/ extensions/ \
     && chmod u+x -R bin/ \
     # Disable SonarQube telemetry
-    && sed -i 's/#sonar\.telemetry\.enable=true/sonar\.telemetry\.enable=false/' /opt/sonarqube/conf/sonar.properties
+    && sed -i 's/#sonar\.telemetry\.enable=true/sonar\.telemetry\.enable=false/' /opt/sonarqube/conf/sonar.properties \
+    #### Set list of patterns matching Dockerfiles
+    && echo 'sonar.lang.patterns.dockerfile=Dockerfile,Dockerfile.*' >> /opt/sonarqube/conf/sonar-scanner.properties
 
 # Switch back to an unpriviledged user
 USER sonarqube
