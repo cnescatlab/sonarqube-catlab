@@ -23,7 +23,7 @@ Additional features are:
 * More plugins (see [the list](#sonarqube-plugins-included))
 * CNES configuration
     * CNES Java rules
-    * CNES Quality Profiles for Java, Python, C and C++
+    * CNES Quality Profiles for Java, Python, C, C++ and VHDL
     * CNES Quality Gate (set as default)
 
 _This image is made to be used in conjunction with a pre-configured sonar-scanner image that embeds all necessary tools: [cnescatlab/sonar-scanner](https://github.com/cnescatlab/sonar-scanner). It is, however, not mandatory to use it._
@@ -103,6 +103,10 @@ With an external database, the data used by SonarQube is stored outside of the c
 | SonarVB                                           | 7.15 (build 8572)        |
 | SonarXML                                          | 2.0.1 (build 2020)       |
 | Svn                                               | 1.9.0.1295               |
+| Sonar-coverage-modelsim                           | 1.4                      |
+| Sonar-coverage-ghdl                               | 1.3                      |
+| Sonar-VHDLRC                                      | 2.1                      |
+| sonar-FPGA-metrics                                | 1.2                      |   
 
 To update this list run:
 
