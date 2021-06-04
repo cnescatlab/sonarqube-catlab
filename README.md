@@ -67,46 +67,46 @@ With an external database, the data used by SonarQube is stored outside of the c
 
 ## SonarQube plugins included
 
-| SonarQube plugin                                  | Version                  | 
-|---------------------------------------------------|--------------------------|
-| C++ (Community)                                   | 1.3.1 (build 1807)       |
-| Checkstyle                                        | 4.21                     |
-| Cobertura                                         | 1.9.1                    |
-| Community Branch Plugin                           | 1.3.2                    |
-| Findbugs                                          | 3.11.0                   |
-| Git                                               | 1.8 (build 1574)         |
-| GitHub Authentication for SonarQube               | 1.5 (build 870)          |
-| JaCoCo                                            | 1.0.2 (build 475)        |
-| LDAP                                              | 2.2 (build 608)          |
-| PMD                                               | 3.2.1                    |
-| Rules Compliance Index (RCI)                      | 1.0.1                    |
-| SAML 2.0 Authentication for SonarQube             | 1.2.0 (build 682)        |
-| Sonar Frama-C plugin                              | 2.1.1                    |
-| Sonar i-Code CNES plugin                          | 2.0.2                    |
-| SonarC#                                           | 7.15 (build 8572)        |
-| SonarCSS                                          | 1.1.1 (build 1010)       |
-| SonarFlex                                         | 2.5.1 (build 1831)       |
-| SonarGo                                           | 1.1.1 (build 2000)       |
-| SonarHTML                                         | 3.1 (build 1615)         |
-| SonarJS                                           | 5.2.1 (build 7778)       |
-| SonarJava                                         | 5.13.1 (build 18282)     |
-| SonarKotlin                                       | 1.5.0 (build 315)        |
-| SonarPHP                                          | 3.2.0.4868               |
-| SonarPython                                       | 1.14.1 (build 3143)      |
-| SonarQube CNES Export Plugin                      | 1.2                      |
-| SonarQube CNES Python Plugin                      | 1.3                      |
-| SonarQube CNES Report                             | 3.3.0                    |
-| SonarQube Hadolint Plugin                         | 1.0.0                    |
-| SonarRuby                                         | 1.5.0 (build 315)        |
-| SonarScala                                        | 1.5.0 (build 315)        |
-| SonarTS                                           | 1.9 (build 3766)         |
-| SonarVB                                           | 7.15 (build 8572)        |
-| SonarXML                                          | 2.0.1 (build 2020)       |
-| Svn                                               | 1.9.0.1295               |
-| Sonar-coverage-modelsim                           | 1.4                      |
-| Sonar-coverage-ghdl                               | 1.3                      |
-| Sonar-VHDLRC                                      | 2.1                      |
-| sonar-FPGA-metrics                                | 1.2                      |   
+| SonarQube plugin                                                                         | Version                  | 
+|------------------------------------------------------------------------------------------|--------------------------|
+| [C++ (Community)](https://github.com/SonarOpenCommunity/sonar-cxx)                       | 1.3.1 (build 1807)       |
+| [Checkstyle](https://github.com/checkstyle/sonar-checkstyle)                             | 4.21                     |
+| [Cobertura](https://github.com/galexandre/sonar-cobertura/)                              | 1.9.1                    |
+| [Community Branch Plugin](https://github.com/mc1arke/sonarqube-community-branch-plugin/) | 1.3.2                    |
+| [Findbugs](https://github.com/spotbugs/sonar-findbugs)                                   | 3.11.0                   |
+| Git                                                                                      | 1.8 (build 1574)         |
+| GitHub Authentication for SonarQube                                                      | 1.5 (build 870)          |
+| JaCoCo                                                                                   | 1.0.2 (build 475)        |
+| LDAP                                                                                     | 2.2 (build 608)          |
+| [PMD](https://github.com/jensgerdes/sonar-pmd)                                           | 3.2.1                    |
+| [Rules Compliance Index (RCI)](https://github.com/willemsrb/sonar-rci-plugin)            | 1.0.1                    |
+| SAML 2.0 Authentication for SonarQube                                                    | 1.2.0 (build 682)        |
+| [Sonar Frama-C plugin](https://github.com/cnescatlab/sonar-frama-c-plugin)               | 2.1.1                    |
+| [Sonar i-Code CNES plugin](https://github.com/cnescatlab/sonar-icode-cnes-plugin)        | 2.0.2                    |
+| SonarC#                                                                                  | 7.15 (build 8572)        |
+| SonarCSS                                                                                 | 1.1.1 (build 1010)       |
+| SonarFlex                                                                                | 2.5.1 (build 1831)       |
+| SonarGo                                                                                  | 1.1.1 (build 2000)       |
+| SonarHTML                                                                                | 3.1 (build 1615)         |
+| SonarJS                                                                                  | 5.2.1 (build 7778)       |
+| SonarJava                                                                                | 5.13.1 (build 18282)     |
+| SonarKotlin                                                                              | 1.5.0 (build 315)        |
+| SonarPHP                                                                                 | 3.2.0.4868               |
+| SonarPython                                                                              | 1.14.1 (build 3143)      |
+| [SonarQube CNES Export Plugin](https://github.com/cnescatlab/sonar-cnes-export-plugin)   | 1.2                      |
+| [SonarQube CNES Python Plugin](https://github.com/cnescatlab/sonar-cnes-python-plugin)   | 1.3                      |
+| [SonarQube CNES Report](https://github.com/cnescatlab/sonar-cnes-report)                 | 3.3.0                    |
+| [SonarQube Hadolint Plugin](https://github.com/cnescatlab/sonar-hadolint-plugin)         | 1.0.0                    |
+| SonarRuby                                                                                | 1.5.0 (build 315)        |
+| SonarScala                                                                               | 1.5.0 (build 315)        |
+| SonarTS                                                                                  | 1.9 (build 3766)         |
+| SonarVB                                                                                  | 7.15 (build 8572)        |
+| SonarXML                                                                                 | 2.0.1 (build 2020)       |
+| Svn                                                                                      | 1.9.0.1295               |
+| [Sonar-coverage-modelsim](https://github.com/VHDLTool/sonar-coverage-modelsim)           | 1.4                      |
+| [Sonar-coverage-ghdl](https://github.com/VHDLTool/sonar-coverage-ghdl)                   | 1.3                      |
+| [Sonar-VHDLRC](https://github.com/VHDLTool/sonar-VHDLRC)                                 | 2.1                      |
+| [sonar-FPGA-metrics](https://github.com/VHDLTool/sonar-fpga-metrics-plugin)              | 1.2                      |   
 
 To update this list run:
 
