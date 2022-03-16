@@ -1,5 +1,5 @@
 # This image is based on a LTS version of SonarQube
-FROM sonarqube:7.9.4-community
+FROM sonarqube:8.9-community
 
 LABEL maintainer="CATLab <catlab@cnes.fr>"
 
@@ -29,11 +29,10 @@ ADD https://github.com/cnescatlab/sonar-cnes-export-plugin/releases/download/v1.
     /opt/sonarqube/extensions/plugins/
 
 # Install tools
-RUN apt-get update -y \
-    && apt-get install -y --no-install-recommends \
-       curl=7.64* \
-       jq=1.5* \
-    && rm -rf /var/lib/apt/lists/* \
+RUN apk add --no-cache \
+       curl \
+       jq \
+    && rm -rf /var/cache/apk/* \
     # Required by the community branch plugin (See https://github.com/mc1arke/sonarqube-community-branch-plugin/tree/1.3.2#installation)
     && ln -s /opt/sonarqube/extensions/plugins/sonarqube-community-branch-plugin-1.3.2.jar /opt/sonarqube/lib/common/sonarqube-community-branch-plugin-1.3.2.jar
 
