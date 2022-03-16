@@ -72,7 +72,7 @@ With an external database, the data used by SonarQube is stored outside of the c
 | C++ (Community)                                   | 1.3.1 (build 1807)       |
 | Checkstyle                                        | 4.21                     |
 | Cobertura                                         | 1.9.1                    |
-| Community Branch Plugin                           | 1.3.2                    |
+| Community Branch Plugin                           | 1.8.1                    |
 | Findbugs                                          | 3.11.0                   |
 | Git                                               | 1.8 (build 1574)         |
 | GitHub Authentication for SonarQube               | 1.5 (build 870)          |
