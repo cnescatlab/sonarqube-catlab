@@ -69,16 +69,17 @@ With an external database, the data used by SonarQube is stored outside of the c
 
 | SonarQube plugin                                  | Version                  | 
 |---------------------------------------------------|--------------------------|
-| C++ (Community)                                   | 1.3.1 (build 1807)       |
-| Checkstyle                                        | 4.21                     |
-| Cobertura                                         | 1.9.1                    |
+| Ansible Lint                                      | 2.5.1                    |
+| C++ (Community)                                   | 1.3.2 (build 1853)       |
+| Checkstyle                                        | 8.40                     |
+| Cobertura                                         | 2.0                      |
 | Community Branch Plugin                           | 1.8.1                    |
-| Findbugs                                          | 3.11.0                   |
+| Findbugs                                          | 4.0.4                    |
 | Git                                               | 1.8 (build 1574)         |
 | GitHub Authentication for SonarQube               | 1.5 (build 870)          |
 | JaCoCo                                            | 1.0.2 (build 475)        |
 | LDAP                                              | 2.2 (build 608)          |
-| PMD                                               | 3.2.1                    |
+| PMD                                               | 3.3.1                    |
 | Rules Compliance Index (RCI)                      | 1.0.1                    |
 | SAML 2.0 Authentication for SonarQube             | 1.2.0 (build 682)        |
 | Sonar Frama-C plugin                              | 2.1.1                    |
@@ -95,18 +96,19 @@ With an external database, the data used by SonarQube is stored outside of the c
 | SonarPython                                       | 1.14.1 (build 3143)      |
 | SonarQube CNES Export Plugin                      | 1.2                      |
 | SonarQube CNES Python Plugin                      | 1.3                      |
-| SonarQube CNES Report                             | 3.3.0                    |
+| SonarQube CNES Report                             | 4.0.0                    |
 | SonarQube Hadolint Plugin                         | 1.0.0                    |
 | SonarRuby                                         | 1.5.0 (build 315)        |
 | SonarScala                                        | 1.5.0 (build 315)        |
-| SonarTS                                           | 1.9 (build 3766)         |
+| SonarTS                                           | 2.1 (build 4359)         |
 | SonarVB                                           | 7.15 (build 8572)        |
 | SonarXML                                          | 2.0.1 (build 2020)       |
 | Svn                                               | 1.9.0.1295               |
-| Sonar-coverage-modelsim                           | 1.4                      |
-| Sonar-coverage-ghdl                               | 1.3                      |
-| Sonar-VHDLRC                                      | 2.1                      |
-| sonar-FPGA-metrics                                | 1.2                      |   
+| Sonar-coverage-modelsim                           | 1.6.0                    |
+| Sonar-gcov                                        | 1.4.0                    |
+| Sonar-VHDLRC                                      | 3.4                      |
+| sonar-FPGA-metrics                                | 1.3.0                    |
+| YAML Analyzer                                     | 1.7.0                    |
 
 To update this list run:
 
