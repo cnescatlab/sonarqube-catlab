@@ -12,7 +12,7 @@ ARG BRANCH_PLUGIN_VERSION=1.8.1
 
 # Download SonarQube plugins
 ADD https://github.com/cnescatlab/sonar-cnes-export-plugin/releases/download/v1.2.0/sonar-cnes-export-plugin-1.2.jar \
-    https://github.com/cnescatlab/sonar-cnes-report/releases/download/4.0.0/sonar-cnes-report.jar \
+    https://github.com/cnescatlab/sonar-cnes-report/releases/download/4.0.0/sonar-cnes-report-4.0.0.jar \
     https://github.com/willemsrb/sonar-rci-plugin/releases/download/sonar-rci-plugin-1.0.1/sonar-rci-plugin-1.0.1.jar \
     https://github.com/jensgerdes/sonar-pmd/releases/download/3.3.1/sonar-pmd-plugin-3.3.1.jar \
     https://github.com/checkstyle/sonar-checkstyle/releases/download/8.40/checkstyle-sonar-plugin-8.40.jar \
