@@ -85,7 +85,7 @@ create_quality_gate()
                 "${SONARQUBE_URL}/api/qualitygates/show")
     if [ "$(echo "${res}" | jq '(.errors | length)')" == "0" ]
     then
-        GATEID="$(echo "${res}" |  jq '.id')"
+        GATEID="$(echo "${res}" |  jq -r '.id')"
         log "$INFO" "successfully retrieved CNES quality gate ID (ID=$GATEID)."
     else
         log "$ERROR" "impossible to reach CNES quality gate ID" "$(echo "${res}" | jq '.errors[].msg')"
