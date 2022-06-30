@@ -256,7 +256,7 @@ create_quality_profiles_and_custom_rules()
 # Wait for SonarQube to be up
 wait_sonarqube_up
 
-# Make sur the database has not already been populated
+# Make sure the database has not already been populated
 status=$(curl -i -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
             "${SONARQUBE_URL}/api/qualitygates/list" \
     | sed -n -r -e 's/^HTTP\/.+ ([0-9]+)/\1/p')
