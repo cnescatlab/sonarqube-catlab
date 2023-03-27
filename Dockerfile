@@ -34,7 +34,6 @@ ARG HADOLINT_VERSION=1.1.0
 
 # Download SonarQube plugins
 ADD https://github.com/sbaudoin/sonar-ansible/releases/download/v${ANSIBLE_LINT}/sonar-ansible-plugin-${ANSIBLE_LINT}.jar \
-    https://github.com/sbaudoin/sonar-ansible/releases/download/v${ANSIBLE_LINT}/sonar-ansible-extras-plugin-${ANSIBLE_LINT}.jar \
     https://github.com/SonarOpenCommunity/sonar-cxx/releases/download/cxx-${CXX_VERSION}/sonar-cxx-plugin-${CXX_VERSION}.3119.jar \
     https://github.com/checkstyle/sonar-checkstyle/releases/download/${CHECKSTYLE_VERSION}/checkstyle-sonar-plugin-${CHECKSTYLE_VERSION}.jar \
     https://repo1.maven.org/maven2/io/github/sfeir-open-source/sonar-clover-plugin/${CLOVER_VERSION}/sonar-clover-plugin-${CLOVER_VERSION}.jar \
