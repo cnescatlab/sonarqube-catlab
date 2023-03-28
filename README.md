@@ -28,6 +28,21 @@ Additional features are:
 
 _This image is made to be used in conjunction with a pre-configured sonar-scanner image that embeds all necessary tools: [cnescatlab/sonar-scanner](https://github.com/cnescatlab/sonar-scanner). It is, however, not mandatory to use it._
 
+## Developer's guide
+
+### How to build the image
+
+It is a normal docker image. Thus, it can be built with the following commands.
+
+```sh
+# from the root of the project
+$ docker build -t lequal/sonarqube .
+```
+
+To then run a container with this image see the [user guide](#user-guide).
+
+To run the tests and create your own ones see the [test documentation](https://github.com/cnescatlab/sonarqube/tree/develop/tests).
+
 ## User guide
 
 This image is available on Docker Hub: [lequal/sonarqube](https://hub.docker.com/r/lequal/sonarqube/).
@@ -70,73 +85,56 @@ With an external database, the data used by SonarQube is stored outside of the c
 | SonarQube plugin                                  | Version                  | 
 |---------------------------------------------------|--------------------------|
 | Ansible Lint                                      | 2.5.1                    |
-| C++ (Community)                                   | 1.3.2 (build 1853)       |
+| C# Code Quality and Security                      | 8.22 (build 31243)       |
+| C++ (Community)                                   | 2.0.7 (build 3119)       |
+| CSS Code Quality and Security                     | 1.4.2 (build 2002)       |
 | Checkstyle                                        | 8.40                     |
+| Clover                                            | 4.1                      |
 | Cobertura                                         | 2.0                      |
 | Community Branch Plugin                           | 1.8.1                    |
+| FPGA Metrics                                      | 1.3.0                    |
 | Findbugs                                          | 4.0.4                    |
-| Git                                               | 1.8 (build 1574)         |
-| GitHub Authentication for SonarQube               | 1.5 (build 870)          |
-| JaCoCo                                            | 1.0.2 (build 475)        |
-| LDAP                                              | 2.2 (build 608)          |
+| Flex Code Quality and Security                    | 2.6.1 (build 2564)       |
+| Gcov                                              | 1.4.0                    |
+| Go Code Quality and Security                      | 1.8.3 (build 2219)       |
+| HTML Code Quality and Security                    | 3.4 (build 2754)         |
+| JaCoCo                                            | 1.1.1 (build 1157)       |
+| Java Code Quality and Security                    | 6.15.1 (build 26025)     |
+| JavaScript/TypeScript Code Quality and Security   | 7.4.4 (build 15624)      |
+| Kotlin Code Quality and Security                  | 1.8.3 (build 2219)       |
+| ModelSim                                          | 1.6.0                    |
+| PHP Code Quality and Security                     | 3.17.0.7439              |
 | PMD                                               | 3.3.1                    |
-| Rules Compliance Index (RCI)                      | 1.0.1                    |
-| SAML 2.0 Authentication for SonarQube             | 1.2.0 (build 682)        |
+| Python Code Quality and Security                  | 3.4.1 (build 8066)       |
+| Ruby Code Quality and Security                    | 1.8.3 (build 2219)       |
+| Rules Compliance Index (RCI)                      | 1.0.2                    |
+| Scala Code Quality and Security                   | 1.8.3 (build 2219)       |
+| ShellCheck Analyzer                               | 2.5.0                    |
 | Sonar Frama-C plugin                              | 2.1.1                    |
-| Sonar i-Code CNES plugin                          | 2.0.2                    |
-| SonarC#                                           | 7.15 (build 8572)        |
-| SonarCSS                                          | 1.1.1 (build 1010)       |
-| SonarFlex                                         | 2.5.1 (build 1831)       |
-| SonarGo                                           | 1.1.1 (build 2000)       |
-| SonarHTML                                         | 3.1 (build 1615)         |
-| SonarJS                                           | 5.2.1 (build 7778)       |
-| SonarJava                                         | 5.13.1 (build 18282)     |
-| SonarKotlin                                       | 1.5.0 (build 315)        |
-| SonarPHP                                          | 3.2.0.4868               |
-| SonarPython                                       | 1.14.1 (build 3143)      |
+| Sonar i-Code CNES plugin                          | 3.0.0                    |
 | SonarQube CNES Export Plugin                      | 1.2                      |
 | SonarQube CNES Python Plugin                      | 1.3                      |
-| SonarQube CNES Report                             | 4.0.0                    |
-| SonarQube Hadolint Plugin                         | 1.0.0                    |
-| SonarRuby                                         | 1.5.0 (build 315)        |
-| SonarScala                                        | 1.5.0 (build 315)        |
-| SonarTS                                           | 2.1 (build 4359)         |
-| SonarVB                                           | 7.15 (build 8572)        |
-| SonarXML                                          | 2.0.1 (build 2020)       |
-| Svn                                               | 1.9.0.1295               |
-| Sonar-coverage-modelsim                           | 1.6.0                    |
-| Sonar-gcov                                        | 1.4.0                    |
-| Sonar-VHDLRC                                      | 3.4                      |
-| sonar-FPGA-metrics                                | 1.3.0                    |
+| SonarQube CNES Report                             | 4.1.3                    |
+| SonarQube Hadolint Plugin                         | 1.1.0                    |
+| SonarTS                                           | 2.1 (build 4362)         |
+| VB.NET Code Quality and Security                  | 8.22 (build 31243)       |
+| VHDLRC                                            | 3.4                      |
+| XML Code Quality and Security                     | 2.2 (build 2973)         |
 | YAML Analyzer                                     | 1.7.0                    |
+
 
 To update this list run:
 
 ```sh
 while IFS='|' read -r plugin version
 do
-    printf "| %-.50s| %-.25s|\n" "$plugin                                                  " "$version                         "
-done < <(curl -s http://localhost:9000/api/plugins/installed | jq -r '.plugins[] | "\(.name)|\(.version)"')
+    printf "| %.50s| %.25s|\n" "$plugin                                                  " "$version                         "
+done < <(curl -u MY_TOKEN: -s http://localhost:9000/api/plugins/installed | jq -r '.plugins[] | "\(.name)|\(.version)"')
 ```
 
 ### Additional information for the Community Branch Plugin
 
 It is advised to set the property `sonar.core.serverBaseURL` in [/admin/settings](http://localhost:9000/admin/settings) for the links posted in PR comments and mail to work.
-
-## Developer's guide
-
-### How to build the image
-
-It is a normal docker image. Thus, it can be built with the following commands.
-
-```sh
-# from the root of the project
-$ docker build -t lequal/sonarqube .
-```
-
-To then run a container with this image see the [user guide](#user-guide).
-
-To run the tests and create your own ones see the [test documentation](https://github.com/cnescatlab/sonarqube/tree/develop/tests).
 
 ## How to contribute
 

@@ -61,14 +61,15 @@ add_condition_to_quality_gate()
 #
 # This function adds the CNES quality gate to a SonarQube server.
 #
-# No parameters
+# Parameters:
+#   1: Quality Gate file to import
 #
 # Example:
 #   $ create_quality_gate
 create_quality_gate()
 {
     FILE=$1
-    NAME=$(jq -r '.name' $FILE)
+    NAME=$(jq -r '.name' "$FILE")
     log "$INFO" "creating '$NAME' quality gate."
     res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
                 --data-urlencode "name=$NAME" \
@@ -110,8 +111,8 @@ create_quality_gate()
 
     # Adding all conditions of the JSON file
     log "$INFO" "adding all conditions of $FILE to the gate."
-    len=$(jq '(.conditions | length)' $FILE)
-    cnes_quality_gate=$(jq '(.conditions)' $FILE)
+    len=$(jq '(.conditions | length)' "$FILE")
+    cnes_quality_gate=$(jq '(.conditions)' "$FILE")
     for i in $(seq 0 $((len - 1)))
     do
         metric=$(echo "$cnes_quality_gate" | jq -r '(.['"$i"'].metric)')
@@ -283,7 +284,7 @@ else
     # Add QG
     for qg_file in conf/*quality-gate*.json
     do
-        create_quality_gate $qg_file
+        create_quality_gate "$qg_file"
     done
 fi
 
