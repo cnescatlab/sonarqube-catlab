@@ -82,54 +82,55 @@ With an external database, the data used by SonarQube is stored outside of the c
 
 ## SonarQube plugins included
 
-| SonarQube plugin                                  | Version                  | 
-|---------------------------------------------------|--------------------------|
-| Ansible Lint                                      | 2.5.1                    |
-| C# Code Quality and Security                      | 8.22 (build 31243)       |
-| C++ (Community)                                   | 2.0.7 (build 3119)       |
-| CSS Code Quality and Security                     | 1.4.2 (build 2002)       |
-| Checkstyle                                        | 8.40                     |
-| Clover                                            | 4.1                      |
-| Cobertura                                         | 2.0                      |
-| Community Branch Plugin                           | 1.8.1                    |
-| FPGA Metrics                                      | 1.3.0                    |
-| Findbugs                                          | 4.0.4                    |
-| Flex Code Quality and Security                    | 2.6.1 (build 2564)       |
-| Gcov                                              | 1.4.0                    |
-| Go Code Quality and Security                      | 1.8.3 (build 2219)       |
-| HTML Code Quality and Security                    | 3.4 (build 2754)         |
-| JaCoCo                                            | 1.1.1 (build 1157)       |
-| Java Code Quality and Security                    | 6.15.1 (build 26025)     |
-| JavaScript/TypeScript Code Quality and Security   | 7.4.4 (build 15624)      |
-| Kotlin Code Quality and Security                  | 1.8.3 (build 2219)       |
-| ModelSim                                          | 1.6.0                    |
-| PHP Code Quality and Security                     | 3.17.0.7439              |
-| PMD                                               | 3.3.1                    |
-| Python Code Quality and Security                  | 3.4.1 (build 8066)       |
-| Ruby Code Quality and Security                    | 1.8.3 (build 2219)       |
-| Rules Compliance Index (RCI)                      | 1.0.2                    |
-| Scala Code Quality and Security                   | 1.8.3 (build 2219)       |
-| ShellCheck Analyzer                               | 2.5.0                    |
-| Sonar Frama-C plugin                              | 2.1.1                    |
-| Sonar i-Code CNES plugin                          | 3.0.0                    |
-| SonarQube CNES Export Plugin                      | 1.2                      |
-| SonarQube CNES Python Plugin                      | 1.3                      |
-| SonarQube CNES Report                             | 4.1.3                    |
-| SonarQube Hadolint Plugin                         | 1.1.0                    |
-| SonarTS                                           | 2.1 (build 4362)         |
-| VB.NET Code Quality and Security                  | 8.22 (build 31243)       |
-| VHDLRC                                            | 3.4                      |
-| XML Code Quality and Security                     | 2.2 (build 2973)         |
-| YAML Analyzer                                     | 1.7.0                    |
-
+| SonarQube plugin                                  | Version                  | URL                                                                        |
+|---------------------------------------------------|--------------------------|----------------------------------------------------------------------------|
+| Ansible Lint                                      | 2.5.1                    | https://github.com/sbaudoin/sonar-ansible/sonar-ansible-plugin             |
+| C# Code Quality and Security                      | 8.22 (build 31243)       | http://redirect.sonarsource.com/plugins/csharp.html                        |
+| C++ (Community)                                   | 2.0.7 (build 3119)       | https://github.com/SonarOpenCommunity/sonar-cxx/wiki                       |
+| CSS Code Quality and Security                     | 1.4.2 (build 2002)       | http://redirect.sonarsource.com/plugins/css.html                           |
+| Checkstyle                                        | 8.40                     | n/a                                                                        |
+| Clover                                            | 4.1                      | https://github.com/sfeir-open-source/sonar-clover                          |
+| Cobertura                                         | 2.0                      | https://github.com/galexandre/sonar-cobertura                              |
+| Community Branch Plugin                           | 1.8.1                    | https://github.com/mc1arke/sonarqube-community-branch-plugin               |
+| FPGA Metrics                                      | 1.3.0                    | https://www.linty-services.com                                             |
+| Findbugs                                          | 4.0.4                    | https://github.com/spotbugs/sonar-findbugs/                                |
+| Flex Code Quality and Security                    | 2.6.1 (build 2564)       | http://redirect.sonarsource.com/plugins/flex.html                          |
+| Gcov                                              | 1.4.0                    | https://www.linty-services.com                                             |
+| Go Code Quality and Security                      | 1.8.3 (build 2219)       | http://redirect.sonarsource.com/plugins/go.html                            |
+| HTML Code Quality and Security                    | 3.4 (build 2754)         | http://redirect.sonarsource.com/plugins/web.html                           |
+| JaCoCo                                            | 1.1.1 (build 1157)       | n/a                                                                        |
+| Java Code Quality and Security                    | 6.15.1 (build 26025)     | http://redirect.sonarsource.com/plugins/java.html                          |
+| JavaScript/TypeScript Code Quality and Security   | 7.4.4 (build 15624)      | http://redirect.sonarsource.com/plugins/javascript.html                    |
+| Kotlin Code Quality and Security                  | 1.8.3 (build 2219)       | http://redirect.sonarsource.com/plugins/kotlin.html                        |
+| ModelSim                                          | 1.6.0                    | https://www.linty-services.com                                             |
+| PHP Code Quality and Security                     | 3.17.0.7439              | http://redirect.sonarsource.com/plugins/php.html                           |
+| PMD                                               | 3.3.1                    | https://github.com/jensgerdes/sonar-pmd                                    |
+| Python Code Quality and Security                  | 3.4.1 (build 8066)       | http://redirect.sonarsource.com/plugins/python.html                        |
+| Ruby Code Quality and Security                    | 1.8.3 (build 2219)       | http://redirect.sonarsource.com/plugins/ruby.html                          |
+| Rules Compliance Index (RCI)                      | 1.0.2                    | https://github.com/willemsrb/sonar-rci-plugin                              |
+| Scala Code Quality and Security                   | 1.8.3 (build 2219)       | http://redirect.sonarsource.com/plugins/scala.html                         |
+| ShellCheck Analyzer                               | 2.5.0                    | https://github.com/sbaudoin/sonar-shellcheck                               |
+| Sonar Frama-C plugin                              | 2.1.1                    | https://github.com/lequal/sonar-frama-c-plugin                             |
+| Sonar i-Code CNES plugin                          | 3.0.0                    | https://github.com/cnescatlab/sonar-icode-cnes-plugin                      |
+| SonarQube CNES Export Plugin                      | 1.2                      | n/a                                                                        |
+| SonarQube CNES Python Plugin                      | 1.3                      | n/a                                                                        |
+| SonarQube CNES Report                             | 4.1.3                    | https://github.com/cnescatlab/sonar-cnes-report                            |
+| SonarQube Hadolint Plugin                         | 1.1.0                    | https://github.com/cnescatlab/sonar-hadolint-plugin                        |
+| SonarTS                                           | 2.1 (build 4362)         | http://redirect.sonarsource.com/plugins/typescript.html                    |
+| VB.NET Code Quality and Security                  | 8.22 (build 31243)       | http://redirect.sonarsource.com/plugins/vbnet.html                         |
+| VHDLRC                                            | 3.4                      | https://www.linty-services.com                                             |
+| XML Code Quality and Security                     | 2.2 (build 2973)         | http://redirect.sonarsource.com/plugins/xml.html                           |
+| YAML Analyzer                                     | 1.7.0                    | https://github.com/sbaudoin/sonar-yaml                                     |
 
 To update this list run:
-
-```sh
-while IFS='|' read -r plugin version
+```sh                                                                   "
+while IFS='|' read -r plugin version url
 do
-    printf "| %.50s| %.25s|\n" "$plugin                                                  " "$version                         "
-done < <(curl -u MY_TOKEN: -s http://localhost:9000/api/plugins/installed | jq -r '.plugins[] | "\(.name)|\(.version)"')
+    if [ "$url" = "null" ]; then url="n/a"; fi
+    printf "| %.50s| %.25s| %.75s|\n" "$plugin                                                  " "$version                         " "$url                                                                           "
+done < <(curl -u MY_TOKEN: -s http://localhost:9000/api/plugins/installed | jq -r '.plugins[] | "\(.name)|\(.version)|\(.homepageUrl)"')
+
+# With `MY_TOKEN` your SonarQube personal token.
 ```
 
 ### Additional information for the Community Branch Plugin
