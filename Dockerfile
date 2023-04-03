@@ -66,7 +66,7 @@ RUN apk add --no-cache \
        jq
 
 # Copy the config files and scripts into the image
-COPY conf/* conf/
+COPY conf/. conf/
 COPY scripts/* bin/
 
 # Configure SonarQube
