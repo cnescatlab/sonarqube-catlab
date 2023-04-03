@@ -32,7 +32,7 @@ while read rule1_key; do
     echo "Rule $rule1_key in $profile1_name but not in $profile2_name"
   fi
 done <<< "$all_rules_key1"
-echo "Done with searching the rules in $profile1_name that are not in $profile2_name"
+echo -e "\n Done with searching the rules in $profile1_name that are not in $profile2_name"
 echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
 echo -e "\n"
@@ -46,5 +46,5 @@ while read rule2_key; do
     echo "Rule $rule2_key in $profile2_name but not in $profile1_name"
   fi
 done <<< "$all_rules_key2"
-echo "Done with searching the rules in $profile2_name that are not in $profile1_name"
+echo -e "\nDone with searching the rules in $profile2_name that are not in $profile1_name"
 echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"

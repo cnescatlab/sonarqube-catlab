@@ -235,18 +235,18 @@ add_rules()
 # to SonarQube server.
 create_quality_profiles_and_custom_rules()
 {
-    # Find all files named "*-rules-template.json" in the folder conf and add rules to SonarQube
-    while read -r file
+    # Add all the rules templates under conf/custom_rules to SQ
+    for file in conf/custom_rules/*
     do
         add_rules "${file}"
-    done < <(find conf -name "*-rules-template.json" -type f -print)
+    done
     log "$INFO" "added all custom rules."
 
-    # Find all files named "*-quality-profile.xml" in the folder conf and add QP to SonarQube
-    while read -r file
+    # Add all the QP under conf/quality_profiles to SQ
+    for file in $(find conf -mindepth 2 -maxdepth 2 -type f)
     do
         add_quality_profile "${file}"
-    done < <(find conf -name "*-quality-profile.xml" -type f -print)
+    done
     log "$INFO" "added all quality profiles."
 }
 
@@ -282,7 +282,7 @@ else
     create_quality_profiles_and_custom_rules
 
     # Add QG
-    for qg_file in conf/*quality-gate*.json
+    for qg_file in conf/quality_gates/*
     do
         create_quality_gate "$qg_file"
     done
