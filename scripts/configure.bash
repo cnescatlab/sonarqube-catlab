@@ -243,7 +243,7 @@ create_quality_profiles_and_custom_rules()
     log "$INFO" "added all custom rules."
 
     # Add all the QP under conf/quality_profiles to SQ
-    for file in $(find conf -mindepth 2 -maxdepth 2 -type f)
+    for file in $(find conf/quality_profiles -mindepth 2 -maxdepth 2 -type f)
     do
         add_quality_profile "${file}"
     done
