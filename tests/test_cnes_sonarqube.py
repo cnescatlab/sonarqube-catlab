@@ -136,7 +136,7 @@ class TestCNESSonarQube:
             ("SonarQube Hadolint Plugin","1.1.0"),
             ("SonarTS", "2.1 (build 4362)"),
             ("VB.NET Code Quality and Security","8.22 (build 31243)"),
-            ("VHDLRC","3.4")
+            ("VHDLRC","3.4"),
             ("XML Code Quality and Security","2.2 (build 2973)"),
             ("YAML Analyzer","1.7.0")
         )
