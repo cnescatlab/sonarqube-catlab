@@ -33,7 +33,10 @@ jobs:
     name: Build the docker image
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          node-version '16.x'
       - name: Build docker image
         run: docker build -t $DOCKER_IMAGE_NAME $DOCKERFILE_PATH
       - name: Save Docker image
@@ -41,6 +44,7 @@ jobs:
       - name: Upload image as an artifact
         uses: actions/upload-artifact@v2
         with:
+          node-version: '16.x'
           name: image
           path: image.tar
   # Job that tests the image
