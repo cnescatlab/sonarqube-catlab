@@ -34,17 +34,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          node-version: '16.x'
+        uses: actions/checkout@v3
       - name: Build docker image
         run: docker build -t $DOCKER_IMAGE_NAME $DOCKERFILE_PATH
       - name: Save Docker image
         run: docker image save -o image.tar $DOCKER_IMAGE_NAME
       - name: Upload image as an artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
-          node-version: '16.x'
           name: image
           path: image.tar
   # Job that tests the image
@@ -52,6 +49,8 @@ jobs:
     name: Test the Docker image
     runs-on: ubuntu-20.04
     needs: build
+    permissions:
+      pull-requests: write
     steps:
       - uses: actions/checkout@v2
       - name: Retrieve the image
@@ -70,8 +69,6 @@ jobs:
           python3 -m pytest -v |& tee -a ../tests_logs.txt
       # Publish test results in the pull request discussion
       - name: Comment the Pull Request
-        permissions:
-          pull-requests: write
         if: github.event_name == 'pull_request'
         uses: marocchino/sticky-pull-request-comment@v2
         with:
