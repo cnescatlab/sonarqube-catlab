@@ -140,7 +140,8 @@ class TestCNESSonarQube:
             ("XML Code Quality and Security","2.2 (build 2973)"),
             ("YAML Analyzer","1.7.0")
         )
-        sonar_plugins = requests.get(f"{self.SONARQUBE_URL}/api/plugins/installed").json()['plugins']
+        sonar_plugins = requests.get(f"{self.SONARQUBE_URL}/api/plugins/installed",
+            auth =("admin", self.SONARQUBE_ADMIN_PASSWORD)).json()['plugins']
         installed_plugins = { plugin['name']: plugin['version'] for plugin in sonar_plugins }
         for name, version in required_plugins:
             # Hint: if this test fails, one or more plugins may be missing or installed with an outdated version
@@ -151,7 +152,8 @@ class TestCNESSonarQube:
         As a SonarQube user, I want the SonarQube server to have the CNES
         Quality Gate configured and set as default so that I can use it.
         """
-        quality_gates = requests.get(f"{self.SONARQUBE_URL}/api/qualitygates/list").json()['qualitygates']
+        quality_gates = requests.get(f"{self.SONARQUBE_URL}/api/qualitygates/list",
+            auth =("admin", self.SONARQUBE_ADMIN_PASSWORD)).json()['qualitygates']
         cnes_quality_gates = [ gate for gate in quality_gates if gate['name'] == "CNES" ]
         # Hint: if one of these tests fails, the CNES Quality Gate may not have been added correctly, check the container logs
         assert cnes_quality_gates # not empty
@@ -162,33 +164,45 @@ class TestCNESSonarQube:
         As a SonarQube user, I want the SonarQube server to have the
         CNES Quality Profiles available so that I can use them.
         """
-        required_quality_profiles = (
-            "CNES_JAVA_A",
-            "CNES_JAVA_B",
-            "CNES_JAVA_C",
-            "CNES_JAVA_D",
-            "CNES_PYTHON_A",
-            "CNES_PYTHON_B",
-            "CNES_PYTHON_C",
-            "CNES_PYTHON_D",
-            "CNES_CPP_A",
-            "CNES_CPP_B",
-            "CNES_CPP_C",
-            "CNES_CPP_D",
-            "CNES_C_A",
-            "CNES_C_B",
-            "CNES_C_C",
-            "CNES_C_D",
-            "CNES_C_EMBEDDED_A",
-            "CNES_C_EMBEDDED_B",
-            "CNES_C_EMBEDDED_C",
-            "CNES_C_EMBEDDED_D"
-        )
-        quality_profiles = requests.get(f"{self.SONARQUBE_URL}/api/qualityprofiles/search").json()['profiles']
-        cnes_quality_profiles = [ qp['name'] for qp in quality_profiles if re.match(r'CNES_\w+_[ABCD]', qp['name']) ]
-        for profile in required_quality_profiles:
-            # Hint: if this test fails, one or more Quality Profiles may be missing, check the container logs
-            assert profile in cnes_quality_profiles
+        required_quality_profiles = {
+            'java': (
+                "RNC A",
+                "RNC B",
+                "RNC C",
+                "RNC D"
+            ),
+            'py': (
+                "RNC A",
+                "RNC B",
+                "RNC C",
+                "RNC D"
+            ),
+            'cxx': (
+                "RNC C A",
+                "RNC C B",
+                "RNC C C",
+                "RNC C D",
+                "RNC CPP A",
+                "RNC CPP B",
+                "RNC CPP C",
+                "RNC CPP D"
+            ),
+            'shell': (
+                "RNC ALL SHELLCHECK A",
+                "RNC ALL SHELLCHECK B",
+                "RNC ALL SHELLCHECK C",
+                "RNC ALL SHELLCHECK D",
+                "RNC SHELL"
+            )
+        }
+        quality_profiles = requests.get(f"{self.SONARQUBE_URL}/api/qualityprofiles/search",
+            auth =("admin", self.SONARQUBE_ADMIN_PASSWORD)).json()['profiles']
+        cnes_quality_profiles = { lang: [qp['name'] for qp in quality_profiles if re.match(r'^RNC.*', qp['name']) and qp['language'] == lang] for lang in required_quality_profiles }
+        print("cnes_quality_profiles", cnes_quality_profiles)
+        for lang, profiles in required_quality_profiles.items():
+            for profile in profiles:
+                # Hint: if this test fails, one or more Quality Profiles may be missing, check the container logs
+                assert profile in cnes_quality_profiles[lang]
 
     def test_eus_admin(self):
         """
