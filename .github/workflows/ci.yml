@@ -48,6 +48,8 @@ jobs:
     name: Test the Docker image
     runs-on: ubuntu-20.04
     needs: build
+    permissions:
+      pull-requests: write
     steps:
       - uses: actions/checkout@v2
       - name: Retrieve the image
