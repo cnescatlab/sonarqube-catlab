@@ -69,7 +69,7 @@ jobs:
       # Publish test results in the pull request discussion
       - name: Comment the Pull Request
         if: github.event_name == 'pull_request'
-        uses: marocchino/sticky-pull-request-comment@v1
+        uses: marocchino/sticky-pull-request-comment@v2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           header: CI tests results
