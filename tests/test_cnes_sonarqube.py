@@ -113,7 +113,6 @@ class TestCNESSonarQube:
             ("FPGA Metrics","1.3.0"),
             ("Findbugs", "4.0.4"),
             ("Flex Code Quality and Security","2.6.1 (build 2564)"),
-            ("Gcov","1.4.0"),
             ("Go Code Quality and Security","1.8.3 (build 2219)"),
             ("HTML Code Quality and Security","3.4 (build 2754)"),
             ("JaCoCo", "1.1.1 (build 1157)"),

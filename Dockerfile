@@ -17,7 +17,6 @@ ARG COBERTURA_VERSION=2.0
 ARG BRANCH_VERSION=1.8.1
 ARG FPGA_VERSION=1.3.0
 ARG FINDBUGS_VERSION=4.0.4
-ARG GCOV_VERSION=1.4.0
 ARG MODELSIM_VERSION=1.6.0
 ARG PMD_VERSION=3.3.1
 ARG SHELLCHECK_VERSION=2.5.0
@@ -40,7 +39,6 @@ ADD https://github.com/sbaudoin/sonar-ansible/releases/download/v${ANSIBLE_LINT}
     https://github.com/mc1arke/sonarqube-community-branch-plugin/releases/download/${BRANCH_VERSION}/sonarqube-community-branch-plugin-${BRANCH_VERSION}.jar \
     https://github.com/Linty-Services/sonar-fpga-metrics-plugin/releases/download/${FPGA_VERSION}/sonar-fpga-metrics-plugin-${FPGA_VERSION}.jar \
     https://github.com/spotbugs/sonar-findbugs/releases/download/${FINDBUGS_VERSION}/sonar-findbugs-plugin-${FINDBUGS_VERSION}.jar \
-    https://github.com/Linty-Services/sonar-gcov-plugin/releases/download/${GCOV_VERSION}/sonar-gcov-plugin-${GCOV_VERSION}.jar \
     https://github.com/Linty-Services/sonar-modelsim-plugin/releases/download/${MODELSIM_VERSION}/sonar-modelsim-plugin-${MODELSIM_VERSION}.jar \
     https://github.com/jensgerdes/sonar-pmd/releases/download/${PMD_VERSION}/sonar-pmd-plugin-${PMD_VERSION}.jar \
     https://github.com/sbaudoin/sonar-shellcheck/releases/download/v${SHELLCHECK_VERSION}/sonar-shellcheck-plugin-${SHELLCHECK_VERSION}.jar \
