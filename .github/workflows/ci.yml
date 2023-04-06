@@ -49,8 +49,6 @@ jobs:
     name: Test the Docker image
     runs-on: ubuntu-20.04
     needs: build
-    permissions:
-      pull-requests: write
     steps:
       - uses: actions/checkout@v2
       - name: Retrieve the image
@@ -67,14 +65,8 @@ jobs:
           cd tests/
           python3 -m pip install -r requirements.txt
           python3 -m pytest -v |& tee -a ../tests_logs.txt
-      # Publish test results in the pull request discussion
-      - name: Comment the Pull Request
-        if: github.event_name == 'pull_request'
-        uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          header: CI tests results
-          path: tests_logs.txt
       # Have the job fail if at least one test failed
       - name: Check all tests passed
-        run: grep -v -q "FAILED" tests_logs.txt
+        run: |
+          cat test_logs.txt
+          grep -v -q "FAILED" tests_logs.txt
