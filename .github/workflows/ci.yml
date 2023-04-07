@@ -68,5 +68,5 @@ jobs:
       # Have the job fail if at least one test failed
       - name: Check all tests passed
         run: |
-          cat test_logs.txt
+          cat tests_logs.txt
           grep -v -q "FAILED" tests_logs.txt
