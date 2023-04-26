@@ -106,15 +106,11 @@ With an external database, the data used by SonarQube is stored outside of the c
 | PMD                                               | 3.3.1                    | https://github.com/jensgerdes/sonar-pmd                                    |
 | Python Code Quality and Security                  | 3.4.1 (build 8066)       | http://redirect.sonarsource.com/plugins/python.html                        |
 | Ruby Code Quality and Security                    | 1.8.3 (build 2219)       | http://redirect.sonarsource.com/plugins/ruby.html                          |
-| Rules Compliance Index (RCI)                      | 1.0.2                    | https://github.com/willemsrb/sonar-rci-plugin                              |
 | Scala Code Quality and Security                   | 1.8.3 (build 2219)       | http://redirect.sonarsource.com/plugins/scala.html                         |
 | ShellCheck Analyzer                               | 2.5.0                    | https://github.com/sbaudoin/sonar-shellcheck                               |
 | Sonar Frama-C plugin                              | 2.1.1                    | https://github.com/lequal/sonar-frama-c-plugin                             |
 | Sonar i-Code CNES plugin                          | 3.0.0                    | https://github.com/cnescatlab/sonar-icode-cnes-plugin                      |
-| SonarQube CNES Export Plugin                      | 1.2                      | n/a                                                                        |
-| SonarQube CNES Python Plugin                      | 1.3                      | n/a                                                                        |
 | SonarQube CNES Report                             | 4.1.3                    | https://github.com/cnescatlab/sonar-cnes-report                            |
-| SonarQube Hadolint Plugin                         | 1.1.0                    | https://github.com/cnescatlab/sonar-hadolint-plugin                        |
 | SonarTS                                           | 2.1 (build 4362)         | http://redirect.sonarsource.com/plugins/typescript.html                    |
 | VB.NET Code Quality and Security                  | 8.22 (build 31243)       | http://redirect.sonarsource.com/plugins/vbnet.html                         |
 | VHDLRC                                            | 3.4                      | https://www.linty-services.com                                             |
