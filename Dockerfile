@@ -26,9 +26,6 @@ ARG CNESREPORT_VERSION=4.1.3
 ARG SONARTS_VERSION=2.1.0
 ARG VHDLRC_VERSION=3.4
 ARG YAML_VERSION=1.7.0
-ARG RCI_VERSION=1.0.2
-ARG CNES_PYTHON_VERSION=1.3
-ARG HADOLINT_VERSION=1.1.0
 
 # Download SonarQube plugins
 ADD https://github.com/sbaudoin/sonar-ansible/releases/download/v${ANSIBLE_LINT}/sonar-ansible-plugin-${ANSIBLE_LINT}.jar \
@@ -48,10 +45,6 @@ ADD https://github.com/sbaudoin/sonar-ansible/releases/download/v${ANSIBLE_LINT}
     https://github.com/SonarSource/SonarTS/releases/download/${SONARTS_VERSION}.4359/sonar-typescript-plugin-${SONARTS_VERSION}.4362.jar \
     https://github.com/VHDLTool/sonar-VHDLRC/releases/download/v${VHDLRC_VERSION}/sonar-vhdlrc-plugin-${VHDLRC_VERSION}.jar \
     https://github.com/sbaudoin/sonar-yaml/releases/download/v${YAML_VERSION}/sonar-yaml-plugin-${YAML_VERSION}.jar \
-    https://github.com/cnescatlab/sonar-cnes-export-plugin/releases/download/v1.2.0/sonar-cnes-export-plugin-1.2.jar \
-    https://github.com/willemsrb/sonar-rci-plugin/releases/download/sonar-rci-plugin-${RCI_VERSION}/sonar-rci-plugin-${RCI_VERSION}.jar \
-    https://github.com/cnescatlab/sonar-cnes-python-plugin/releases/download/${CNES_PYTHON_VERSION}/sonar-cnes-python-plugin-${CNES_PYTHON_VERSION}.jar \
-    https://github.com/cnescatlab/sonar-hadolint-plugin/releases/download/${HADOLINT_VERSION}/sonar-hadolint-plugin-${HADOLINT_VERSION}.jar \
     /opt/sonarqube/extensions/plugins/
 
 # Required by the community branch plugin (See https://github.com/mc1arke/sonarqube-community-branch-plugin/tree/1.8.1#installation)
