@@ -262,4 +262,4 @@ def test_no_password_no_run():
         output = docker_client.containers.get("tmp").logs()
         docker_client.containers.get("tmp").remove(force=True)
         # Hint: if this test fails, the server may have started with the default admin password or the test did not wait long enough for the expected message to be logged
-        assert b"Failed to start CNES SonarQube." in output
+        assert b"Error: Unable to start CNES SonarQube." in output
