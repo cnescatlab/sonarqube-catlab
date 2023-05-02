@@ -39,7 +39,7 @@ ADD https://github.com/sbaudoin/sonar-ansible/releases/download/v${ANSIBLE_LINT}
     https://github.com/Linty-Services/sonar-modelsim-plugin/releases/download/${MODELSIM_VERSION}/sonar-modelsim-plugin-${MODELSIM_VERSION}.jar \
     https://github.com/jensgerdes/sonar-pmd/releases/download/${PMD_VERSION}/sonar-pmd-plugin-${PMD_VERSION}.jar \
     https://github.com/sbaudoin/sonar-shellcheck/releases/download/v${SHELLCHECK_VERSION}/sonar-shellcheck-plugin-${SHELLCHECK_VERSION}.jar \
-    https://github.com/cnescatlab/sonar-frama-c-plugin/releases/download/V${FRAMAC_VERSION}/sonar-frama-c-plugin-${FRAMAC_VERSION}.jar \
+    #https://github.com/cnescatlab/sonar-frama-c-plugin/releases/download/V${FRAMAC_VERSION}/sonar-frama-c-plugin-${FRAMAC_VERSION}.jar \
     #https://github.com/cnescatlab/sonar-icode-cnes-plugin/releases/download/${ICODE_VERSION}/sonar-icode-cnes-plugin-${ICODE_VERSION}.jar \
     #https://github.com/cnescatlab/sonar-cnes-report/releases/download/${CNESREPORT_VERSION}/sonar-cnes-report-${CNESREPORT_VERSION}.jar \
     https://github.com/SonarSource/SonarTS/releases/download/${SONARTS_VERSION}.4359/sonar-typescript-plugin-${SONARTS_VERSION}.4362.jar \
