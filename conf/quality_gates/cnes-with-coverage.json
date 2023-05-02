@@ -1,0 +1,105 @@
+{
+  "id": 9,
+  "name": "CNES [with coverage]",
+  "conditions": [
+    {
+      "id": 73,
+      "metric": "comment_lines_density",
+      "op": "LT",
+      "error": "20"
+    },
+    {
+      "id": 74,
+      "metric": "duplicated_lines_density",
+      "op": "GT",
+      "error": "10"
+    },
+    {
+      "id": 75,
+      "metric": "new_duplicated_lines_density",
+      "op": "GT",
+      "error": "0"
+    },
+    {
+      "id": 76,
+      "metric": "new_sqale_debt_ratio",
+      "op": "GT",
+      "error": "0"
+    },
+    {
+      "id": 77,
+      "metric": "blocker_violations",
+      "op": "GT",
+      "error": "0"
+    },
+    {
+      "id": 78,
+      "metric": "critical_violations",
+      "op": "GT",
+      "error": "0"
+    },
+    {
+      "id": 79,
+      "metric": "major_violations",
+      "op": "GT",
+      "error": "0"
+    },
+    {
+      "id": 80,
+      "metric": "new_violations",
+      "op": "GT",
+      "error": "0"
+    },
+    {
+      "id": 81,
+      "metric": "sqale_debt_ratio",
+      "op": "GT",
+      "error": "5"
+    },
+    {
+      "id": 82,
+      "metric": "test_errors",
+      "op": "GT",
+      "error": "0"
+    },
+    {
+      "id": 83,
+      "metric": "test_failures",
+      "op": "GT",
+      "error": "0"
+    },
+    {
+      "id": 85,
+      "metric": "new_branch_coverage",
+      "op": "LT",
+      "error": "90"
+    },
+    {
+      "id": 161,
+      "metric": "branch_coverage",
+      "op": "LT",
+      "error": "90"
+    },
+    {
+      "id": 162,
+      "metric": "line_coverage",
+      "op": "LT",
+      "error": "90"
+    },
+    {
+      "id": 163,
+      "metric": "new_line_coverage",
+      "op": "LT",
+      "error": "90"
+    }
+  ],
+  "isBuiltIn": false,
+  "actions": {
+    "rename": true,
+    "setAsDefault": true,
+    "copy": true,
+    "associateProjects": true,
+    "delete": true,
+    "manageConditions": true
+  }
+}

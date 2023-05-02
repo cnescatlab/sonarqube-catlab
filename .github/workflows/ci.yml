@@ -33,13 +33,14 @@ jobs:
     name: Build the docker image
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
       - name: Build docker image
         run: docker build -t $DOCKER_IMAGE_NAME $DOCKERFILE_PATH
       - name: Save Docker image
         run: docker image save -o image.tar $DOCKER_IMAGE_NAME
       - name: Upload image as an artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: image
           path: image.tar
@@ -64,14 +65,8 @@ jobs:
           cd tests/
           python3 -m pip install -r requirements.txt
           python3 -m pytest -v |& tee -a ../tests_logs.txt
-      # Publish test results in the pull request discussion
-      - name: Comment the Pull Request
-        if: github.event_name == 'pull_request'
-        uses: marocchino/sticky-pull-request-comment@v1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          header: CI tests results
-          path: tests_logs.txt
       # Have the job fail if at least one test failed
       - name: Check all tests passed
-        run: grep -v -q "FAILED" tests_logs.txt
+        run: |
+          cat tests_logs.txt
+          grep -v -q "FAILED" tests_logs.txt

@@ -102,46 +102,41 @@ class TestCNESSonarQube:
         to be installed on the server so that I can use them.
         """
         required_plugins = (
-            ("C++ (Community)", "1.3.1 (build 1807)"),
-            ("Checkstyle", "4.21"),
-            ("Cobertura", "1.9.1"),
-            ("Community Branch Plugin", "1.3.2"),
-            ("Findbugs", "3.11.0"),
-            ("Git", "1.8 (build 1574)"),
-            ("GitHub Authentication for SonarQube", "1.5 (build 870)"),
-            ("JaCoCo", "1.0.2 (build 475)"),
-            ("LDAP", "2.2 (build 608)"),
-            ("PMD", "3.2.1"),
-            ("Rules Compliance Index (RCI)", "1.0.1"),
-            ("SAML 2.0 Authentication for SonarQube", "1.2.0 (build 682)"),
-            ("Sonar Frama-C plugin", "2.1.1"),
-            ("Sonar i-Code CNES plugin", "2.0.2"),
-            ("SonarC#", "7.15 (build 8572)"),
-            ("SonarCSS", "1.1.1 (build 1010)"),
-            ("SonarFlex", "2.5.1 (build 1831)"),
-            ("SonarGo", "1.1.1 (build 2000)"),
-            ("SonarHTML", "3.1 (build 1615)"),
-            ("SonarJS", "5.2.1 (build 7778)"),
-            ("SonarJava", "5.13.1 (build 18282)"),
-            ("SonarKotlin", "1.5.0 (build 315)"),
-            ("SonarPHP", "3.2.0.4868"),
-            ("SonarPython", "1.14.1 (build 3143)"),
-            ("SonarQube CNES Export Plugin", "1.2"),
-            ("SonarQube CNES Python Plugin", "1.3"),
-            ("SonarQube CNES Report", "3.3.0"),
-            ("SonarQube Hadolint Plugin", "1.0.0"),
-            ("SonarRuby", "1.5.0 (build 315)"),
-            ("SonarScala", "1.5.0 (build 315)"),
-            ("SonarTS", "1.9 (build 3766)"),
-            ("SonarVB", "7.15 (build 8572)"),
-            ("SonarXML", "2.0.1 (build 2020)"),
-            ("Svn", "1.9.0.1295"),
-            ("FPGA Metrics","1.2.0"),
-            ("Gcov","1.3.0"),
-            ("ModelSim","1.4.0"),
-            ("VHDLRC","2.1.0")
+            ("Ansible Lint", "2.5.1"),
+            ("C# Code Quality and Security","8.22 (build 31243)"),
+            ("C++ (Community)", "2.0.7 (build 3119)"),
+            ("CSS Code Quality and Security","1.4.2 (build 2002)"),
+            ("Checkstyle", "8.40"),
+            ("Clover","4.1"),
+            ("Cobertura", "2.0"),
+            ("Community Branch Plugin", "1.8.1"),
+            ("FPGA Metrics","1.3.0"),
+            ("Findbugs", "4.0.4"),
+            ("Flex Code Quality and Security","2.6.1 (build 2564)"),
+            ("Go Code Quality and Security","1.8.3 (build 2219)"),
+            ("HTML Code Quality and Security","3.4 (build 2754)"),
+            ("JaCoCo", "1.1.1 (build 1157)"),
+            ("Java Code Quality and Security","6.15.1 (build 26025)"),
+            ("JavaScript/TypeScript Code Quality and Security","7.4.4 (build 15624)"),
+            ("Kotlin Code Quality and Security","1.8.3 (build 2219)"),
+            ("ModelSim","1.6.0"),
+            ("PHP Code Quality and Security","3.17.0.7439"),
+            ("PMD", "3.3.1"),
+            ("Python Code Quality and Security","3.4.1 (build 8066)"),
+            ("Ruby Code Quality and Security","1.8.3 (build 2219)"),
+            ("Scala Code Quality and Security","1.8.3 (build 2219)"),
+            ("ShellCheck Analyzer","2.5.0"),
+            ("Sonar Frama-C plugin","2.1.1"),
+            ("Sonar i-Code CNES plugin", "3.0.0"),
+            ("SonarQube CNES Report", "4.1.3"),
+            ("SonarTS", "2.1 (build 4362)"),
+            ("VB.NET Code Quality and Security","8.22 (build 31243)"),
+            ("VHDLRC","3.4"),
+            ("XML Code Quality and Security","2.2 (build 2973)"),
+            ("YAML Analyzer","1.7.0")
         )
-        sonar_plugins = requests.get(f"{self.SONARQUBE_URL}/api/plugins/installed").json()['plugins']
+        sonar_plugins = requests.get(f"{self.SONARQUBE_URL}/api/plugins/installed",
+            auth =("admin", self.SONARQUBE_ADMIN_PASSWORD)).json()['plugins']
         installed_plugins = { plugin['name']: plugin['version'] for plugin in sonar_plugins }
         for name, version in required_plugins:
             # Hint: if this test fails, one or more plugins may be missing or installed with an outdated version
@@ -152,7 +147,8 @@ class TestCNESSonarQube:
         As a SonarQube user, I want the SonarQube server to have the CNES
         Quality Gate configured and set as default so that I can use it.
         """
-        quality_gates = requests.get(f"{self.SONARQUBE_URL}/api/qualitygates/list").json()['qualitygates']
+        quality_gates = requests.get(f"{self.SONARQUBE_URL}/api/qualitygates/list",
+            auth =("admin", self.SONARQUBE_ADMIN_PASSWORD)).json()['qualitygates']
         cnes_quality_gates = [ gate for gate in quality_gates if gate['name'] == "CNES" ]
         # Hint: if one of these tests fails, the CNES Quality Gate may not have been added correctly, check the container logs
         assert cnes_quality_gates # not empty
@@ -163,33 +159,45 @@ class TestCNESSonarQube:
         As a SonarQube user, I want the SonarQube server to have the
         CNES Quality Profiles available so that I can use them.
         """
-        required_quality_profiles = (
-            "CNES_JAVA_A",
-            "CNES_JAVA_B",
-            "CNES_JAVA_C",
-            "CNES_JAVA_D",
-            "CNES_PYTHON_A",
-            "CNES_PYTHON_B",
-            "CNES_PYTHON_C",
-            "CNES_PYTHON_D",
-            "CNES_CPP_A",
-            "CNES_CPP_B",
-            "CNES_CPP_C",
-            "CNES_CPP_D",
-            "CNES_C_A",
-            "CNES_C_B",
-            "CNES_C_C",
-            "CNES_C_D",
-            "CNES_C_EMBEDDED_A",
-            "CNES_C_EMBEDDED_B",
-            "CNES_C_EMBEDDED_C",
-            "CNES_C_EMBEDDED_D"
-        )
-        quality_profiles = requests.get(f"{self.SONARQUBE_URL}/api/qualityprofiles/search").json()['profiles']
-        cnes_quality_profiles = [ qp['name'] for qp in quality_profiles if re.match(r'CNES_\w+_[ABCD]', qp['name']) ]
-        for profile in required_quality_profiles:
-            # Hint: if this test fails, one or more Quality Profiles may be missing, check the container logs
-            assert profile in cnes_quality_profiles
+        required_quality_profiles = {
+            'java': (
+                "RNC A",
+                "RNC B",
+                "RNC C",
+                "RNC D"
+            ),
+            'py': (
+                "RNC A",
+                "RNC B",
+                "RNC C",
+                "RNC D"
+            ),
+            'cxx': (
+                "RNC C A",
+                "RNC C B",
+                "RNC C C",
+                "RNC C D",
+                "RNC CPP A",
+                "RNC CPP B",
+                "RNC CPP C",
+                "RNC CPP D"
+            ),
+            'shell': (
+                "RNC ALL SHELLCHECK A",
+                "RNC ALL SHELLCHECK B",
+                "RNC ALL SHELLCHECK C",
+                "RNC ALL SHELLCHECK D",
+                "RNC SHELL"
+            )
+        }
+        quality_profiles = requests.get(f"{self.SONARQUBE_URL}/api/qualityprofiles/search",
+            auth =("admin", self.SONARQUBE_ADMIN_PASSWORD)).json()['profiles']
+        cnes_quality_profiles = { lang: [qp['name'] for qp in quality_profiles if re.match(r'^RNC.*', qp['name']) and qp['language'] == lang] for lang in required_quality_profiles }
+        print("cnes_quality_profiles", cnes_quality_profiles)
+        for lang, profiles in required_quality_profiles.items():
+            for profile in profiles:
+                # Hint: if this test fails, one or more Quality Profiles may be missing, check the container logs
+                assert profile in cnes_quality_profiles[lang]
 
     def test_eus_admin(self):
         """

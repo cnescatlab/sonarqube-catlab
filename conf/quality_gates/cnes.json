@@ -1,0 +1,75 @@
+{
+  "id": 2,
+  "name": "CNES",
+  "conditions": [
+    {
+      "id": 7,
+      "metric": "comment_lines_density",
+      "op": "LT",
+      "error": "20"
+    },
+    {
+      "id": 10,
+      "metric": "duplicated_lines_density",
+      "op": "GT",
+      "error": "10"
+    },
+    {
+      "id": 11,
+      "metric": "new_duplicated_lines_density",
+      "op": "GT",
+      "error": "0"
+    },
+    {
+      "id": 14,
+      "metric": "new_sqale_debt_ratio",
+      "op": "GT",
+      "error": "5"
+    },
+    {
+      "id": 65,
+      "metric": "blocker_violations",
+      "op": "GT",
+      "error": "0"
+    },
+    {
+      "id": 66,
+      "metric": "critical_violations",
+      "op": "GT",
+      "error": "0"
+    },
+    {
+      "id": 67,
+      "metric": "new_violations",
+      "op": "GT",
+      "error": "0"
+    },
+    {
+      "id": 68,
+      "metric": "major_violations",
+      "op": "GT",
+      "error": "0"
+    },
+    {
+      "id": 80,
+      "metric": "test_failures",
+      "op": "GT",
+      "error": "0"
+    },
+    {
+      "id": 81,
+      "metric": "test_errors",
+      "op": "GT",
+      "error": "0"
+    }
+  ],
+  "isBuiltIn": false,
+  "actions": {
+    "rename": true,
+    "setAsDefault": false,
+    "copy": true,
+    "associateProjects": false,
+    "delete": false,
+    "manageConditions": true
+  }
+}

@@ -61,52 +61,58 @@ add_condition_to_quality_gate()
 #
 # This function adds the CNES quality gate to a SonarQube server.
 #
-# No parameters
+# Parameters:
+#   1: Quality Gate file to import
 #
 # Example:
 #   $ create_quality_gate
 create_quality_gate()
 {
-    log "$INFO" "creating CNES quality gate."
+    FILE=$1
+    NAME=$(jq -r '.name' "$FILE")
+    log "$INFO" "creating '$NAME' quality gate."
     res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
-                --data-urlencode "name=CNES" \
+                --data-urlencode "name=$NAME" \
                 "${SONARQUBE_URL}/api/qualitygates/create")
     if [ "$(echo "${res}" | jq '(.errors | length)')" == "0" ]
     then
-        log "$INFO" "successfully created CNES quality gate... now configuring it."
+        log "$INFO" "successfully created '$NAME' quality gate... now configuring it."
     else
         log "$WARNING" "impossible to create quality gate" "$(echo "${res}" | jq '.errors[].msg')"
     fi
 
-    # Retrieve CNES quality gates ID
-    log "$INFO" "retrieving CNES quality gate ID."
+    # Retrieve quality gates ID
+    log "$INFO" "retrieving '$NAME' quality gate ID."
     res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
-                --data-urlencode "name=CNES" \
+                --data-urlencode "name=$NAME" \
                 "${SONARQUBE_URL}/api/qualitygates/show")
     if [ "$(echo "${res}" | jq '(.errors | length)')" == "0" ]
     then
-        GATEID="$(echo "${res}" |  jq '.id')"
-        log "$INFO" "successfully retrieved CNES quality gate ID (ID=$GATEID)."
+        GATEID="$(echo "${res}" |  jq -r '.id')"
+        log "$INFO" "successfully retrieved quality gate ID (ID=$GATEID)."
     else
-        log "$ERROR" "impossible to reach CNES quality gate ID" "$(echo "${res}" | jq '.errors[].msg')"
+        log "$ERROR" "impossible to reach quality gate ID" "$(echo "${res}" | jq '.errors[].msg')"
     fi
 
     # Setting it as default quality gate
-    log "$INFO" "setting CNES quality gate as default gate."
-    res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
-                --data-urlencode "id=${GATEID}" \
-                "${SONARQUBE_URL}/api/qualitygates/set_as_default")
-    if [ -z "$res" ]
+    if [ "$NAME" = "CNES" ]
     then
-        log "$INFO" "successfully set CNES quality gate as default gate."
-    else
-        log "$WARNING" "impossible to set CNES quality gate as default gate" "$(echo "${res}" | jq '.errors[].msg')"
+        log "$INFO" "setting CNES quality gate as default gate."
+        res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
+                    --data-urlencode "id=${GATEID}" \
+                    "${SONARQUBE_URL}/api/qualitygates/set_as_default")
+        if [ -z "$res" ]
+        then
+            log "$INFO" "successfully set CNES quality gate as default gate."
+        else
+            log "$WARNING" "impossible to set CNES quality gate as default gate" "$(echo "${res}" | jq '.errors[].msg')"
+        fi
     fi
 
     # Adding all conditions of the JSON file
-    log "$INFO" "adding all conditions of cnes-quality-gate.json to the gate."
-    len=$(jq '(.conditions | length)' conf/cnes-quality-gate.json)
-    cnes_quality_gate=$(jq '(.conditions)' conf/cnes-quality-gate.json)
+    log "$INFO" "adding all conditions of $FILE to the gate."
+    len=$(jq '(.conditions | length)' "$FILE")
+    cnes_quality_gate=$(jq '(.conditions)' "$FILE")
     for i in $(seq 0 $((len - 1)))
     do
         metric=$(echo "$cnes_quality_gate" | jq -r '(.['"$i"'].metric)')
@@ -229,18 +235,18 @@ add_rules()
 # to SonarQube server.
 create_quality_profiles_and_custom_rules()
 {
-    # Find all files named "*-rules-template.json" in the folder conf and add rules to SonarQube
-    while read -r file
+    # Add all the rules templates under conf/custom_rules to SQ
+    for file in conf/custom_rules/*
     do
         add_rules "${file}"
-    done < <(find conf -name "*-rules-template.json" -type f -print)
+    done
     log "$INFO" "added all custom rules."
 
-    # Find all files named "*-quality-profile.xml" in the folder conf and add QP to SonarQube
-    while read -r file
+    # Add all the QP under conf/quality_profiles to SQ
+    for file in $(find conf/quality_profiles -mindepth 2 -maxdepth 2 -type f)
     do
         add_quality_profile "${file}"
-    done < <(find conf -name "*-quality-profile.xml" -type f -print)
+    done
     log "$INFO" "added all quality profiles."
 }
 
@@ -251,7 +257,7 @@ create_quality_profiles_and_custom_rules()
 # Wait for SonarQube to be up
 wait_sonarqube_up
 
-# Make sur the database has not already been populated
+# Make sure the database has not already been populated
 status=$(curl -i -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
             "${SONARQUBE_URL}/api/qualitygates/list" \
     | sed -n -r -e 's/^HTTP\/.+ ([0-9]+)/\1/p')
@@ -276,7 +282,10 @@ else
     create_quality_profiles_and_custom_rules
 
     # Add QG
-    create_quality_gate
+    for qg_file in conf/quality_gates/*
+    do
+        create_quality_gate "$qg_file"
+    done
 fi
 
 # Tell the user, we are ready
