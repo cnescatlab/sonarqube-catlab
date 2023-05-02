@@ -22,7 +22,6 @@ Additional features are:
 * Healthcheck of the container.
 * More plugins (see [the list](#sonarqube-plugins-included))
 * CNES configuration
-    * CNES Java rules
     * CNES Quality Profiles for Java, Python, C, C++ and VHDL
     * CNES Quality Gate (set as default)
 

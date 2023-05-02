@@ -2,7 +2,6 @@
 
 # This script configures the SonarQube instance.
 # It adds
-#   * CNES rules
 #   * CNES Quality profiles
 #   * CNES Quality Gates
 
@@ -13,7 +12,7 @@ set -e
 . ./bin/functions.bash
 
 # ============================================================================ #
-# Define functions to add rules, QG, QP
+# Define functions to add QG, QP
 
 # add_condition_to_quality_gate
 #
@@ -148,101 +147,11 @@ add_quality_profile()
     fi
 }
 
-# add_rules
+# create_quality_profiles
 #
-# This function adds all rules contained in a JSON file to SonarQube.
-#
-# Parameters :
-#   1: rule file in JSON format corresponding the the following format (Sonarqube 6.7.1 API /api/rules answer)
-#
-# Example:
-#   $ add_rules conf/custom-java-rules-template.json
-add_rules()
+# This function imports quality profiles from conf/quality_profiles to SonarQube server.
+create_quality_profiles()
 {
-    file=$1
-
-    log "$INFO" "processing rule file ${file} for addition to SonarQube."
-    total=$(jq '.total' "${file}")
-    for i in $(seq 0 $((total-1)))
-    do
-        log "$INFO" "adding custom rule $(jq -r '.rules['"${i}"'].key' "${file}")"
-	    # for rule information registered using the rule creation API (/api/rules/create)
-        # rule information
-        custom_key=$(jq -r '.rules['"${i}"'].key' "${file}")
-        markdown_description=$(jq '.rules['"${i}"'].mdDesc' "${file}")
-        name=$(jq -r '.rules['"${i}"'].name' "${file}")
-        severity=$(jq -r '.rules['"${i}"'].severity' "${file}")
-        status=$(jq -r '.rules['"${i}"'].status' "${file}")
-        template_key=$(jq -r '.rules['"${i}"'].templateKey' "${file}")
-        type=$(jq -r '.rules['"${i}"'].type' "${file}")
-        # rule parameters
-        parameters="params="
-        for j in $(seq 0 $(($(jq '.rules['"${i}"'].params | length' "${file}")-1)) );
-        do
-            param_key=$(jq -r '.rules['"$i"'].params['"$j"'].key' "${file}")
-            param_value=$(jq -r '.rules['"$i"'].params['"$j"'].defaultValue' "${file}")
-            parameters="${parameters}${param_key}=\"${param_value}\";"
-        done
-        # remove the trailing ;
-        parameters="${parameters::-1}"
-        # create the rule on the server
-        res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
-                    --data-urlencode "custom_key=${custom_key}" \
-                    --data-urlencode "markdown_description=${markdown_description}" \
-                    --data-urlencode "name=${name}" \
-                    --data-urlencode "severity=${severity}" \
-                    --data-urlencode "status=${status}" \
-                    --data-urlencode "template_key=${template_key}" \
-                    --data-urlencode "type=${type}" \
-                    --data-urlencode "${parameters}" \
-                    "${SONARQUBE_URL}/api/rules/create")
-        key=$(echo "${res}" | jq -r '.rule.key')
-        if [ "$(echo "${res}" | jq '(.errors | length)')" == "0" ]
-        then
-            log "$INFO" "rule ${name} created in SonarQube."
-        else
-            log "$WARNING" "impossible to create the rule ${name}" "$(echo "${res}" | jq '.errors[].msg')"
-        fi
-
-        # for rule information registered using the rule update API (/api/rules/update)
-        remediation_fn_base_effort=$(jq -r '.rules['"${i}"'].remFnBaseEffort' "${file}")
-        remediation_fn_type=$(jq -r '.rules['"${i}"'].defaultDebtRemFnType' "${file}")
-        res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
-                    --data-urlencode "key=$key" \
-                    --data-urlencode "${parameters}" \
-                    "${SONARQUBE_URL}/api/rules/update")
-        if [ "$(echo "${res}" | jq '(.errors | length)')" != "0" ]
-        then
-            log "$WARNING"  "impossible to update the rule ${name}" "$(echo "${res}" | jq '.errors[].msg')"
-        fi
-        res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
-                    --data-urlencode "key=$key" \
-                    --data-urlencode "remediation_fn_base_effort=${remediation_fn_base_effort}" \
-                    --data-urlencode "remediation_fn_type=${remediation_fn_type}" \
-                    "${SONARQUBE_URL}/api/rules/update")
-        if [ "$(echo "${res}" | jq '(.errors | length)')" == "0" ]
-        then
-            log "$INFO" "rule ${name} updated in SonarQube."
-        else
-            log "$WARNING"  "impossible to update the rule ${name}" "$(echo "${res}" | jq '.errors[].msg')"
-        fi
-    done
-}
-
-# create_quality_profiles_and_custom_rules
-#
-# This function imports custom rules and quality profiles from conf/
-# to SonarQube server.
-create_quality_profiles_and_custom_rules()
-{
-    # Add all the rules templates under conf/custom_rules to SQ
-    for file in conf/custom_rules/*
-    do
-        add_rules "${file}"
-    done
-    log "$INFO" "added all custom rules."
-
-    # Add all the QP under conf/quality_profiles to SQ
     for file in $(find conf/quality_profiles -mindepth 2 -maxdepth 2 -type f)
     do
         add_quality_profile "${file}"
@@ -278,8 +187,7 @@ else
         "$SONARQUBE_URL/api/users/change_password"
     log "$INFO" "admin password changed."
 
-    # Add GPs and rules
-    create_quality_profiles_and_custom_rules
+    create_quality_profiles
 
     # Add QG
     for qg_file in conf/quality_gates/*
