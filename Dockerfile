@@ -52,9 +52,11 @@ ENV SONAR_WEB_JAVAADDITIONALOPTS="-javaagent:./extensions/plugins/sonarqube-comm
 ENV SONAR_CE_JAVAADDITIONALOPTS="-javaagent:./extensions/plugins/sonarqube-community-branch-plugin-${BRANCH_VERSION}.jar=ce"
 
 # Install tools
-RUN apk add --no-cache \
-       curl \
-       jq
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends \
+        curl \
+        jq \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copy the config files and scripts into the image
 COPY conf/. conf/
