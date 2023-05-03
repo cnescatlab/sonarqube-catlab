@@ -62,8 +62,7 @@ wait_sonarqube_up()
     sleep 15
     while [ "${sonar_status}" != "UP" ]
     do
-        sleep 5
-        log $INFO "retrieving SonarQube's service status."
+        sleep 20
         sonar_status=$(curl -s -X GET "${SONARQUBE_URL}/api/system/status" | jq -r '.status')
         log $INFO "SonarQube is ${sonar_status}, expecting it to be UP."
     done

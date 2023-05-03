@@ -11,51 +11,6 @@ set -e
 # Include useful functions
 . ./bin/functions.bash
 
-# ============================================================================ #
-# Define functions to add QG, QP
-
-# add_condition_to_quality_gate
-#
-# This function adds a condition to an existing Quality Gate
-# on a SonarQube server.
-#
-# Parameters:
-#   1: gate_id
-#   2: metric_key
-#   3: metric_operator (EQ, NE, LT or GT)
-#   4: metric's error threshold ("none" not to set it)
-#
-# Example:
-#   $ add_condition_to_quality_gate "blocker_violations" "GT" "$GATEID" 0
-add_condition_to_quality_gate()
-{
-    gate_id=$1
-    metric_key=$2
-    metric_operator=$3
-    metric_errors=$4
-
-    log "$INFO" "adding CNES quality gate condition: ${metric_key} ${metric_operator} ${metric_errors}."
-
-    threshold=()
-    if [ "${metric_errors}" != "none" ]
-    then
-        threshold=("--data-urlencode" "error=${metric_errors}")
-    fi
-
-    res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
-                --data-urlencode "gateId=${gate_id}" \
-                --data-urlencode "metric=${metric_key}" \
-                --data-urlencode "op=${metric_operator}" \
-                "${threshold[@]}" \
-                "${SONARQUBE_URL}/api/qualitygates/create_condition")
-    if [ "$(echo "${res}" | jq '(.errors | length)')" == "0" ]
-    then
-        log "$INFO" "metric ${metric_key} condition successfully added."
-    else
-        log "$WARNING" "impossible to add ${metric_key} condition" "$(echo "${res}" | jq '.errors[].msg')"
-    fi
-}
-
 # create_quality_gate
 #
 # This function adds the CNES quality gate to a SonarQube server.
@@ -83,6 +38,7 @@ create_quality_gate()
     # Retrieve quality gates ID
     log "$INFO" "retrieving '$NAME' quality gate ID."
     res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
+                -G \
                 --data-urlencode "name=$NAME" \
                 "${SONARQUBE_URL}/api/qualitygates/show")
     if [ "$(echo "${res}" | jq '(.errors | length)')" == "0" ]
@@ -112,13 +68,107 @@ create_quality_gate()
     log "$INFO" "adding all conditions of $FILE to the gate."
     len=$(jq '(.conditions | length)' "$FILE")
     cnes_quality_gate=$(jq '(.conditions)' "$FILE")
+    actual_quality_gate=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
+                -G \
+                --data-urlencode "name=$NAME" \
+                "${SONARQUBE_URL}/api/qualitygates/show")
+    conditions=$(echo "$actual_quality_gate" | jq -r '.conditions[]')
     for i in $(seq 0 $((len - 1)))
     do
         metric=$(echo "$cnes_quality_gate" | jq -r '(.['"$i"'].metric)')
         op=$(echo "$cnes_quality_gate" | jq -r '(.['"$i"'].op)')
         error=$(echo "$cnes_quality_gate" | jq -r '(.['"$i"'].error)')
-        add_condition_to_quality_gate "$GATEID" "$metric" "$op" "$error"
+        add_condition_to_quality_gate "$GATEID" "$conditions" "$metric" "$op" "$error"
     done
+}
+
+# add_condition_to_quality_gate
+#
+# This function adds a condition to an existing Quality Gate
+# on a SonarQube server.
+#
+# Parameters:
+#   1: gate_id
+#   2: conditions
+#   3: metric_key
+#   4: metric_operator (EQ, NE, LT or GT)
+#   5: metric's error threshold ("none" not to set it)
+#
+# Example:
+#   $ add_condition_to_quality_gate "blocker_violations" "GT" "$GATEID" 0
+add_condition_to_quality_gate()
+{
+    gate_id=$1
+    conditions=$2
+    metric_key=$3
+    metric_operator=$4
+    metric_errors=$5
+
+    # Check if the metric is already configured
+    existing_condition=$(echo "${conditions}" | jq -r "select(.metric == \"${metric_key}\")")
+
+    # If the metric is already configured, update it
+    if [ -n "$existing_condition" ]; then
+        log "$INFO" "The metric '${metric}' is already configured. Updating it."
+        condition_id=$(echo "${existing_condition}" | jq -r ".id")
+        update_condition "$condition_id" "$metric_key" "$metric_operator" "$metric_errors"
+    else
+        # Add the new condition
+        log "$INFO" "adding CNES quality gate condition: ${metric_key} ${metric_operator} ${metric_errors}."
+
+        threshold=()
+        if [ "${metric_errors}" != "none" ]
+        then
+            threshold=("--data-urlencode" "error=${metric_errors}")
+        fi
+
+        res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
+                    --data-urlencode "gateId=${gate_id}" \
+                    --data-urlencode "metric=${metric_key}" \
+                    --data-urlencode "op=${metric_operator}" \
+                    "${threshold[@]}" \
+                    "${SONARQUBE_URL}/api/qualitygates/create_condition")
+        if [ "$(echo "${res}" | jq '(.errors | length)')" != "0" ]; then
+            log "$WARNING" "impossible to add ${metric_key} condition" "$(echo "${res}" | jq '.errors[].msg')"  
+        fi
+    fi
+}
+
+# update_condition
+#
+# Updates a condition in an existing Quality Gate
+# on a SonarQube server.
+#
+# Parameters:
+#   1: condition_id
+#   2: metric_key
+#   3: metric_operator (EQ, NE, LT or GT)
+#   4: metric's error threshold ("none" not to set it)
+#
+# Example:
+#   $ add_condition_to_quality_gate "blocker_violations" "GT" "$GATEID" 0
+update_condition()
+{
+    condition_id=$1
+    metric_key=$2
+    metric_operator=$3
+    metric_errors=$4
+
+    threshold=()
+    if [ "${metric_errors}" != "none" ]
+    then
+        threshold=("--data-urlencode" "error=${metric_errors}")
+    fi
+
+    res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
+                --data-urlencode "id=${condition_id}" \
+                --data-urlencode "metric=${metric_key}" \
+                --data-urlencode "op=${metric_operator}" \
+                "${threshold[@]}" \
+                "${SONARQUBE_URL}/api/qualitygates/update_condition")
+    if [ "$(echo "${res}" | jq '(.errors | length)')" != "0" ]; then
+        log "$WARNING" "Impossible to update ${metric_key} condition" "$(echo "${res}" | jq '.errors[].msg')"
+    fi
 }
 
 # add_quality_profile
@@ -139,10 +189,7 @@ add_quality_profile()
     res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
                         --form backup=@"${file}" \
                         "${SONARQUBE_URL}/api/qualityprofiles/restore")
-    if [ "$(echo "${res}" | jq '(.errors | length)')" == "0" ]
-    then
-        log "$INFO" "quality profile ${file} successfully created."
-    else
+    if [ "$(echo "${res}" | jq '(.errors | length)')" != "0" ]; then
         log "$WARNING" "impossible to create ${file} quality profile" "$(echo "${res}" | jq '.errors[].msg')"
     fi
 }
