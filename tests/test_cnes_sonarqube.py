@@ -61,10 +61,10 @@ class TestCNESSonarQube:
         Set up the tests
         Launch a container and wait for it to be up
         """
-        docker_client = docker.from_env()
         # Launch a CNES SonarQube container
         if cls.RUN == "yes":
             print(f"Launching lequal/sonarqube container (name={cls.SONARQUBE_CONTAINER_NAME})...")
+            docker_client = docker.from_env()
             docker_client.containers.run("lequal/sonarqube:latest",
                 name=cls.SONARQUBE_CONTAINER_NAME,
                 detach=True,
