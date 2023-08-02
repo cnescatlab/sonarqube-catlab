@@ -19,4 +19,4 @@ fi
 
 # Finally substitute the current process with the
 # entrypoint of SonarQube to start the server
-exec ./bin/run.sh
+exec ./docker/entrypoint.sh

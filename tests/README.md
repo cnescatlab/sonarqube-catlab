@@ -22,7 +22,7 @@
     * purpose: check that the container exit before starting the SonarQube server when no admin password is specified or when the admin password is "admin"
 1. No unnecessary reconfiguration
     * function: test_no_config_twice
-    * purpose: check that the rules, QPs and QG are not added more than once to the database
+    * purpose: check that the QPs and QG are not added more than once to the database
     * requirements: run `sudo sysctl -w vm.max_map_count=262144` before running this test
 
 ## How to run all the tests
