@@ -106,6 +106,7 @@ With an external database, the data used by SonarQube is stored outside of the c
 | Ruby Code Quality and Security                        | 1.11.0 (build 3905) | http://redirect.sonarsource.com/plugins/ruby.html                           |
 | Scala Code Quality and Security                       | 1.11.0 (build 3905) | http://redirect.sonarsource.com/plugins/scala.html                          |
 | ShellCheck Analyzer                                   | 2.5.0               | https://github.com/sbaudoin/sonar-shellcheck                                |
+| Sonar i-Code CNES plugin                              | 3.1.1               | https://github.com/cnescatlab/sonar-icode-cnes-plugin                       |
 | SonarQube CNES Report                                 | 4.2.0               | https://github.com/cnescatlab/sonar-cnes-report                             |
 | SonarTS                                               | 2.1 (build 4362)    | http://redirect.sonarsource.com/plugins/typescript.html                     |
 | Text Code Quality and Security                        | 2.0.2 (build 1090)  | http://docs.sonarqube.org/display/PLUG/Plugin+Library/text/sonar-text-plugi |
