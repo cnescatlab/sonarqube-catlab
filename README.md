@@ -115,7 +115,7 @@ With an external database, the data used by SonarQube is stored outside of the c
 | XML Code Quality and Security                         | 2.7 (build 3820)    | http://redirect.sonarsource.com/plugins/xml.html                            |
 | YAML Analyzer                                         | 1.7.0               | https://github.com/sbaudoin/sonar-yaml                                      |
 
-To update this list run:
+To update this list run the following script:
 
 ```sh "
 while IFS='|' read -r plugin version url
