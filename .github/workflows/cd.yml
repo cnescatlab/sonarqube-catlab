@@ -30,7 +30,7 @@ jobs:
   # Job to test if a new version is ready to be released
   deliverability:
     name: Check if a new version must be released
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     # The job is run only if the CI workflow succeeded
     if: github.event.workflow_run.conclusion == 'success'
     outputs:
@@ -67,7 +67,7 @@ jobs:
           echo "::set-output name=delivery::allowed"
   release:
     name: Release a new version of the docker image
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs: deliverability
     if: needs.deliverability.outputs.delivery == 'allowed'
     steps:
@@ -114,6 +114,53 @@ jobs:
           tag_name: ${{ needs.deliverability.outputs.version }}
           release_name: ${{ env.DOCKER_IMAGE_NAME }}:${{ needs.deliverability.outputs.version }}
           body_path: changelog.md
+  push_to_registry:
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-20.04
+    needs: deliverability
+    if: needs.deliverability.outputs.delivery == 'allowed'
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+      
+      - name: Log in to Docker Hub
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+      
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: ${{ env.DOCKER_IMAGE_NAME }}
+
+      - name: Build and push Docker image to version number
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: .
+          file: ${{ env.DOCKERFILE_PATH }}/${{ env.DOCKERFILE_FILENAME }}
+          push: true
+          tags: ${{ env.DOCKER_IMAGE_NAME}}:${{ needs.deliverability.outputs.version }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Build and push Docker image to  lastest repo
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: .
+          file: ${{ env.DOCKERFILE_PATH }}/${{ env.DOCKERFILE_FILENAME }}
+          push: true
+          tags: ${{ env.DOCKER_IMAGE_NAME }}:latest
+          labels: ${{ steps.meta.outputs.labels }}
+          
+  close_milestone:
+    name: Close milestone
+    runs-on: ubuntu-20.04
+    needs:
+      - deliverability
+      - release
+      - push_to_registry
+    steps:
       # Close the milestone (that is now 100% completed)
       - name: Close milestone
         run: |
