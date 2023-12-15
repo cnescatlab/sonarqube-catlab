@@ -14,7 +14,7 @@ For versions and changelog: [GitHub Releases](https://github.com/cnescatlab/sona
 
 ## Features
 
-This image is based on the official SonarQube LTS image, namely [sonarqube:9.9.1-community](https://hub.docker.com/_/sonarqube), and offers additional features.
+This image is based on the official SonarQube LTS image, namely [sonarqube:9.9.3-community](https://hub.docker.com/_/sonarqube), and offers additional features.
 
 Additional features are:
 
