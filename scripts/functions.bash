@@ -58,11 +58,21 @@ log()
 wait_sonarqube_up()
 {
     sonar_status="DOWN"
+    http_code=0
     log $INFO "initiating connection with SonarQube."
     sleep 15
+    while [ "$http_code" -ne 200 ]
+    do
+        sleep 5
+        http_code=$(curl -i -su "admin:$SONARQUBE_ADMIN_PASSWORD" "${SONARQUBE_URL}" \
+        | sed -n -r -e 's/^HTTP\/.+ ([0-9]+)/\1/p')
+        http_code=${http_code:0:3} # remove \n
+        log $INFO "SonarQube HTTP code is ${http_code}, expecting it to be 200."
+    done
+    log $INFO "SonarQube HTTP code is ${http_code}"
     while [ "${sonar_status}" != "UP" ]
     do
-        sleep 20
+        sleep 5
         sonar_status=$(curl -s -X GET "${SONARQUBE_URL}/api/system/status" | jq -r '.status')
         log $INFO "SonarQube is ${sonar_status}, expecting it to be UP."
     done
