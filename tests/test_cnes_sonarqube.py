@@ -121,7 +121,7 @@ class TestCNESSonarQube:
             ("Kotlin Code Quality and Security","2.12.0 (build 1956)"),
             ("PHP Code Quality and Security","3.27.1 (build 9352)"),
             ("PMD", "3.4.0"),
-            ("Python Code Quality and Security", "3.24.1 (build 11916)"),
+            ("Python Code Quality and Security", "3.24 (build 10784)"),
             ("Ruby Code Quality and Security","1.11.0 (build 3905)"),
             ("Scala Code Quality and Security","1.11.0 (build 3905)"),
             ("ShellCheck Analyzer","2.5.0"),
