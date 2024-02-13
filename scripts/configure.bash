@@ -50,7 +50,7 @@ create_quality_gate()
     fi
 
     # Setting it as default quality gate
-    if [ "$NAME" = "CNES" ]
+    if [ "$NAME" = "CNES CAYCode FromScratch" ]
     then
         log "$INFO" "setting CNES quality gate as default gate."
         res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \

@@ -147,7 +147,7 @@ class TestCNESSonarQube:
         """
         quality_gates = requests.get(f"{self.SONARQUBE_URL}/api/qualitygates/list",
             auth =("admin", self.SONARQUBE_ADMIN_PASSWORD)).json()['qualitygates']
-        cnes_quality_gates = [ gate for gate in quality_gates if gate['name'] == "CNES" ]
+        cnes_quality_gates = [ gate for gate in quality_gates if gate['name'] == "CNES CAYCode FromScratch" ]
         # Hint: if one of these tests fails, the CNES Quality Gate may not have been added correctly, check the container logs
         assert cnes_quality_gates # not empty
         assert cnes_quality_gates[0]['isDefault']
