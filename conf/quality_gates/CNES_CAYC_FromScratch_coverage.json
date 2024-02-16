@@ -1,0 +1,155 @@
+{
+    "id": "AY1E7SwrqvoSmFLK7yRC",
+    "name": "CNES CAYCode From Scratch with coverage",
+    "conditions": [
+        {
+            "id": "AY1E7SwtqvoSmFLK7yRD",
+            "metric": "new_maintainability_rating",
+            "op": "GT",
+            "error": "1"
+        },
+        {
+            "id": "AY1E7SwxqvoSmFLK7yRE",
+            "metric": "new_reliability_rating",
+            "op": "GT",
+            "error": "1"
+        },
+        {
+            "id": "AY1E7SwyqvoSmFLK7yRF",
+            "metric": "new_security_hotspots_reviewed",
+            "op": "LT",
+            "error": "100"
+        },
+        {
+            "id": "AY1E7SwzqvoSmFLK7yRG",
+            "metric": "new_security_rating",
+            "op": "GT",
+            "error": "1"
+        },
+        {
+            "id": "AY1E7Sw1qvoSmFLK7yRH",
+            "metric": "new_duplicated_lines_density",
+            "op": "GT",
+            "error": "5"
+        },
+        {
+            "id": "AY1E7_QSqvoSmFLK7yRJ",
+            "metric": "new_coverage",
+            "op": "LT",
+            "error": "0"
+        },
+        {
+            "id": "AY1E8r9hqvoSmFLK7yRS",
+            "metric": "new_blocker_violations",
+            "op": "GT",
+            "error": "0"
+        },
+        {
+            "id": "AY1E8t-jqvoSmFLK7yRT",
+            "metric": "new_critical_violations",
+            "op": "GT",
+            "error": "0"
+        },
+        {
+            "id": "AY1E9BLhqvoSmFLK7yRU",
+            "metric": "new_major_violations",
+            "op": "GT",
+            "error": "0"
+        },
+        {
+            "id": "AY1FBy32qvoSmFLK7yR-",
+            "metric": "blocker_violations",
+            "op": "GT",
+            "error": "0"
+        },
+        {
+            "id": "AY1FB3KDqvoSmFLK7yR_",
+            "metric": "major_violations",
+            "op": "GT",
+            "error": "0"
+        },
+        {
+            "id": "AY1FB8AfqvoSmFLK7ySA",
+            "metric": "critical_violations",
+            "op": "GT",
+            "error": "0"
+        },
+        {
+            "id": "AY1FCGjgqvoSmFLK7ySB",
+            "metric": "sqale_debt_ratio",
+            "op": "GT",
+            "error": "5"
+        },
+        {
+            "id": "AY1FCSgOqvoSmFLK7ySC",
+            "metric": "comment_lines_density",
+            "op": "LT",
+            "error": "20"
+        },
+        {
+            "id": "AY1FCYNIqvoSmFLK7ySD",
+            "metric": "duplicated_lines_density",
+            "op": "GT",
+            "error": "10"
+        },
+        {
+            "id": "AY1FCkC6qvoSmFLK7ySE",
+            "metric": "test_errors",
+            "op": "GT",
+            "error": "0"
+        },
+        {
+            "id": "AY1FCmNPqvoSmFLK7ySF",
+            "metric": "test_failures",
+            "op": "GT",
+            "error": "0"
+        },
+        {
+            "id": "AY1FDUiBqvoSmFLK7ySM",
+            "metric": "security_review_rating",
+            "op": "GT",
+            "error": "1"
+        },
+        {
+            "id": "AY1FDXyyqvoSmFLK7ySN",
+            "metric": "security_hotspots_reviewed",
+            "op": "LT",
+            "error": "100"
+        },
+        {
+            "id": "AY1FDhHDqvoSmFLK7ySO",
+            "metric": "reliability_rating",
+            "op": "GT",
+            "error": "1"
+        },
+        {
+            "id": "AY1FDoMHqvoSmFLK7ySP",
+            "metric": "sqale_rating",
+            "op": "GT",
+            "error": "1"
+        },
+        {
+            "id": "AY1FHZgFqvoSmFLK7yTD",
+            "metric": "new_line_coverage",
+            "op": "LT",
+            "error": "100"
+        },
+        {
+            "id": "AY1FHdh5qvoSmFLK7yTH",
+            "metric": "line_coverage",
+            "op": "LT",
+            "error": "100"
+        }
+    ],
+    "isBuiltIn": false,
+    "actions": {
+        "rename": true,
+        "setAsDefault": true,
+        "copy": true,
+        "associateProjects": true,
+        "delete": true,
+        "manageConditions": true,
+        "delegate": true
+    },
+    "caycStatus": "over-compliant"
+}

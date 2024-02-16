@@ -1,0 +1,71 @@
+{
+    "id": "AY1FBoE-qvoSmFLK7yRu",
+    "name": "CNES CAYCode HeritedCode",
+    "conditions": [
+        {
+            "id": "AY1FBoFAqvoSmFLK7yRv",
+            "metric": "new_maintainability_rating",
+            "op": "GT",
+            "error": "1"
+        },
+        {
+            "id": "AY1FBoFBqvoSmFLK7yRw",
+            "metric": "new_reliability_rating",
+            "op": "GT",
+            "error": "1"
+        },
+        {
+            "id": "AY1FBoFCqvoSmFLK7yRx",
+            "metric": "new_security_hotspots_reviewed",
+            "op": "LT",
+            "error": "100"
+        },
+        {
+            "id": "AY1FBoFCqvoSmFLK7yRy",
+            "metric": "new_security_rating",
+            "op": "GT",
+            "error": "1"
+        },
+        {
+            "id": "AY1FBoFCqvoSmFLK7yRz",
+            "metric": "new_duplicated_lines_density",
+            "op": "GT",
+            "error": "5"
+        },
+        {
+            "id": "AY1FBoFDqvoSmFLK7yR0",
+            "metric": "new_coverage",
+            "op": "LT",
+            "error": "0"
+        },
+        {
+            "id": "AY1FBoFDqvoSmFLK7yR1",
+            "metric": "new_blocker_violations",
+            "op": "GT",
+            "error": "0"
+        },
+        {
+            "id": "AY1FBoFEqvoSmFLK7yR2",
+            "metric": "new_critical_violations",
+            "op": "GT",
+            "error": "0"
+        },
+        {
+            "id": "AY1FBoFEqvoSmFLK7yR3",
+            "metric": "new_major_violations",
+            "op": "GT",
+            "error": "0"
+        }
+    ],
+    "isBuiltIn": false,
+    "actions": {
+        "rename": true,
+        "setAsDefault": true,
+        "copy": true,
+        "associateProjects": true,
+        "delete": true,
+        "manageConditions": true,
+        "delegate": true
+    },
+    "caycStatus": "over-compliant"
+}

@@ -1,0 +1,143 @@
+{
+    "id": "AY1FHSNgqvoSmFLK7ySt",
+    "name": "CNES CAYCode FromScratch",
+    "conditions": [
+        {
+            "id": "AY1FHSNiqvoSmFLK7ySu",
+            "metric": "new_maintainability_rating",
+            "op": "GT",
+            "error": "1"
+        },
+        {
+            "id": "AY1FHSNjqvoSmFLK7ySv",
+            "metric": "new_reliability_rating",
+            "op": "GT",
+            "error": "1"
+        },
+        {
+            "id": "AY1FHSNjqvoSmFLK7ySw",
+            "metric": "new_security_hotspots_reviewed",
+            "op": "LT",
+            "error": "100"
+        },
+        {
+            "id": "AY1FHSNjqvoSmFLK7ySx",
+            "metric": "new_security_rating",
+            "op": "GT",
+            "error": "1"
+        },
+        {
+            "id": "AY1FHSNkqvoSmFLK7ySy",
+            "metric": "new_duplicated_lines_density",
+            "op": "GT",
+            "error": "5"
+        },
+        {
+            "id": "AY1FHSNkqvoSmFLK7ySz",
+            "metric": "new_coverage",
+            "op": "LT",
+            "error": "0"
+        },
+        {
+            "id": "AY1FHSNlqvoSmFLK7yS0",
+            "metric": "new_blocker_violations",
+            "op": "GT",
+            "error": "0"
+        },
+        {
+            "id": "AY1FHSNlqvoSmFLK7yS1",
+            "metric": "new_critical_violations",
+            "op": "GT",
+            "error": "0"
+        },
+        {
+            "id": "AY1FHSNmqvoSmFLK7yS2",
+            "metric": "new_major_violations",
+            "op": "GT",
+            "error": "0"
+        },
+        {
+            "id": "AY1FHSNmqvoSmFLK7yS3",
+            "metric": "blocker_violations",
+            "op": "GT",
+            "error": "0"
+        },
+        {
+            "id": "AY1FHSNnqvoSmFLK7yS4",
+            "metric": "major_violations",
+            "op": "GT",
+            "error": "0"
+        },
+        {
+            "id": "AY1FHSNnqvoSmFLK7yS5",
+            "metric": "critical_violations",
+            "op": "GT",
+            "error": "0"
+        },
+        {
+            "id": "AY1FHSNoqvoSmFLK7yS6",
+            "metric": "sqale_debt_ratio",
+            "op": "GT",
+            "error": "5"
+        },
+        {
+            "id": "AY1FHSNoqvoSmFLK7yS7",
+            "metric": "comment_lines_density",
+            "op": "LT",
+            "error": "20"
+        },
+        {
+            "id": "AY1FHSNpqvoSmFLK7yS8",
+            "metric": "duplicated_lines_density",
+            "op": "GT",
+            "error": "10"
+        },
+        {
+            "id": "AY1FHSNpqvoSmFLK7yS9",
+            "metric": "test_errors",
+            "op": "GT",
+            "error": "0"
+        },
+        {
+            "id": "AY1FHSNqqvoSmFLK7yS-",
+            "metric": "test_failures",
+            "op": "GT",
+            "error": "0"
+        },
+        {
+            "id": "AY1FHSNqqvoSmFLK7yS_",
+            "metric": "security_review_rating",
+            "op": "GT",
+            "error": "1"
+        },
+        {
+            "id": "AY1FHSNrqvoSmFLK7yTA",
+            "metric": "security_hotspots_reviewed",
+            "op": "LT",
+            "error": "100"
+        },
+        {
+            "id": "AY1FHSNrqvoSmFLK7yTB",
+            "metric": "reliability_rating",
+            "op": "GT",
+            "error": "1"
+        },
+        {
+            "id": "AY1FHSNsqvoSmFLK7yTC",
+            "metric": "sqale_rating",
+            "op": "GT",
+            "error": "1"
+        }
+    ],
+    "isBuiltIn": false,
+    "actions": {
+        "rename": true,
+        "setAsDefault": true,
+        "copy": true,
+        "associateProjects": true,
+        "delete": true,
+        "manageConditions": true,
+        "delegate": true
+    },
+    "caycStatus": "over-compliant"
+}
