@@ -1,0 +1,77 @@
+{
+    "id": "AY1FFCDIqvoSmFLK7ySW",
+    "name": "CNES CAYCode HeritedCode with coverage",
+    "conditions": [
+        {
+            "id": "AY1FFCDKqvoSmFLK7ySX",
+            "metric": "new_maintainability_rating",
+            "op": "GT",
+            "error": "1"
+        },
+        {
+            "id": "AY1FFCDLqvoSmFLK7ySY",
+            "metric": "new_reliability_rating",
+            "op": "GT",
+            "error": "1"
+        },
+        {
+            "id": "AY1FFCDLqvoSmFLK7ySZ",
+            "metric": "new_security_hotspots_reviewed",
+            "op": "LT",
+            "error": "100"
+        },
+        {
+            "id": "AY1FFCDLqvoSmFLK7ySa",
+            "metric": "new_security_rating",
+            "op": "GT",
+            "error": "1"
+        },
+        {
+            "id": "AY1FFCDMqvoSmFLK7ySb",
+            "metric": "new_duplicated_lines_density",
+            "op": "GT",
+            "error": "5"
+        },
+        {
+            "id": "AY1FFCDMqvoSmFLK7ySc",
+            "metric": "new_coverage",
+            "op": "LT",
+            "error": "0"
+        },
+        {
+            "id": "AY1FFCDNqvoSmFLK7ySd",
+            "metric": "new_blocker_violations",
+            "op": "GT",
+            "error": "0"
+        },
+        {
+            "id": "AY1FFCDNqvoSmFLK7ySe",
+            "metric": "new_critical_violations",
+            "op": "GT",
+            "error": "0"
+        },
+        {
+            "id": "AY1FFCDOqvoSmFLK7ySf",
+            "metric": "new_major_violations",
+            "op": "GT",
+            "error": "0"
+        },
+        {
+            "id": "AY1FFSy_qvoSmFLK7ySj",
+            "metric": "new_line_coverage",
+            "op": "LT",
+            "error": "100"
+        }
+    ],
+    "isBuiltIn": false,
+    "actions": {
+        "rename": true,
+        "setAsDefault": true,
+        "copy": true,
+        "associateProjects": true,
+        "delete": true,
+        "manageConditions": true,
+        "delegate": true
+    },
+    "caycStatus": "over-compliant"
+}
