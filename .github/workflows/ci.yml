@@ -64,9 +64,4 @@ jobs:
           echo -e "Results of the CI pipeline\n" > tests_logs.txt
           cd tests/
           python3 -m pip install -r requirements.txt
-          python3 -m pytest -v |& tee -a ../tests_logs.txt
-      # Have the job fail if at least one test failed
-      - name: Check all tests passed
-        run: |
-          cat tests_logs.txt
-          grep -v -q "FAILED" tests_logs.txt
+          python3 -m pytest -v
