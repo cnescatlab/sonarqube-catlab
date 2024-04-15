@@ -57,6 +57,8 @@ jobs:
           name: image
       - name: Load the image
         run: docker image load -i image.tar
+      - name: check image name
+        run: docker images
       # Run the tests
       - name: Test docker image
         run: |
