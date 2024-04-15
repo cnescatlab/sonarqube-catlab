@@ -5,7 +5,7 @@ version: "3"
 
 services:
   sonarqube:
-    build: ../
+    image: lequal/sonarqube:latest
     container_name: lequalsonarqube-compose
     depends_on:
       - db

@@ -65,7 +65,7 @@ class TestCNESSonarQube:
         if cls.RUN == "yes":
             print(f"Launching lequal/sonarqube container (name={cls.SONARQUBE_CONTAINER_NAME})...")
             docker_client = docker.from_env()
-            docker_client.containers.run("sonarqube-cnes:latest",
+            docker_client.containers.run("lequal/sonarqube:latest",
                 name=cls.SONARQUBE_CONTAINER_NAME,
                 detach=True,
                 auto_remove=True,
@@ -258,7 +258,7 @@ def test_no_password_no_run():
         params = {"name": "tmp", "detach": True}
         if password:
             params['environment'] = {"SONARQUBE_ADMIN_PASSWORD": password}
-        docker_client.containers.run("sonarqube-cnes:latest", **params)
+        docker_client.containers.run("lequal/sonarqube:latest", **params)
         time.sleep(3)
         output = docker_client.containers.get("tmp").logs()
         docker_client.containers.get("tmp").remove(force=True)
