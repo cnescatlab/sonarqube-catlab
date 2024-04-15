@@ -65,7 +65,7 @@ class TestCNESSonarQube:
         if cls.RUN == "yes":
             print(f"Launching lequal/sonarqube container (name={cls.SONARQUBE_CONTAINER_NAME})...")
             docker_client = docker.from_env()
-            docker_client.containers.run("lequal/sonarqube:latest",
+            docker_client.containers.run("sonarqube-cnes:latest",
                 name=cls.SONARQUBE_CONTAINER_NAME,
                 detach=True,
                 auto_remove=True,
@@ -76,6 +76,7 @@ class TestCNESSonarQube:
         # Wait for the SonarQube server inside it to be set up
         print(f"Waiting for {cls.SONARQUBE_CONTAINER_NAME} to be up...")
         cls.wait_cnes_sonarqube_ready(cls.SONARQUBE_CONTAINER_NAME)
+        print(f"{cls.SONARQUBE_CONTAINER_NAME} is ready!")
 
     @classmethod
     def teardown_class(cls):
@@ -104,13 +105,13 @@ class TestCNESSonarQube:
         required_plugins = (
             ("Ansible Lint", "2.5.1"),
             ("C# Code Quality and Security","8.51 (build 59060)"),
-            ("C++ (Community)", "2.1 (build 428)"),
-            ("Checkstyle", "10.9.3"),
+            ("C++ (Community)", "2.1.1 (build 488)"),
+            ("Checkstyle", "10.15.0"),
             ("Clover","4.1"),
             ("Cobertura", "2.0"),
             ("Community Branch Plugin", "1.14.0"),
             ("Configuration detection fot Code Quality and Security", "1.2 (build 267)"),
-            ("Findbugs", "4.2.3"),
+            ("Findbugs", "4.2.8"),
             ("Flex Code Quality and Security","2.8 (build 3166)"),
             ("Go Code Quality and Security","1.11.0 (build 3905)"),
             ("HTML Code Quality and Security","3.7.1 (build 3306)"),
@@ -125,13 +126,14 @@ class TestCNESSonarQube:
             ("Ruby Code Quality and Security","1.11.0 (build 3905)"),
             ("Scala Code Quality and Security","1.11.0 (build 3905)"),
             ("ShellCheck Analyzer","2.5.0"),
-            #("Sonar i-Code CNES plugin", "3.0.0"),
-            ("SonarQube CNES Report", "4.2.0"),
+            ("Sonar i-Code CNES plugin", "3.1.1"),
+            ("SonarQube CNES Report", "4.3.0"),
             ("SonarTS", "2.1 (build 4362)"),
+            ("Text Code Quality and Security", "2.0.2 (build 1090)"),
             ("VB.NET Code Quality and Security","8.51 (build 59060)"),
             ("VHDLRC","3.4"),
             ("XML Code Quality and Security","2.7 (build 3820)"),
-            ("YAML Analyzer","1.7.0")
+            ("YAML Analyzer","1.9.1")
         )
         sonar_plugins = requests.get(f"{self.SONARQUBE_URL}/api/plugins/installed",
             auth =("admin", self.SONARQUBE_ADMIN_PASSWORD)).json()['plugins']
@@ -226,13 +228,14 @@ def test_no_config_twice():
     lequalsonarqube_container_name="lequalsonarqube-compose"
     # Use the compose file with an external database
     print("Starting the service (sonarqube and postgres)...")
-    subprocess.run(["docker-compose", "up", "-d"], check=True, capture_output=True)
+    subprocess.run(["docker-compose", "up", "-d"], check=True)
     # Wait for the SonarQube container to be configured
     TestCNESSonarQube.wait_cnes_sonarqube_ready(lequalsonarqube_container_name)
     # Restart the SonarQube server but not the database
     print("Restarting SonarQube server...")
     docker_client.containers.get(lequalsonarqube_container_name).restart()
     time.sleep(30)
+    print("Checking SonarQube server...")
     TestCNESSonarQube.wait_cnes_sonarqube_ready(lequalsonarqube_container_name, tail=10)
     # Check SonarQube logs
     config_logs = docker_client.containers.get(lequalsonarqube_container_name).logs()
@@ -255,7 +258,7 @@ def test_no_password_no_run():
         params = {"name": "tmp", "detach": True}
         if password:
             params['environment'] = {"SONARQUBE_ADMIN_PASSWORD": password}
-        docker_client.containers.run("lequal/sonarqube:latest", **params)
+        docker_client.containers.run("sonarqube-cnes:latest", **params)
         time.sleep(3)
         output = docker_client.containers.get("tmp").logs()
         docker_client.containers.get("tmp").remove(force=True)
