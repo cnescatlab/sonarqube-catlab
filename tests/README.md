@@ -29,7 +29,7 @@
 
 Before testing the image, it must be built (see the [README](https://github.com/cnescatlab/sonarqube#how-to-build-the-image)).
 
-To run the tests, we use [pytest](https://docs.pytest.org/en/stable/) with `Python 3.8` and the dependencies listed in _requirements.txt_. It is advised to use a virtual environment to run the tests.
+To run the tests, we use [pytest](https://docs.pytest.org/en/stable/) with `Python 3.10` and the dependencies listed in _requirements.txt_. It is advised to use a virtual environment to run the tests.
 
 ```sh
 # To run all the tests
@@ -40,7 +40,7 @@ $ pytest
 ```sh
 # One way to set up a virtual environment (optional)
 $ cd tests/
-$ virtualenv -p python3.8 env
+$ virtualenv -p python3.10 env
 $ . env/bin/activate
 $ pip install -r requirements.txt
 ```
