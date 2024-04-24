@@ -25,7 +25,7 @@ on:
 env:
   DOCKERFILE_PATH: '.'
   DOCKERFILE_FILENAME: 'Dockerfile'
-  DOCKER_IMAGE_NAME: 'lequal/sonarqube'
+  DOCKER_IMAGE_NAME: 'lequal/sonarqube-catlab'
 
 jobs:
   # Job that builds the image and upload it as an artifact
@@ -34,13 +34,13 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Build docker image
         run: docker build -t $DOCKER_IMAGE_NAME $DOCKERFILE_PATH
       - name: Save Docker image
         run: docker image save -o image.tar $DOCKER_IMAGE_NAME
       - name: Upload image as an artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: image
           path: image.tar
@@ -50,9 +50,9 @@ jobs:
     runs-on: ubuntu-22.04
     needs: build
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Retrieve the image
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: image
       - name: Load the image
