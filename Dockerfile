@@ -1,5 +1,5 @@
 # This image is based on a LTS version of SonarQube
-FROM sonarqube:9.9.4-community
+FROM sonarqube:9.9.5-community
 
 LABEL maintainer="CATLab"
 
