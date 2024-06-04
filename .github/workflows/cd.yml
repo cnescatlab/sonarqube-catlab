@@ -65,6 +65,7 @@ jobs:
           echo "version=$version" >> $GITHUB_OUTPUT
           echo "milestone_number=$milestone_number" >> $GITHUB_OUTPUT
           echo "delivery=allowed" >> $GITHUB_OUTPUT
+
   release:
     name: Release a new version of the docker image
     runs-on: ubuntu-22.04
@@ -114,6 +115,7 @@ jobs:
           tag_name: ${{ needs.deliverability.outputs.version }}
           release_name: ${{ env.DOCKER_IMAGE_NAME }}:${{ needs.deliverability.outputs.version }}
           body_path: changelog.md
+
   push_to_registry:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-20.04
@@ -154,6 +156,14 @@ jobs:
           push: true
           tags: ${{ env.DOCKER_IMAGE_NAME }}:latest
           labels: ${{ steps.meta.outputs.labels }}
+
+      #Push description to current Docker Hub
+      - name: Docker Hub Description
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+          repository: ${{ env.DOCKER_IMAGE_NAME }}
       
       #Push with old name and version number tag
       - name: Build and push Docker image to version number
@@ -174,13 +184,14 @@ jobs:
           push: true
           tags: lequal/sonarqube:latest
           labels: ${{ steps.meta.outputs.labels }}
-
-      - name: Update repo description
+      
+      #Push description to old Docker Hub
+      - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v4
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
-          repository: cnescatlab/docker-cat
+          repository: lequal/sonarqube
           
   close_milestone:
     name: Close milestone
