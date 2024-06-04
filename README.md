@@ -2,7 +2,6 @@
 
 ![](https://github.com/cnescatlab/sonarqube/workflows/CI/badge.svg)
 ![](https://github.com/cnescatlab/sonarqube/workflows/CD/badge.svg)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/2a4a53f54ae94bd69d66a7690b95612f)](https://www.codacy.com/gh/cnescatlab/sonarqube?utm_source=github.com&utm_medium=referral&utm_content=lequal/sonarqube&utm_campaign=Badge_Grade)
 
 > Docker image for SonarQube with pre-configured plugins and settings by CNES dedicated to Continuous Integration.
 
