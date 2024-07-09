@@ -1,7 +1,7 @@
 # CNES SonarQube image \[server\]
 
-![](https://github.com/cnescatlab/sonarqube/workflows/CI/badge.svg)
-![](https://github.com/cnescatlab/sonarqube/workflows/CD/badge.svg)
+![CI badge](https://github.com/cnescatlab/sonarqube/workflows/CI/badge.svg)
+![CD badge](https://github.com/cnescatlab/sonarqube/workflows/CD/badge.svg)
 
 > Docker image for SonarQube with pre-configured plugins and settings by CNES dedicated to Continuous Integration.
 
@@ -13,7 +13,7 @@ For versions and changelog: [GitHub Releases](https://github.com/cnescatlab/sona
 
 ## Features
 
-This image is based on the official SonarQube LTS image, namely [sonarqube:9.9.3-community](https://hub.docker.com/_/sonarqube), and offers additional features.
+This image is based on the official SonarQube LTS image, namely [sonarqube:9.9.6-community](https://hub.docker.com/_/sonarqube), and offers additional features.
 
 Additional features are:
 
@@ -82,37 +82,20 @@ With an external database, the data used by SonarQube is stored outside of the c
 
 | SonarQube plugin                                      | Version             | URL                                                                         |
 | ----------------------------------------------------- | ------------------- | --------------------------------------------------------------------------- |
-| Ansible Lint                                          | 2.5.1               | https://github.com/sbaudoin/sonar-ansible/sonar-ansible-plugin              |
-| C# Code Quality and Security                          | 8.51 (build 59060)  | http://redirect.sonarsource.com/plugins/csharp.html                         |
-| C++ (Community)                                       | 2.1.1 (build 488)   | https://github.com/SonarOpenCommunity/sonar-cxx/wiki                        |
-| Checkstyle                                            | 10.15.0             | n/a                                                                         |
-| Clover                                                | 4.1                 | https://github.com/sfeir-open-source/sonar-clover                           |
-| Cobertura                                             | 2.0                 | https://github.com/galexandre/sonar-cobertura                               |
-| Community Branch Plugin                               | 1.14.0              | https://github.com/mc1arke/sonarqube-community-branch-plugin                |
-| Configuration detection fot Code Quality and Security | 1.2 (build 267)     | http://docs.sonarqube.org/display/PLUG/Plugin+Library/sonar-config/sonar-co |
-| Findbugs                                              | 4.2.8               | https://github.com/spotbugs/sonar-findbugs/                                 |
-| Flex Code Quality and Security                        | 2.8 (build 3166)    | http://redirect.sonarsource.com/plugins/flex.html                           |
-| Go Code Quality and Security                          | 1.11.0 (build 3905) | http://redirect.sonarsource.com/plugins/go.html                             |
-| HTML Code Quality and Security                        | 3.7.1 (build 3306)  | http://redirect.sonarsource.com/plugins/web.html                            |
-| IaC Code Quality and Security                         | 1.11 (build 2847)   | http://docs.sonarqube.org/display/PLUG/Plugin+Library/iac/sonar-iac-plugin  |
-| JaCoCo                                                | 1.3.0 (build 1538)  | n/a                                                                         |
-| Java Code Quality and Security                        | 7.16 (build 30901)  | http://redirect.sonarsource.com/plugins/java.html                           |
-| JavaScript/TypeScript/CSS Code Quality and Security   | 9.13 (build 20537)  | http://redirect.sonarsource.com/plugins/javascript.html                     |
-| Kotlin Code Quality and Security                      | 2.12.0 (build 1956) | https://redirect.sonarsource.com/plugins/kotlin.html                        |
-| PHP Code Quality and Security                         | 3.27.1 (build 9352) | http://redirect.sonarsource.com/plugins/php.html                            |
-| PMD                                                   | 3.4.0               | https://github.com/jborgers/sonar-pmd                                       |
-| Python Code Quality and Security                      | 3.24.1 (build 11916)| http://redirect.sonarsource.com/plugins/python.html                         |
-| Ruby Code Quality and Security                        | 1.11.0 (build 3905) | http://redirect.sonarsource.com/plugins/ruby.html                           |
-| Scala Code Quality and Security                       | 1.11.0 (build 3905) | http://redirect.sonarsource.com/plugins/scala.html                          |
-| ShellCheck Analyzer                                   | 2.5.0               | https://github.com/sbaudoin/sonar-shellcheck                                |
-| Sonar i-Code CNES plugin                              | 3.1.1               | https://github.com/cnescatlab/sonar-icode-cnes-plugin                       |
-| SonarQube CNES Report                                 | 4.3.0               | https://github.com/cnescatlab/sonar-cnes-report                             |
-| SonarTS                                               | 2.1 (build 4362)    | http://redirect.sonarsource.com/plugins/typescript.html                     |
-| Text Code Quality and Security                        | 2.0.2 (build 1090)  | http://docs.sonarqube.org/display/PLUG/Plugin+Library/text/sonar-text-plugi |
-| VB.NET Code Quality and Security                      | 8.51 (build 59060)  | http://redirect.sonarsource.com/plugins/vbnet.html                          |
-| VHDLRC                                                | 3.4                 | https://www.linty-services.com                                              |
-| XML Code Quality and Security                         | 2.7 (build 3820)    | http://redirect.sonarsource.com/plugins/xml.html                            |
-| YAML Analyzer                                         | 1.9.1               | https://github.com/sbaudoin/sonar-yaml                                      |
+| Ansible Lint                                          | 2.5.1               | <https://github.com/sbaudoin/sonar-ansible/sonar-ansible-plugin>            |
+| C++ (Community)                                       | 2.1.1 (build 488)   | <https://github.com/SonarOpenCommunity/sonar-cxx/wiki>                      |
+| Checkstyle                                            | 10.17.0             | <https://github.com/checkstyle/sonar-checkstyle>                            |
+| Clover                                                | 4.1                 | <https://github.com/sfeir-open-source/sonar-clover>                         |
+| Cobertura                                             | 2.0                 | <https://github.com/galexandre/sonar-cobertura>                             |
+| Community Branch Plugin                               | 1.14.0              | <https://github.com/mc1arke/sonarqube-community-branch-plugin>              |
+| Findbugs                                              | 4.2.9               | <https://github.com/spotbugs/sonar-findbugs/>                               |
+| PMD                                                   | 3.4.0               | <https://github.com/jborgers/sonar-pmd>                                     |
+| ShellCheck Analyzer                                   | 2.5.0               | <https://github.com/sbaudoin/sonar-shellcheck>                              |
+| Sonar i-Code CNES plugin                              | 3.1.1               | <https://github.com/cnescatlab/sonar-icode-cnes-plugin>                     |
+| SonarQube CNES Report                                 | 4.3.0               | <https://github.com/cnescatlab/sonar-cnes-report>                           |
+| SonarTS                                               | 2.1 (build 4362)    | <http://redirect.sonarsource.com/plugins/typescript.html>                   |
+| VHDLRC                                                | 3.4                 | <https://www.linty-services.com>                                            |
+| YAML Analyzer                                         | 1.9.1               | <https://github.com/sbaudoin/sonar-yaml>                                    |
 
 To update this list run the following script:
 
