@@ -83,7 +83,7 @@ With an external database, the data used by SonarQube is stored outside of the c
 | SonarQube plugin                                      | Version             | URL                                                                         |
 | ----------------------------------------------------- | ------------------- | --------------------------------------------------------------------------- |
 | Ansible Lint                                          | 2.5.1               | https://github.com/sbaudoin/sonar-ansible/sonar-ansible-plugin              |
-| C# Code Quality and Security                          | 8.51 (build 59060)  | http://redirect.sonarsource.com/plugins/csharp.html                         |
+| C# Code Quality and Security                          | 8.51 (build 59060)  | <http://redirect.sonarsource.com/plugins/csharp.html>                         |
 | C++ (Community)                                       | 2.1.1 (build 488)   | https://github.com/SonarOpenCommunity/sonar-cxx/wiki                        |
 | Checkstyle                                            | 10.15.0             | n/a                                                                         |
 | Clover                                                | 4.1                 | https://github.com/sfeir-open-source/sonar-clover                           |
