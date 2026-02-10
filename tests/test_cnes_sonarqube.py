@@ -209,7 +209,7 @@ def test_no_config_twice():
     TestCNESSonarQube.wait_cnes_sonarqube_ready(lequalsonarqube_container_name, tail=10)
     # Check SonarQube logs
     config_logs = docker_client.containers.get(lequalsonarqube_container_name).logs()
-    subprocess.run(["docker-compose", "down"], check=True, capture_output=True)
+    subprocess.run(["docker compose", "down"], check=True, capture_output=True)
     docker_client.volumes.get("tests_test_volume_compose_sonarqube_data").remove()
     docker_client.volumes.get("tests_test_volume_compose_sonarqube_extensions").remove()
     docker_client.volumes.get("tests_test_volume_compose_sonarqube_logs").remove()
