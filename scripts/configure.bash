@@ -43,8 +43,8 @@ create_quality_gate()
                 "${SONARQUBE_URL}/api/qualitygates/show")
     if [ "$(echo "${res}" | jq '(.errors | length)')" == "0" ]
     then
-        GATEID="$(echo "${res}" |  jq -r '.id')"
-        log "$INFO" "successfully retrieved quality gate ID (ID=$GATEID)."
+        GATENAME="$(echo "${res}" |  jq -r '.name')"
+        log "$INFO" "successfully retrieved quality gate ID (ID=$GATENAME)."
     else
         log "$ERROR" "impossible to reach quality gate ID" "$(echo "${res}" | jq '.errors[].msg')"
     fi
@@ -54,7 +54,7 @@ create_quality_gate()
     then
         log "$INFO" "setting CNES quality gate as default gate."
         res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
-                    --data-urlencode "id=${GATEID}" \
+                    --data-urlencode "id=${GATENAME}" \
                     "${SONARQUBE_URL}/api/qualitygates/set_as_default")
         if [ -z "$res" ]
         then
@@ -78,7 +78,7 @@ create_quality_gate()
         metric=$(echo "$cnes_quality_gate" | jq -r '(.['"$i"'].metric)')
         op=$(echo "$cnes_quality_gate" | jq -r '(.['"$i"'].op)')
         error=$(echo "$cnes_quality_gate" | jq -r '(.['"$i"'].error)')
-        add_condition_to_quality_gate "$GATEID" "$conditions" "$metric" "$op" "$error"
+        add_condition_to_quality_gate "$GATENAME" "$conditions" "$metric" "$op" "$error"
     done
 }
 
@@ -88,17 +88,17 @@ create_quality_gate()
 # on a SonarQube server.
 #
 # Parameters:
-#   1: gate_id
+#   1: gate_name
 #   2: conditions
 #   3: metric_key
 #   4: metric_operator (EQ, NE, LT or GT)
 #   5: metric's error threshold ("none" not to set it)
 #
 # Example:
-#   $ add_condition_to_quality_gate "blocker_violations" "GT" "$GATEID" 0
+#   $ add_condition_to_quality_gate "blocker_violations" "GT" "$GATENAME" 0
 add_condition_to_quality_gate()
 {
-    gate_id=$1
+    gate_name=$1
     conditions=$2
     metric_key=$3
     metric_operator=$4
@@ -123,7 +123,7 @@ add_condition_to_quality_gate()
         fi
 
         res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
-                    --data-urlencode "gateId=${gate_id}" \
+                    --data-urlencode "gateName=${gate_name}" \
                     --data-urlencode "metric=${metric_key}" \
                     --data-urlencode "op=${metric_operator}" \
                     "${threshold[@]}" \
@@ -146,7 +146,7 @@ add_condition_to_quality_gate()
 #   4: metric's error threshold ("none" not to set it)
 #
 # Example:
-#   $ add_condition_to_quality_gate "blocker_violations" "GT" "$GATEID" 0
+#   $ add_condition_to_quality_gate "blocker_violations" "GT" "$GATENAME" 0
 update_condition()
 {
     condition_id=$1
