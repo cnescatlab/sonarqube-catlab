@@ -54,7 +54,7 @@ create_quality_gate()
     then
         log "$INFO" "setting CNES quality gate as default gate."
         res=$(curl -su "admin:$SONARQUBE_ADMIN_PASSWORD" \
-                    --data-urlencode "id=${GATENAME}" \
+                    --data-urlencode "name=${GATENAME}" \
                     "${SONARQUBE_URL}/api/qualitygates/set_as_default")
         if [ -z "$res" ]
         then

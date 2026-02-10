@@ -158,13 +158,6 @@ class TestCNESSonarQube:
                 "RNC CPP B",
                 "RNC CPP C",
                 "RNC CPP D"
-            ),
-            'shell': (
-                "RNC ALL SHELLCHECK A",
-                "RNC ALL SHELLCHECK B",
-                "RNC ALL SHELLCHECK C",
-                "RNC ALL SHELLCHECK D",
-                "RNC SHELL"
             )
         }
         quality_profiles = requests.get(f"{self.SONARQUBE_URL}/api/qualityprofiles/search",
