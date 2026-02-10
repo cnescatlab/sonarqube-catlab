@@ -198,7 +198,7 @@ def test_no_config_twice():
     lequalsonarqube_container_name="lequalsonarqube-compose"
     # Use the compose file with an external database
     print("Starting the service (sonarqube and postgres)...")
-    subprocess.run(["docker-compose", "up", "-d"], check=True)
+    subprocess.run(["docker compose", "up", "-d"], check=True)
     # Wait for the SonarQube container to be configured
     TestCNESSonarQube.wait_cnes_sonarqube_ready(lequalsonarqube_container_name)
     # Restart the SonarQube server but not the database
