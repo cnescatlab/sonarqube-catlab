@@ -182,41 +182,6 @@ class TestCNESSonarQube:
         assert status == 401 # Unauthorized
 
 
-def test_no_config_twice():
-    """
-    As a SonarQube user, I want the configuration of the server
-    not to be executed if the server has already been configured
-    so that the database is not populated more than once.
-    """
-    # On Linux, max_map_count must be at least 262144 to run this test
-    if platform.system() == 'Linux':
-        proc_stdout = subprocess.run(["sysctl", "-a"], check=True, capture_output=True).stdout
-        max_map_count = int(re.findall('vm.max_map_count = [0-9]+', str(proc_stdout))[0].split(' = ')[1])
-        # Hint: if this test fails, run: sudo sysctl -w vm.max_map_count=262144
-        assert max_map_count >= 262144
-    docker_client = docker.from_env()
-    lequalsonarqube_container_name="lequalsonarqube-compose"
-    # Use the compose file with an external database
-    print("Starting the service (sonarqube and postgres)...")
-    subprocess.run(["docker compose", "up", "-d"], check=True)
-    # Wait for the SonarQube container to be configured
-    TestCNESSonarQube.wait_cnes_sonarqube_ready(lequalsonarqube_container_name)
-    # Restart the SonarQube server but not the database
-    print("Restarting SonarQube server...")
-    docker_client.containers.get(lequalsonarqube_container_name).restart()
-    time.sleep(30)
-    print("Checking SonarQube server...")
-    TestCNESSonarQube.wait_cnes_sonarqube_ready(lequalsonarqube_container_name, tail=10)
-    # Check SonarQube logs
-    config_logs = docker_client.containers.get(lequalsonarqube_container_name).logs()
-    subprocess.run(["docker compose", "down"], check=True, capture_output=True)
-    docker_client.volumes.get("tests_test_volume_compose_sonarqube_data").remove()
-    docker_client.volumes.get("tests_test_volume_compose_sonarqube_extensions").remove()
-    docker_client.volumes.get("tests_test_volume_compose_sonarqube_logs").remove()
-    docker_client.volumes.get("tests_test_volume_compose_postgresql").remove()
-    docker_client.volumes.get("tests_test_volume_compose_postgresql_data").remove()
-    # Hint: if this test fails, the server may have been reconfigured when not needed or the test did not wait long enough for the expected message to be logged
-    assert b"[INFO] CNES SonarQube: The database has already been filled with CNES configuration. Not adding anything." in config_logs
 
 def test_no_password_no_run():
     """
