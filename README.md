@@ -1,7 +1,5 @@
 # CNES SonarQube image \[server\]
 
-![CI badge](https://github.com/cnescatlab/sonarqube/workflows/CI/badge.svg)
-![CD badge](https://github.com/cnescatlab/sonarqube/workflows/CD/badge.svg)
 
 > Docker image for SonarQube with pre-configured plugins and settings by CNES dedicated to Continuous Integration.
 
