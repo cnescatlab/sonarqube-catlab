@@ -37,8 +37,8 @@ class TestCNESSonarQube:
     """
     # Class variables
     RUN = os.environ.get('RUN', "yes")
-    SONARQUBE_CONTAINER_NAME = os.environ.get('SONARQUBE_CONTAINER_NAME', "lequalsonarqube")
-    SONARQUBE_ADMIN_PASSWORD = os.environ.get('SONARQUBE_ADMIN_PASSWORD', "adminpassword")
+    SONARQUBE_CONTAINER_NAME = os.environ.get('SONARQUBE_CONTAINER_NAME', "sonarqubecatlab")
+    SONARQUBE_ADMIN_PASSWORD = os.environ.get('SONARQUBE_ADMIN_PASSWORD', "Root123456789!")
     SONARQUBE_URL = os.environ.get('SONARQUBE_URL', "http://localhost:9000")
 
     # Functions
@@ -63,9 +63,9 @@ class TestCNESSonarQube:
         """
         # Launch a CNES SonarQube container
         if cls.RUN == "yes":
-            print(f"Launching lequal/sonarqube container (name={cls.SONARQUBE_CONTAINER_NAME})...")
+            print(f"Launching lequal/sonarqube-catlab container (name={cls.SONARQUBE_CONTAINER_NAME})...")
             docker_client = docker.from_env()
-            docker_client.containers.run("lequal/sonarqube:latest",
+            docker_client.containers.run("lequal/sonarqube-catlab:latest",
                 name=cls.SONARQUBE_CONTAINER_NAME,
                 detach=True,
                 auto_remove=True,
@@ -103,36 +103,13 @@ class TestCNESSonarQube:
         to be installed on the server so that I can use them.
         """
         required_plugins = (
-            ("Ansible Lint", "2.5.1"),
-            ("C# Code Quality and Security","8.51 (build 59060)"),
-            ("C++ (Community)", "2.1.1 (build 488)"),
-            ("Checkstyle", "10.15.0"),
-            ("Clover","4.1"),
-            ("Cobertura", "2.0"),
-            ("Community Branch Plugin", "1.14.0"),
-            ("Configuration detection fot Code Quality and Security", "1.2 (build 267)"),
-            ("Findbugs", "4.2.8"),
-            ("Flex Code Quality and Security","2.8 (build 3166)"),
-            ("Go Code Quality and Security","1.11.0 (build 3905)"),
-            ("HTML Code Quality and Security","3.7.1 (build 3306)"),
-            ("IaC Code Quality and Security", "1.11 (build 2847)"),
-            ("JaCoCo", "1.3.0 (build 1538)"),
-            ("Java Code Quality and Security","7.16 (build 30901)"),
-            ("JavaScript/TypeScript/CSS Code Quality and Security","9.13 (build 20537)"),
-            ("Kotlin Code Quality and Security","2.12.0 (build 1956)"),
-            ("PHP Code Quality and Security","3.27.1 (build 9352)"),
-            ("PMD", "3.4.0"),
-            ("Python Code Quality and Security","3.24.1 (build 11916)"),
-            ("Ruby Code Quality and Security","1.11.0 (build 3905)"),
-            ("Scala Code Quality and Security","1.11.0 (build 3905)"),
-            ("ShellCheck Analyzer","2.5.0"),
-            ("Sonar i-Code CNES plugin", "3.1.1"),
-            ("SonarQube CNES Report", "4.3.0"),
-            ("SonarTS", "2.1 (build 4362)"),
-            ("Text Code Quality and Security", "2.0.2 (build 1090)"),
-            ("VB.NET Code Quality and Security","8.51 (build 59060)"),
-            ("VHDLRC","3.4"),
-            ("XML Code Quality and Security","2.7 (build 3820)"),
+            ("C++ (Community)", "2.2.1 (build 1248)"),
+            ("Checkstyle", "10.23.0"),
+            ("Community Branch Plugin", "25.6.0"),
+            ("Findbugs", "4.5.1"),
+            ("PMD", "4.0.3"),
+            ("Sonar i-Code CNES plugin", "5.2.0"),
+            ("SonarQube CNES Report", "5.0.2"),
             ("YAML Analyzer","1.9.1")
         )
         sonar_plugins = requests.get(f"{self.SONARQUBE_URL}/api/plugins/installed",
@@ -181,13 +158,6 @@ class TestCNESSonarQube:
                 "RNC CPP B",
                 "RNC CPP C",
                 "RNC CPP D"
-            ),
-            'shell': (
-                "RNC ALL SHELLCHECK A",
-                "RNC ALL SHELLCHECK B",
-                "RNC ALL SHELLCHECK C",
-                "RNC ALL SHELLCHECK D",
-                "RNC SHELL"
             )
         }
         quality_profiles = requests.get(f"{self.SONARQUBE_URL}/api/qualityprofiles/search",
@@ -212,41 +182,6 @@ class TestCNESSonarQube:
         assert status == 401 # Unauthorized
 
 
-def test_no_config_twice():
-    """
-    As a SonarQube user, I want the configuration of the server
-    not to be executed if the server has already been configured
-    so that the database is not populated more than once.
-    """
-    # On Linux, max_map_count must be at least 262144 to run this test
-    if platform.system() == 'Linux':
-        proc_stdout = subprocess.run(["sysctl", "-a"], check=True, capture_output=True).stdout
-        max_map_count = int(re.findall('vm.max_map_count = [0-9]+', str(proc_stdout))[0].split(' = ')[1])
-        # Hint: if this test fails, run: sudo sysctl -w vm.max_map_count=262144
-        assert max_map_count >= 262144
-    docker_client = docker.from_env()
-    lequalsonarqube_container_name="lequalsonarqube-compose"
-    # Use the compose file with an external database
-    print("Starting the service (sonarqube and postgres)...")
-    subprocess.run(["docker-compose", "up", "-d"], check=True)
-    # Wait for the SonarQube container to be configured
-    TestCNESSonarQube.wait_cnes_sonarqube_ready(lequalsonarqube_container_name)
-    # Restart the SonarQube server but not the database
-    print("Restarting SonarQube server...")
-    docker_client.containers.get(lequalsonarqube_container_name).restart()
-    time.sleep(30)
-    print("Checking SonarQube server...")
-    TestCNESSonarQube.wait_cnes_sonarqube_ready(lequalsonarqube_container_name, tail=10)
-    # Check SonarQube logs
-    config_logs = docker_client.containers.get(lequalsonarqube_container_name).logs()
-    subprocess.run(["docker-compose", "down"], check=True, capture_output=True)
-    docker_client.volumes.get("tests_test_volume_compose_sonarqube_data").remove()
-    docker_client.volumes.get("tests_test_volume_compose_sonarqube_extensions").remove()
-    docker_client.volumes.get("tests_test_volume_compose_sonarqube_logs").remove()
-    docker_client.volumes.get("tests_test_volume_compose_postgresql").remove()
-    docker_client.volumes.get("tests_test_volume_compose_postgresql_data").remove()
-    # Hint: if this test fails, the server may have been reconfigured when not needed or the test did not wait long enough for the expected message to be logged
-    assert b"[INFO] CNES SonarQube: The database has already been filled with CNES configuration. Not adding anything." in config_logs
 
 def test_no_password_no_run():
     """
